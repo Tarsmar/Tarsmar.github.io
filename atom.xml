@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tarsmar.github.io/"/>
-  <updated>2020-05-08T11:00:22.569Z</updated>
+  <updated>2020-08-31T07:25:07.308Z</updated>
   <id>https://tarsmar.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【嵌入式】CV+机械臂</title>
+    <link href="https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/"/>
+    <id>https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/</id>
+    <published>2020-08-31T03:23:06.000Z</published>
+    <updated>2020-08-31T07:25:07.308Z</updated>
+    
+    <summary type="html">
+    
+      CV+机械臂项目
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="机器视觉" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/"/>
+    
+      <category term="机器学习" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>【嵌入式】心率血氧检测模块MAX30102体验</title>

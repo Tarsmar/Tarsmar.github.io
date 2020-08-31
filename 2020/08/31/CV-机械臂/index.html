@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
    
-  <meta name="description" content="为游泳训练辅助系统添加了心率血氧的检测功能" />
+  <meta name="description" content="CV+机械臂项目" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【嵌入式】心率血氧检测模块MAX30102体验 |  麦德道格的个人站
+    【嵌入式】CV+机械臂 |  麦德道格的个人站
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-【嵌入式】心率血氧检测模块MAX30102体验" class="article article-type-post" itemscope
+  <article id="post-CV-机械臂" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【嵌入式】心率血氧检测模块MAX30102体验
+  【嵌入式】CV+机械臂
 </h1>
  
 
@@ -58,8 +58,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" class="article-date">
-  <time datetime="2020-05-08T08:24:00.000Z" itemprop="datePublished">2020-05-08</time>
+      <a href="/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/" class="article-date">
+  <time datetime="2020-08-31T03:23:06.000Z" itemprop="datePublished">2020-08-31</time>
 </a>
       
   <div class="article-category">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.4k字</span>
+            <span class="post-count">390字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">1分钟</span>
         </span>
     </span>
 </div>
@@ -107,27 +107,48 @@
       
 
       
-      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
-<a id="more"></a>
-<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
-<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
-<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
-<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
-<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
-<blockquote>
-<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
-</blockquote>
-<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
-<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
-<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
-<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
+      <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="实训环境"><a href="#实训环境" class="headerlink" title="实训环境"></a>实训环境</h1><h1 id="实训安排"><a href="#实训安排" class="headerlink" title="实训安排"></a>实训安排</h1><h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="Linux下一切皆文件"><a href="#Linux下一切皆文件" class="headerlink" title="Linux下一切皆文件"></a>Linux下一切皆文件</h2><h3 id="敲命令的地方：terminal"><a href="#敲命令的地方：terminal" class="headerlink" title="敲命令的地方：terminal"></a>敲命令的地方：terminal</h3><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><h4 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h4><pre><code>命令： 你要干什么
+选项： 增值服务
+对象： 操作谁
+
+注意：1.选项和对象可以没有
+     2.命令、选项、对象之间必须用空格隔开</code></pre><h4 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h4><p>查看进程命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>自我定位：定位目前位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></li>
+<li><p>列目录下的内容（list）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>默认列举当前路径下的所有内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [回车]</span><br></pre></td></tr></table></figure>
+<p>列出目录名下的所有东西</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [目录名]：</span><br></pre></td></tr></table></figure>
+<p>信息更加详细（文件的大小、创建时间、被谁创建、文件名、文件权限等）如：ls -l myblog/</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l：</span><br></pre></td></tr></table></figure>
+<p>列出目录下的子目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -R</span><br></pre></td></tr></table></figure>
+<p>（一个 <strong>.</strong> 表示当前路径，两个 <strong>.</strong>为上一级路径）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建目录(make directory)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir 目录名</span><br></pre></td></tr></table></figure>
+<p>建议：<strong>创建目录时不要创建任何后缀</strong><br>eg：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">farsight@ubuntu:~$ mkdir 机械臂</span><br><span class="line">farsight@ubuntu:~$ ls</span><br><span class="line">Desktop</span><br><span class="line">Documents</span><br><span class="line">Downloads</span><br><span class="line">examples.desktop</span><br><span class="line">gcc-4.6.4</span><br><span class="line">jpeg-9a</span><br><span class="line">jpeg-9-arm</span><br><span class="line">jpegsrc.v9a.tar.gz</span><br><span class="line">Music</span><br><span class="line">OpenWrt-SDK-ar71xx-for-linux-i686-gcc-4.8-linaro_uClibc-0.9.33.2</span><br><span class="line">Pictures</span><br><span class="line">Public</span><br><span class="line">Qt5.4.2</span><br><span class="line">sqlite3_9</span><br><span class="line">sqlite3_car</span><br><span class="line">Templates</span><br><span class="line">Videos</span><br><span class="line">机械臂</span><br><span class="line">farsight@ubuntu:~$</span><br></pre></td></tr></table></figure></li>
+<li><p>创建文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
+<p>eg：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">farsight@ubuntu:~$ cd 机械臂</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ touch test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ ls</span><br><span class="line">test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$</span><br></pre></td></tr></table></figure>
+<p>建议： <strong>创建目录时加上后缀</strong></p>
+</li>
+<li><p>切换目录</p>
+</li>
+</ol>
 <ul>
-<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
-<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
-<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
-<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
-之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
-在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
+<li>回到最开始的地方<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure></li>
+<li>进入某目录<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd 目录名</span><br></pre></td></tr></table></figure></li>
+<li>访问上一级<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+<h4 id="3-七大文件类型"><a href="#3-七大文件类型" class="headerlink" title="3.七大文件类型"></a>3.七大文件类型</h4></li>
+<li>:普通文件<br>d:目录（directory）<br>c:字符设备文件（char）<br>b:块设备（block）<br>l:链接（link）<br>p:管道文件（pipe）<br>s:套接字（socket）</li>
 </ul>
 
       
@@ -198,14 +219,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MAX30102/" rel="tag">MAX30102</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%AF%E7%A9%BF%E6%88%B4%E8%AE%BE%E5%A4%87/" rel="tag">可穿戴设备</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/" rel="tag">机器视觉</a></li></ul>
 
 
     </footer>
@@ -216,19 +237,10 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            【嵌入式】CV+机械臂
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/16/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91IoTSwimming%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6/" class="article-nav-link">
+      <a href="/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【物联网】IoTSwimming项目进度</div>
+        <div class="article-nav-title">【嵌入式】心率血氧检测模块MAX30102体验</div>
       </a>
     
   </nav>

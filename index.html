@@ -80,6 +80,118 @@
     
     
     
+    <article id="post-CV-机械臂" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/"
+    >【嵌入式】CV+机械臂</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/" class="article-date">
+  <time datetime="2020-08-31T03:23:06.000Z" itemprop="datePublished">2020-08-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="实训环境"><a href="#实训环境" class="headerlink" title="实训环境"></a>实训环境</h1><h1 id="实训安排"><a href="#实训安排" class="headerlink" title="实训安排"></a>实训安排</h1><h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="Linux下一切皆文件"><a href="#Linux下一切皆文件" class="headerlink" title="Linux下一切皆文件"></a>Linux下一切皆文件</h2><h3 id="敲命令的地方：terminal"><a href="#敲命令的地方：terminal" class="headerlink" title="敲命令的地方：terminal"></a>敲命令的地方：terminal</h3><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><h4 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h4><pre><code>命令： 你要干什么
+选项： 增值服务
+对象： 操作谁
+
+注意：1.选项和对象可以没有
+     2.命令、选项、对象之间必须用空格隔开</code></pre><h4 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h4><p>查看进程命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>自我定位：定位目前位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></li>
+<li><p>列目录下的内容（list）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>默认列举当前路径下的所有内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [回车]</span><br></pre></td></tr></table></figure>
+<p>列出目录名下的所有东西</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [目录名]：</span><br></pre></td></tr></table></figure>
+<p>信息更加详细（文件的大小、创建时间、被谁创建、文件名、文件权限等）如：ls -l myblog/</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l：</span><br></pre></td></tr></table></figure>
+<p>列出目录下的子目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -R</span><br></pre></td></tr></table></figure>
+<p>（一个 <strong>.</strong> 表示当前路径，两个 <strong>.</strong>为上一级路径）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建目录(make directory)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir 目录名</span><br></pre></td></tr></table></figure>
+<p>建议：<strong>创建目录时不要创建任何后缀</strong><br>eg：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">farsight@ubuntu:~$ mkdir 机械臂</span><br><span class="line">farsight@ubuntu:~$ ls</span><br><span class="line">Desktop</span><br><span class="line">Documents</span><br><span class="line">Downloads</span><br><span class="line">examples.desktop</span><br><span class="line">gcc-4.6.4</span><br><span class="line">jpeg-9a</span><br><span class="line">jpeg-9-arm</span><br><span class="line">jpegsrc.v9a.tar.gz</span><br><span class="line">Music</span><br><span class="line">OpenWrt-SDK-ar71xx-for-linux-i686-gcc-4.8-linaro_uClibc-0.9.33.2</span><br><span class="line">Pictures</span><br><span class="line">Public</span><br><span class="line">Qt5.4.2</span><br><span class="line">sqlite3_9</span><br><span class="line">sqlite3_car</span><br><span class="line">Templates</span><br><span class="line">Videos</span><br><span class="line">机械臂</span><br><span class="line">farsight@ubuntu:~$</span><br></pre></td></tr></table></figure></li>
+<li><p>创建文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
+<p>eg：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">farsight@ubuntu:~$ cd 机械臂</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ touch test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ ls</span><br><span class="line">test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$</span><br></pre></td></tr></table></figure>
+<p>建议： <strong>创建目录时加上后缀</strong></p>
+</li>
+<li><p>切换目录</p>
+</li>
+</ol>
+<ul>
+<li>回到最开始的地方<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure></li>
+<li>进入某目录<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd 目录名</span><br></pre></td></tr></table></figure></li>
+<li>访问上一级<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+<h4 id="3-七大文件类型"><a href="#3-七大文件类型" class="headerlink" title="3.七大文件类型"></a>3.七大文件类型</h4></li>
+<li>:普通文件<br>d:目录（directory）<br>c:字符设备文件（char）<br>b:块设备（block）<br>l:链接（link）<br>p:管道文件（pipe）<br>s:套接字（socket）</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/" rel="tag">机器视觉</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-【嵌入式】心率血氧检测模块MAX30102体验" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
