@@ -405,13 +405,9 @@
 对象： 操作谁
 
 注意：1.选项和对象可以没有
-     2.命令、选项、对象之间必须用空格隔开</code></pre><h4 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h4><ol start="0">
-<li><p>查看进程命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure></li>
-<li><p>自我定位：定位目前位置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></li>
-<li><p>列目录下的内容（list）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+     2.命令、选项、对象之间必须用空格隔开</code></pre><h4 id="0-查看进程命令"><a href="#0-查看进程命令" class="headerlink" title="0. 查看进程命令"></a>0. 查看进程命令</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+<h4 id="1-自我定位：定位目前位置"><a href="#1-自我定位：定位目前位置" class="headerlink" title="1. 自我定位：定位目前位置"></a>1. 自我定位：定位目前位置</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<h4 id="2-列目录下的内容（list）"><a href="#2-列目录下的内容（list）" class="headerlink" title="2. 列目录下的内容（list）"></a>2. 列目录下的内容（list）</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
 <p>默认列举当前路径下的所有内容</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls [回车]</span><br></pre></td></tr></table></figure>
 <p>列出目录名下的所有东西</p>
@@ -422,29 +418,27 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -R</span><br></pre></td></tr></table></figure>
 <p>（一个 <strong>.</strong> 表示当前路径，两个 <strong>.</strong>为上一级路径）</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -a</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建目录(make directory)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir 目录名</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>七大文件类型<br>    -:普通文件<br>    d:目录（directory）<br>    c:字符设备文件（char）<br>    b:块设备（block）<br>    l:链接（link）<br>    p:管道文件（pipe）<br>    s:套接字（socket）</p>
+</blockquote>
+<h4 id="3-创建目录-make-directory"><a href="#3-创建目录-make-directory" class="headerlink" title="3. 创建目录(make directory)"></a>3. 创建目录(make directory)</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir 目录名</span><br></pre></td></tr></table></figure>
 <p>建议：<strong>创建目录时不要创建任何后缀</strong><br>eg：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">farsight@ubuntu:~$ mkdir 机械臂</span><br><span class="line">farsight@ubuntu:~$ ls</span><br><span class="line">Desktop</span><br><span class="line">Documents</span><br><span class="line">Downloads</span><br><span class="line">examples.desktop</span><br><span class="line">gcc-4.6.4</span><br><span class="line">jpeg-9a</span><br><span class="line">jpeg-9-arm</span><br><span class="line">jpegsrc.v9a.tar.gz</span><br><span class="line">Music</span><br><span class="line">OpenWrt-SDK-ar71xx-for-linux-i686-gcc-4.8-linaro_uClibc-0.9.33.2</span><br><span class="line">Pictures</span><br><span class="line">Public</span><br><span class="line">Qt5.4.2</span><br><span class="line">sqlite3_9</span><br><span class="line">sqlite3_car</span><br><span class="line">Templates</span><br><span class="line">Videos</span><br><span class="line">机械臂</span><br><span class="line">farsight@ubuntu:~$</span><br></pre></td></tr></table></figure></li>
-<li><p>创建文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">farsight@ubuntu:~$ mkdir 机械臂</span><br><span class="line">farsight@ubuntu:~$ ls</span><br><span class="line">Desktop</span><br><span class="line">Documents</span><br><span class="line">Downloads</span><br><span class="line">examples.desktop</span><br><span class="line">gcc-4.6.4</span><br><span class="line">jpeg-9a</span><br><span class="line">jpeg-9-arm</span><br><span class="line">jpegsrc.v9a.tar.gz</span><br><span class="line">Music</span><br><span class="line">OpenWrt-SDK-ar71xx-for-linux-i686-gcc-4.8-linaro_uClibc-0.9.33.2</span><br><span class="line">Pictures</span><br><span class="line">Public</span><br><span class="line">Qt5.4.2</span><br><span class="line">sqlite3_9</span><br><span class="line">sqlite3_car</span><br><span class="line">Templates</span><br><span class="line">Videos</span><br><span class="line">机械臂</span><br><span class="line">farsight@ubuntu:~$</span><br></pre></td></tr></table></figure>
+<h4 id="4-创建文件"><a href="#4-创建文件" class="headerlink" title="4. 创建文件"></a>4. 创建文件</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure>
 <p>eg：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">farsight@ubuntu:~$ cd 机械臂</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ touch test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$ ls</span><br><span class="line">test</span><br><span class="line">farsight@ubuntu:~&#x2F;机械臂$</span><br></pre></td></tr></table></figure>
 <p>建议： <strong>创建目录时加上后缀</strong></p>
-</li>
-<li><p>切换目录</p>
-</li>
-</ol>
-<ul>
+<h4 id="5-切换目录"><a href="#5-切换目录" class="headerlink" title="5. 切换目录"></a>5. 切换目录</h4><ul>
 <li>回到最开始的地方<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure></li>
 <li>进入某目录<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd 目录名</span><br></pre></td></tr></table></figure></li>
 <li>访问上一级<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
 eg：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">farsight@ubuntu:~&#x2F;机械臂$ cd ..</span><br><span class="line">farsight@ubuntu:~$</span><br></pre></td></tr></table></figure></li>
 <li>当进入根目录时回到普通用户目录<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
-<h4 id="3-七大文件类型"><a href="#3-七大文件类型" class="headerlink" title="3.七大文件类型"></a>3.七大文件类型</h4></li>
-<li>:普通文件<br>d:目录（directory）<br>c:字符设备文件（char）<br>b:块设备（block）<br>l:链接（link）<br>p:管道文件（pipe）<br>s:套接字（socket）</li>
+
+</li>
 </ul>
+<h4 id="6-复制（copy）"><a href="#6-复制（copy）" class="headerlink" title="6.复制（copy）"></a>6.复制（copy）</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp 源文件 目标文件</span><br></pre></td></tr></table></figure>
+<p>文件可以给路径，如果不给路径，默认在当前路径下</p>
 ]]></content>
       <categories>
         <category>嵌入式</category>
