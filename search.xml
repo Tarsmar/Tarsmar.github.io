@@ -400,7 +400,13 @@
   <entry>
     <title>【嵌入式】机械臂项目-Linux初体验</title>
     <url>/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/</url>
-    <content><![CDATA[<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="实训环境"><a href="#实训环境" class="headerlink" title="实训环境"></a>实训环境</h1><h1 id="实训安排"><a href="#实训安排" class="headerlink" title="实训安排"></a>实训安排</h1><h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>Linux下一切皆文件<br>敲命令的地方：terminal</p>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ul>
+<li>Linux操作系统的一种版本(用户名：farsight， 密码：1)</li>
+<li>虚拟机：简单说就是能让你在Windows电脑上装linux操作系统的软件<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1></li>
+</ul>
+<p>1.linux基础<br>2.C语言<br>3.文件IO<br>4.进/线程编程<br>5.网络编程(tcp/ip)<br>6.Qt(OpenCV：图片处理)    </p>
+<h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>Linux下一切皆文件<br>敲命令的地方：terminal</p>
 <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h3><pre><code>命令： 你要干什么
 选项： 增值服务
 对象： 操作谁
@@ -469,8 +475,17 @@ eg：<figure class="highlight plain"><table><tr><td class="code"><pre><span clas
   剪贴  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">[num]dd+p</span><br></pre></td></tr></table></figure>
   撤销  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">u<span class="comment">//undo</span></span><br></pre></td></tr></table></figure>
   反向撤销<br>  <strong>ctrl + r</strong></li>
-<li>插入模式</li>
-<li>底行模式</li>
+<li>插入模式<br>  文本录入<pre><code>进入插入模式：
+    a：从光标所在后一个位置进行录入
+    i：从光标所在的位置进行录入
+    o：从光标下一行进行录入
+esc退出插入模式</code></pre></li>
+<li>底行模式<br>  <strong>注意：底行模式下所有命令以(:)开头</strong><br>  保存  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:w</span><br></pre></td></tr></table></figure>
+  退出  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:q</span><br></pre></td></tr></table></figure>
+  强制退出  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:q!</span><br></pre></td></tr></table></figure>
+  保存并退出  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:wq/:x</span><br></pre></td></tr></table></figure>
+  复制  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:[范围]y+[回车]</span><br></pre></td></tr></table></figure>
+  删除  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">---&gt;:[范围]d+[回车]</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
