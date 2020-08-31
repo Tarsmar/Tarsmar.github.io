@@ -121,12 +121,44 @@
 
       
       <a id="more"></a>
-<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ul>
+<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h2 id="项目主要实现功能"><a href="#项目主要实现功能" class="headerlink" title="项目主要实现功能"></a>项目主要实现功能</h2><h3 id="物品数据的采集和识别"><a href="#物品数据的采集和识别" class="headerlink" title="物品数据的采集和识别"></a>物品数据的采集和识别</h3><p>利用摄像头采集物品数据，并通过采集到的的图像数据进行图像处理，从中识别物体信息与物体坐标</p>
+<h3 id="物品数据的监控"><a href="#物品数据的监控" class="headerlink" title="物品数据的监控"></a>物品数据的监控</h3><p>图像采集的物品数据，利用服务器发送给客户端，进行图像视频数据的显示</p>
+<h3 id="远程机械臂控制"><a href="#远程机械臂控制" class="headerlink" title="远程机械臂控制"></a>远程机械臂控制</h3><p>利用远程视屏监控信息，手动控制机械臂，实现自由抓取各种物体</p>
+<h3 id="机械臂自动抓取"><a href="#机械臂自动抓取" class="headerlink" title="机械臂自动抓取"></a>机械臂自动抓取</h3><p>利用图像识别得到坐标进行再次处理，从而驱动机械臂进行自动抓取，实现机械臂自动控制。</p>
+<h2 id="硬件介绍"><a href="#硬件介绍" class="headerlink" title="硬件介绍"></a>硬件介绍</h2><p>硬件部分主要分为三个模块</p>
+<h3 id="终端模块"><a href="#终端模块" class="headerlink" title="终端模块"></a>终端模块</h3><p>可选择PC作为终端模块，主要基于QT应用开发，实现控制界面及视频数据的显示</p>
+<h3 id="数据处理模块"><a href="#数据处理模块" class="headerlink" title="数据处理模块"></a>数据处理模块</h3><p>提供主服务，根据摄像头提供图像进行数据处理得到物体坐标信息，再利用物体坐标通过串口给STM32控制器发送控制命令。</p>
+<h3 id="数据感知模块"><a href="#数据感知模块" class="headerlink" title="数据感知模块"></a>数据感知模块</h3><p>运行在基于Cortex-M3开发平台上。在该平台上主要实现啊两个部分数据传输，机械臂控制命令的响应和运行<br><img src="https://pic.downk.cc/item/5f4cda41160a154a67e40ff1.jpg" alt=""></p>
+<h2 id="软件介绍"><a href="#软件介绍" class="headerlink" title="软件介绍"></a>软件介绍</h2><p>整个系统分为三个模块</p>
+<h3 id="终端模块-1"><a href="#终端模块-1" class="headerlink" title="终端模块"></a>终端模块</h3><p>运行Windows进行界面绘制，提供人机交互。用户可以在界面上进行命令的下发和摄像头图像回显</p>
+<h3 id="数据处理模块-1"><a href="#数据处理模块-1" class="headerlink" title="数据处理模块"></a>数据处理模块</h3><p>运行PC机上的QT程序，实现图像数据的处理得到物品坐标，并利用坐标计算得到控制命令，分别进行命令的下发等功能</p>
+<h3 id="数据感知模块-1"><a href="#数据感知模块-1" class="headerlink" title="数据感知模块"></a>数据感知模块</h3><p>运行在STM32控制板上，通过串口实现对数据的交互、解析以及动作的执行</p>
+<h2 id="项目关键技术"><a href="#项目关键技术" class="headerlink" title="项目关键技术"></a>项目关键技术</h2><h3 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h3><ul>
+<li>输入图像转为灰度图像vtColor</li>
+<li>通过blur对图像进行滤波</li>
+<li>图像二值化检测边缘</li>
+<li>从二值图中提取轮廓</li>
+<li>过滤较小的轮廓</li>
+<li>绘制检测到的轮廓并定位物体中心坐标<h3 id="机械臂控制片内设备开发"><a href="#机械臂控制片内设备开发" class="headerlink" title="机械臂控制片内设备开发"></a>机械臂控制片内设备开发</h3></li>
+<li>STM32上有大量传感器和执行单元，能够通过串口和Linux系统之间进行数据交互，从而实现硬件模型的组网</li>
+<li>基于STM32对GPIO编程、Uart编程、PWM编程、定时器编程、中断编程实现对机械臂的自动控制。</li>
+</ul>
+<h2 id="项目基础技术点"><a href="#项目基础技术点" class="headerlink" title="项目基础技术点"></a>项目基础技术点</h2><h3 id="Linux部分"><a href="#Linux部分" class="headerlink" title="Linux部分"></a>Linux部分</h3><ul>
+<li>Linux操作系统认识及使用</li>
+<li>基于Linux系统编程技术</li>
+<li>Linux多线程、多进程、IO、网络编程技术</li>
+<li>V4L2编程<h3 id="控制终端部分"><a href="#控制终端部分" class="headerlink" title="控制终端部分"></a>控制终端部分</h3></li>
+<li>QT界面开发</li>
+<li>图像显示</li>
+<li>图像处理</li>
+<li>网络通信</li>
+</ul>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ul>
 <li>Linux操作系统的一种版本(用户名：farsight， 密码：1)</li>
 <li>虚拟机：简单说就是能让你在Windows电脑上装linux操作系统的软件<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1></li>
 </ul>
 <p>1.linux基础<br>2.C语言<br>3.文件IO<br>4.进/线程编程<br>5.网络编程(tcp/ip)<br>6.Qt(OpenCV：图片处理)    </p>
-<h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>Linux下一切皆文件<br>敲命令的地方：terminal</p>
+<h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>Linux下一切皆文件<br>敲命令的地方：terminal<br><img src="https://pic.downk.cc/item/5f4cd173160a154a67d9e7b1.png" alt=""></p>
 <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h3><pre><code>命令： 你要干什么
 选项： 增值服务
 对象： 操作谁
@@ -134,6 +166,7 @@
 注意：1.选项和对象可以没有
      2.命令、选项、对象之间必须用空格隔开</code></pre><h4 id="0-查看进程命令"><a href="#0-查看进程命令" class="headerlink" title="0. 查看进程命令"></a>0. 查看进程命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
 <h4 id="1-自我定位：定位目前位置"><a href="#1-自我定位：定位目前位置" class="headerlink" title="1. 自我定位：定位目前位置"></a>1. 自我定位：定位目前位置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.downk.cc/item/5f4cd659160a154a67dfb48b.png" alt=""></p>
 <h4 id="2-列目录下的内容（list）"><a href="#2-列目录下的内容（list）" class="headerlink" title="2. 列目录下的内容（list）"></a>2. 列目录下的内容（list）</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
 <p>默认列举当前路径下的所有内容</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [回车]</span><br></pre></td></tr></table></figure>
@@ -146,7 +179,7 @@
 <p>（一个 <strong>.</strong> 表示当前路径，两个 <strong>.</strong>为上一级路径）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -a</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>七大文件类型<br>    -:普通文件<br>    d:目录（directory）<br>    c:字符设备文件（char）<br>    b:块设备（block）<br>    l:链接（link）<br>    p:管道文件（pipe）<br>    s:套接字（socket）</p>
+<p>七大文件类型<br>    -:普通文件<br>    d:目录（directory）<br>    c:字符设备文件（char）<br>    b:块设备（block）<br>    l:链接（link）<br>    p:管道文件（pipe）<br>    s:套接字（socket）<br><img src="https://pic.downk.cc/item/5f4cd5dc160a154a67df1772.png" alt=""></p>
 </blockquote>
 <h4 id="3-创建目录-make-directory"><a href="#3-创建目录-make-directory" class="headerlink" title="3. 创建目录(make directory)"></a>3. 创建目录(make directory)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir 目录名</span><br></pre></td></tr></table></figure>
 <p>建议：<strong>创建目录时不要创建任何后缀</strong><br>eg：</p>
