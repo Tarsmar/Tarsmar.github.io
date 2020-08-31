@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">527字</span>
+            <span class="post-count">778字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -107,7 +107,8 @@
       
 
       
-      <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="实训环境"><a href="#实训环境" class="headerlink" title="实训环境"></a>实训环境</h1><h1 id="实训安排"><a href="#实训安排" class="headerlink" title="实训安排"></a>实训安排</h1><h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="Linux下一切皆文件"><a href="#Linux下一切皆文件" class="headerlink" title="Linux下一切皆文件"></a>Linux下一切皆文件</h2><h3 id="敲命令的地方：terminal"><a href="#敲命令的地方：terminal" class="headerlink" title="敲命令的地方：terminal"></a>敲命令的地方：terminal</h3><h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><h4 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h4><pre><code>命令： 你要干什么
+      <h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h1 id="实训环境"><a href="#实训环境" class="headerlink" title="实训环境"></a>实训环境</h1><h1 id="实训安排"><a href="#实训安排" class="headerlink" title="实训安排"></a>实训安排</h1><h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><p>Linux下一切皆文件<br>敲命令的地方：terminal</p>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="命令的组成：命令"><a href="#命令的组成：命令" class="headerlink" title="命令的组成：命令"></a>命令的组成：命令</h3><pre><code>命令： 你要干什么
 选项： 增值服务
 对象： 操作谁
 
@@ -157,6 +158,28 @@ eg：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span cl
 <h4 id="10-用户切换"><a href="#10-用户切换" class="headerlink" title="10. 用户切换"></a>10. 用户切换</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su 用户名</span><br></pre></td></tr></table></figure>
 <p>不给用户名默认切换至root用户</p>
 <h4 id="11-临时获得root权限"><a href="#11-临时获得root权限" class="headerlink" title="11. 临时获得root权限"></a>11. 临时获得root权限</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo 命令</span><br></pre></td></tr></table></figure>
+
+<h3 id="快捷方式"><a href="#快捷方式" class="headerlink" title="快捷方式"></a>快捷方式</h3><pre><code>1. Tab：补全（命令、文件名、路径）
+    敲一下补全，敲两下显示更多
+2. 上下键：向上/向下翻找历史命令
+3. clear / ctrl + L：清屏
+4. ctrl + shift + n / t : 新建终端 / 新建标签
+5. alt + Tab ：切换</code></pre><h2 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h2><h3 id="1-gedit："><a href="#1-gedit：" class="headerlink" title="1. gedit："></a>1. gedit：</h3><p>类似Windows下的记事本，图形界面<br>进入编辑模式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit 文件名（文件名不存在时新建）</span><br></pre></td></tr></table></figure>
+<p><strong>在终端下不退出gedit模式时无法在同一个终端下进行其他操作</strong></p>
+<h3 id="2-vi-vim："><a href="#2-vi-vim：" class="headerlink" title="2. vi/vim："></a>2. vi/vim：</h3><p>非图形界面，靠命令操作<br>进入编辑模式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim 文件名</span><br></pre></td></tr></table></figure>
+<h4 id="三个模式"><a href="#三个模式" class="headerlink" title="三个模式"></a>三个模式</h4><ul>
+<li>命令行模式<br>  用户打开vi进入的模式，可对文件进行批量处理<br>  复制  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[num]yy<span class="comment">//从光标所在行开始复制num行</span></span><br></pre></td></tr></table></figure>
+  删除  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[num]dd<span class="comment">//从光标所在行开始删除num行</span></span><br></pre></td></tr></table></figure>
+  粘贴  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p<span class="comment">//粘贴到光标所在的下一行</span></span><br></pre></td></tr></table></figure>
+  剪贴  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[num]dd+p</span><br></pre></td></tr></table></figure>
+  撤销  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">u<span class="comment">//undo</span></span><br></pre></td></tr></table></figure>
+  反向撤销<br>  <strong>ctrl + r</strong></li>
+<li>插入模式</li>
+<li>底行模式</li>
+</ul>
+
       
       <!-- reward -->
       
