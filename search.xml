@@ -400,11 +400,11 @@
   <entry>
     <title>【嵌入式】机械臂项目-Linux初体验</title>
     <url>/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/</url>
-    <content><![CDATA[<a id="more"></a>
-<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h2 id="项目主要实现功能"><a href="#项目主要实现功能" class="headerlink" title="项目主要实现功能"></a>项目主要实现功能</h2><h3 id="物品数据的采集和识别"><a href="#物品数据的采集和识别" class="headerlink" title="物品数据的采集和识别"></a>物品数据的采集和识别</h3><p>利用摄像头采集物品数据，并通过采集到的的图像数据进行图像处理，从中识别物体信息与物体坐标</p>
+    <content><![CDATA[<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><h2 id="项目主要实现功能"><a href="#项目主要实现功能" class="headerlink" title="项目主要实现功能"></a>项目主要实现功能</h2><h3 id="物品数据的采集和识别"><a href="#物品数据的采集和识别" class="headerlink" title="物品数据的采集和识别"></a>物品数据的采集和识别</h3><p>利用摄像头采集物品数据，并通过采集到的的图像数据进行图像处理，从中识别物体信息与物体坐标</p>
 <h3 id="物品数据的监控"><a href="#物品数据的监控" class="headerlink" title="物品数据的监控"></a>物品数据的监控</h3><p>图像采集的物品数据，利用服务器发送给客户端，进行图像视频数据的显示</p>
 <h3 id="远程机械臂控制"><a href="#远程机械臂控制" class="headerlink" title="远程机械臂控制"></a>远程机械臂控制</h3><p>利用远程视屏监控信息，手动控制机械臂，实现自由抓取各种物体</p>
 <h3 id="机械臂自动抓取"><a href="#机械臂自动抓取" class="headerlink" title="机械臂自动抓取"></a>机械臂自动抓取</h3><p>利用图像识别得到坐标进行再次处理，从而驱动机械臂进行自动抓取，实现机械臂自动控制。</p>
+<a id="more"></a>
 <h2 id="硬件介绍"><a href="#硬件介绍" class="headerlink" title="硬件介绍"></a>硬件介绍</h2><p>硬件部分主要分为三个模块</p>
 <h3 id="终端模块"><a href="#终端模块" class="headerlink" title="终端模块"></a>终端模块</h3><p>可选择PC作为终端模块，主要基于QT应用开发，实现控制界面及视频数据的显示</p>
 <h3 id="数据处理模块"><a href="#数据处理模块" class="headerlink" title="数据处理模块"></a>数据处理模块</h3><p>提供主服务，根据摄像头提供图像进行数据处理得到物体坐标信息，再利用物体坐标通过串口给STM32控制器发送控制命令。</p>
