@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>About Me</title>
+    <url>/2019/01/01/about/</url>
+    <content><![CDATA[<h1 id="Just-a-swimmer-sharing-fun-adventures"><a href="#Just-a-swimmer-sharing-fun-adventures" class="headerlink" title="Just a swimmer sharing fun adventures"></a>Just a swimmer sharing fun adventures</h1><p><strong>地区：上海-徐汇</strong></p>
+<p><strong>微信：Tarsmar</strong></p>
+<p><strong>biibili：<a href="https://space.bilibili.com/19089842" target="_blank" rel="noopener">麦德道格-</a></strong></p>
+<p><strong>YouTube：<a href="https://www.youtube.com/channel/UCVMNUpFttycdo3V5dWuuHeQ" target="_blank" rel="noopener">麦德道格</a></strong></p>
+<p><strong>Instagram：<a href="https://www.instagram.com/maddogswim/" target="_blank" rel="noopener">maddogswim</a></strong><br><img src="https://pic.downk.cc/item/5e8582ff504f4bcb04cc5a8f.png" alt=""></p>
+]]></content>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【嵌入式】心率血氧检测模块MAX30102体验</title>
+    <url>/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
+<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
+<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
+<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
+<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
+<blockquote>
+<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
+</blockquote>
+<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
+<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
+<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
+<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
+<ul>
+<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
+<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
+<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
+<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
+之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
+在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>嵌入式</category>
+      </categories>
+      <tags>
+        <tag>MAX30102</tag>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>可穿戴设备</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【物联网】NXP Rapid IoT 物联网开发套件体验</title>
+    <url>/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为报名参加了<strong>eeworld</strong>的送测活动，收到了送测的<strong>NXP Rapid IoT</strong>开发套件。在收到设备后我也第一时间做了测试及体验</p>
+<p><img src="https://img-blog.csdnimg.cn/20200402133130209.png#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+<h1 id="开发装置简介"><a href="#开发装置简介" class="headerlink" title="开发装置简介"></a>开发装置简介</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>NXP Semiconductors快速物联网原型设计套件设计用于助力开发人员快速将<strong>IoT</strong>创意转变为概念验证 (PoC)。该款快速物联网原型设计套件基于Kinetis K64F内核32位微控制器（<strong>120MHz 32位</strong>微控制器基于Arm-<strong>Cortex-M4</strong>内核），并设有用于<strong>Bluetooth</strong>低功耗蓝牙、<strong>Thread</strong>和<strong>ZigBee</strong>连接的<strong>Kinetis KW41Z</strong>无线控制器。</p>
+<p> <strong>-连接方式</strong><br>micro USB连接器<br>主要和无线MCU SWD连接器 (DNP)<br>50引脚板对板连接器，与MikroElektronika坞站兼容<br>10引脚板对板连接器，用于未来的连接站</p>
+<p><strong>- 板载多个传感器</strong><br>NXP FXOS8700<br>6轴数字加速度计和磁力计<br>NXP FXAS21002（3轴数字陀螺仪）<br>NXP MPL3115（数字压力和高度传感器）<br>数字温度和湿度传感器<br>数字环境光传感器<br>数字空气质量传感器<br>电容式触摸传感器<br>适配器click板，可轻松扩展至400多个物联网终端节点用例<br>NXP物联网模块化网关 (SLN-IOT-GPI)</p>
+<h2 id="外观介绍"><a href="#外观介绍" class="headerlink" title="外观介绍"></a>外观介绍</h2><ul>
+<li><p>主机<strong>左右两侧</strong>各有<strong>两个按键</strong>，<strong>顶部面板</strong>的上下左右各有一个<strong>触摸按键</strong>，触摸按键应该是电容按键，不需要用力按，基本手放上去就有反应。顶部有四个传感器开孔。主机采用底部一个<strong>micro-usb</strong>供电。整机没有开关，插上电即开机。在预装的程序里可以开关LED背光，开关蓝牙等，但<strong>主机无法开关</strong>。<br><img src="https://img-blog.csdnimg.cn/20200402123821420.jpg#pic_center" alt="正面接口">)<img src="https://img-blog.csdnimg.cn/20200402123920451.jpg#pic_center" alt="反面接口"><br>收到设备，里面除了主机就只有一根数据线和一个sim卡针，sim卡针应该是用来戳复位键的。 说明书上有三个步骤来熟悉这个开发板：</p>
+</li>
+<li><p>首先是利用预装的程序来熟悉开发装置。在预装程序下可以了解设备上集成的传感器等基础信息；</p>
+</li>
+<li><p>第二步是在官方的在线IDE下进行简单的编程。编程是图形化的，很形象，上手很快；</p>
+</li>
+<li><p>第三步是在熟悉开发板及开发环境后，尝试把自己物联网设计通过开发板实现。</p>
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="移动端软件下载"><a href="#移动端软件下载" class="headerlink" title="移动端软件下载"></a>移动端软件下载</h2></li>
+<li><p>在熟悉了开发装置基本功能后，按照说明书上提供的下载方式下载了移动端的app。因为用的<strong>安卓</strong>鸡，直接从<strong>Google Play</strong>下载到了<strong>NXP Rapid IoT</strong>的软件<br><img src="https://img-blog.csdnimg.cn/20200402124523394.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2></li>
+<li><p>打开软件必须需要<strong>注册NXP</strong>的账号才能进入软件使用，在连接设备上也<strong>不是直接进蓝牙连接</strong>，进入主界面后点开<strong>左侧菜单栏</strong>，点击<strong>第二个立方体</strong>，然后再点击右上角的加号添加设备。<img src="https://img-blog.csdnimg.cn/20200402124916247.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>这里完成后在下一个页面就能看到设备了，勾选上自己的设备后点击右下角的供应键便可创建连接。</p>
+</li>
+<li><p><img src="https://img-blog.csdnimg.cn/20200402125258172.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>完成之后就能看到设置的页面了。在预装程序中可以看到各传感器的各种数据。</p>
+<h2 id="连接错误"><a href="#连接错误" class="headerlink" title="连接错误"></a>连接错误</h2></li>
+<li><p>在使用过程中不开<strong>VPN</strong>可能会出现无法连接服务器的情况，导致无法正常使用软件。挂着<strong>VPN</strong>没有出现过这这种问题。<img src="https://img-blog.csdnimg.cn/20200402125446711.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="在线IDE简介"><a href="#在线IDE简介" class="headerlink" title="在线IDE简介"></a>在线IDE简介</h1></li>
+<li><p><strong>在线IDE</strong>使用的是图形化的编程方式。采用基于<strong>GUI</strong>（<strong>图形用户界面</strong>）使用时把各种元素移至左侧面板再相互连接即可完成编程。使用这种可视化的编程方式<strong>大大降低</strong>了编程的<strong>门槛</strong>，基本不需要任何语言基础，不需要任何嵌入式开发经验即可上手开发。编程过程分为三个板块：设备端程序设计，移动端界面设计和云端程序设计。</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402130002768.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>设备端程序可以<strong>单机运行</strong>，如根据按键控制或环境光亮度控制点亮LED等。设计元素可以实现数据比较功能，如下图所示，实现了在环境光小于50时点亮led的操作。可以看出，相对于实现同样功能使用c语言编程，难度上<strong>大大简化</strong>，仅需要简单地拖动模块，修改参数即可实现同样的功能</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402125903600.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>硬件部分通过<strong>BLD元素</strong>与其他两部分程序通信。上图是将<strong>环境光</strong>采集的数据发送给<strong>BLD元素</strong>，之后我们可以在<strong>移动端</strong>读取到这个数据<img src="https://img-blog.csdnimg.cn/20200402130342877.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>读取到数据后可以将这个数据通过<strong>仪表盘</strong>或<strong>进度条</strong>等工具显示，在<strong>移动端</strong>查看到即时数据。左侧窗口即为<strong>移动端</strong>的<strong>设计界面</strong>，可以通过<strong>拖拽</strong>等方式调整设计，还可以<strong>添加图片</strong>背景等。</p>
+</li>
+<li><p>下图为<strong>手机端</strong>显示界面<br><img src="https://img-blog.csdnimg.cn/20200402130414911.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="上云"><a href="#上云" class="headerlink" title="上云"></a>上云</h1></li>
+<li><p>在<strong>应用板块</strong>可以选择将数据发送到<strong>云端</strong>。</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402131010224.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在<strong>云端</strong>只需添加一个<strong>储存元素</strong>就能将数据<strong>储存到云端</strong>了。<br>云端的数据可以通过<strong>移动端</strong>访问。可以通过工具生成各种图标。如下图<br><img src="https://img-blog.csdnimg.cn/20200402131145705.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></li>
+<li><p>可玩性高：<br>目前我做的都是一些<strong>基础尝试</strong>，后续还可以给板子加上各种外设。例如使用它<strong>控制</strong>智能家居设备。</p>
+</li>
+</ul>
+<p> <strong>可视化</strong>图形编程仅仅是其中一种<strong>编程方式</strong>，也可以使用<strong>c</strong>或<strong>python</strong>编程。</p>
+<ul>
+<li><strong>调试</strong>比较<strong>麻烦</strong>：<br>调试需要在线编译后下载到电脑，再将主机关机后把下载的bin文件拷到主机中，等待主机重启，然后再通过手机连接才能调试。而且同一个工程在改过以后手机端大概率<strong>连接不上</strong>，有时候界面的改动能够刷出来，但是数据不知道为什么始终传不过来。必须要先把已存在的工程删除再重新添加。</li>
+<li>LED<strong>干扰</strong>环境光传感器：<br>环境光设置max值为100，在LED点亮的情况下始终显示100, 怀疑是LED和光感距离太近和漏光的原因。</li>
+<li>不能关机：<br>主机运行后就无法关机，如果实现低功耗作为IoT设备不能关机到没什么，但目前持续工作机器会发热，估计功耗也不小。不知道是不是少数情况，我的屏幕常亮一段时间以后有了几个坏点。</li>
+<li>目前这个设备对我来说更多还是作为一个IoT入门的学习设备，同时我也认为这是一个对初学者很友好的IoT设备。但某宝485元的价格对学生而言还是有些略高的，如果不是送测，我肯定需要多考虑一下。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>物联网</category>
+      </categories>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>GUI</tag>
+        <tag>IoT</tag>
+        <tag>NB-IoT</tag>
+        <tag>在线IDE</tag>
+        <tag>物联网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【机器视觉】上手OpenMV一周心得</title>
+    <url>/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://pic.downk.cc/item/5e8ab43b504f4bcb04c7d965.jpg" alt=""></p>
+<p>最近入手了官方版本的OpenMV。当然了，入手官方版本的主要原因倒不是懒得点那三次提示，而是因为我在某宝逛的时候还不是道这玩意是开源的。</p>
+<a id="more"></a>
+<p><img src="https://pic.downk.cc/item/5e87544a504f4bcb0405f0c0.jpg#pic_center" alt=""></p>
+<h1 id="OpenMV简介"><a href="#OpenMV简介" class="headerlink" title="OpenMV简介"></a>OpenMV简介</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p><img src="https://pic.downk.cc/item/5e8758f8504f4bcb040bb098.png" alt=""></p>
+<p>· OpenMV摄像头是一款小巧，低功耗，低成本的电路板，它帮助你很轻松的完成机器视觉（machine vision）应用。你可以通过高级语言Python脚本，而不是C/C++。Python的高级数据结构使你很容易在机器视觉算法中处理复杂的输出。但是，你仍然可以完全控制OpenMV，包括IO引脚。你可以很容易的使用外部终端触发拍摄或者或者执行算法，也可以把算法的结果用来控制IO引脚。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>OpenMV摄像头的特点：</p>
+<p>STM32F765VI ARM Cortex M7 处理器，216 MHz ，512KB RAM，2 MB flash. 所有的 I/O 引脚输出 3.3V 并且 5V 耐受。这个处理器有以下的IO接口。<br>全速 USB (12Mbs) 接口，连接到电脑。当插入OpenMV摄像头后，你的电脑会出现一个虚拟COM端口和一个“U盘”。<br>μSD卡槽拥有100Mbs读写，这允许你的OpenMV摄像头录制视频，和把机器视觉的素材从SD卡提取出来。<br>一个SPI总线高达54Mbs速度，允许你简单的把图像流数据传给LCD扩展板，WiFi扩展板，或者其他控制器。<br>一个 I2C总线，CAN总线, 和一个异步串口总线 (TX/RX) ，用来链接其他控制器或者传感器。<br>一个12-bit ADC 和一个12-bit DAC。<br>3个 I/O 引脚用于舵机控制。<br>所有的IO口都可以用于中断和PWM(板子上有10个I/O引脚)。<br>一个RGB三色LED，两个高亮的红外 850nm IR LED。</p>
+<p><strong>更多资料请查看<a href="https://singtown.com/openmv/" target="_blank" rel="noopener">星瞳科技</a>官网</strong>（星瞳科技为OpenMV在国内的官方代理，使用官方版本的OpenMV都带有官方注册码，在使用IDE时自动识别）</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>目前OpenMV摄像头可以用来做一下的事情 (未来会更多):</p>
+<p><strong>Frame Differencing帧差分算法</strong><br><strong>Color Tracking颜色追踪</strong><br><strong>Marker Tracking标记跟踪</strong><br><strong>Face Detection人脸检测</strong><br><strong>Eye Tracking眼动跟踪</strong><br><strong>Optical Flow光流</strong><br><strong>QR Code Detection/Decoding二维码检测/解码</strong><br><strong>AprilTag Tracking标记跟踪</strong><br><strong>Line Detection直线检测</strong><br><strong>Circle Detection圆形检测</strong><br><strong>Rectangle Detection矩形检测</strong><br><strong>Template Matching模板匹配</strong><br><strong>Image Capture图像捕捉</strong><br><strong>Video Recording视频录制</strong></p>
+<p>最后，所有上述功能都可以混合IO引脚的控制，来配合你自己的自定义应用，以与现实世界交谈。</p>
+<h1 id="使用体验"><a href="#使用体验" class="headerlink" title="使用体验"></a>使用体验</h1><h2 id="MicroPython"><a href="#MicroPython" class="headerlink" title="MicroPython"></a>MicroPython</h2><p>在上手学习OpenMV之前，我仅有一点基础的Python知识，并没有实际运用过Python语言。<br>众所周知早期的单片机使用汇编语言来编程，随着微处理器的发展，后来逐步被 C 所取代，现在的微处理器集成度越来越高了，那么我们现在可以使用 Python 语言来开发了。OpenMV就可以使用MicroPython进行开发。</p>
+<p><strong>MicroPython</strong>算是<strong>Python 3</strong>的精简版本，包括了Python标准库中的一小部分，可以在资源有限的微处理器上运行。</p>
+<h2 id="“人生苦短，我用-Python”"><a href="#“人生苦短，我用-Python”" class="headerlink" title="“人生苦短，我用 Python”"></a><strong>“人生苦短，我用 Python”</strong></h2><p>和单片机学习一样，我学习的第一个实验是点亮LED。我相信大家对这个已经非常熟悉了，但是为了直观地比较，还是给大家看一下代码。我们把注意力放在代码量上就行。</p>
+<p>这是使用C语言对stm32f103单片机点亮LED的代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    main.c</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stm32f10x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bsp_led.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LED_GPIO_Config();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    bsp_led.c</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bsp_led.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LED_GPIO_Config</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	GPIO_InitTypeDef  GPIO_InitStruct;</span><br><span class="line">	RCC_APB2PeriphClockCmd(LED_G_GPIO_CLK, ENABLE);</span><br><span class="line">	GPIO_InitStruct.GPIO_Pin = LED_G_GPIO_PIN;</span><br><span class="line">	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;</span><br><span class="line">	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">	GPIO_Init(LED_G_GPIO_PORT, &amp;GPIO_InitStruct);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    bsp_led.h</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __BSP_LED_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __BSP_LED_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stm32f10x.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_PIN   GPIO_Pin_0	</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_PORT  GPIOB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_CLK   RCC_APB2Periph_GPIOB</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LED_GPIO_Config</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* __BSP_LED_H */</span></span></span><br></pre></td></tr></table></figure>
+
+
+<p>我们再看看实现同样功能，使用Python对OpenMV的代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pyb <span class="keyword">import</span> LED</span><br><span class="line">LED(<span class="number">3</span>).on()</span><br></pre></td></tr></table></figure>
+
+<p>我们能直观的感受到Python的强大，上面展示的还只是手打代码的部分，更不要说新建工程的一系列繁琐操作就够劝退了，即便是有了Cube的加持，还是远远比不上Python两行解决问题。</p>
+<p>实际上MicroPython已经把常用功能都封装到库中了，以及一些常用的传感器和组件都编写了专门的驱动，通过调用相关函数，就可以直接控制 LED、按键、伺服电机、PWM、AD/DA、UART、SPI、IIC 以及 DS18B20等等。以往需要花费<strong>数天</strong>编写才能实现的硬件功能代码，现在基于<br>MicroPython 开发只要十几分钟甚至<strong>几行代码</strong>就可以解决。</p>
+<p>在学习使用OpenMV的几天，我体会最深刻的就是 <strong>“人生苦短，我用 Python”</strong> 这句话</p>
+<h2 id="学习进度"><a href="#学习进度" class="headerlink" title="学习进度"></a>学习进度</h2><p>在上手OpenMV之前，我有过51、stm32f1及stm32f4的开发经验，所以在学习基础功能上我没有花费太多时间，实现包括控制GPIO，外部中断，定时器，IIC，AD，DA等全部操作总共也就两个钟头。</p>
+<p>毕竟<strong>机器视觉</strong>才是最主要的</p>
+<p>截止目前，我已经上手OpenMV一周时间了。在一周的时间中我已经实现了OpenMV支持的机器视觉大部分功能。这些功能在前言中已有列举便不再多说。但实现这些仅仅用了一周的时间是真正令我感到意外的。在我的印象中机器视觉应该是一项很数学的工作，一想到傅里叶这个词就让人心里发毛。但在实际的学习中并没有出现太多的数学。</p>
+<p>实现绝大多数功能仅仅需要会调用函数就行了，在这里我举个简单的例子</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sensor, time, image</span><br><span class="line">sensor.reset()</span><br><span class="line">sensor.set_contrast(<span class="number">3</span>)</span><br><span class="line">sensor.set_gainceiling(<span class="number">16</span>)</span><br><span class="line">sensor.set_framesize(sensor.HQVGA)</span><br><span class="line">sensor.set_pixformat(sensor.GRAYSCALE)</span><br><span class="line">face_cascade = image.HaarCascade(<span class="string">"frontalface"</span>, stages=<span class="number">25</span>)</span><br><span class="line">print(face_cascade)</span><br><span class="line">clock = time.clock()</span><br><span class="line"><span class="keyword">while</span> (<span class="literal">True</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line">    img = sensor.snapshot()</span><br><span class="line">    objects = img.find_features(face_cascade, threshold=<span class="number">0.75</span>, scale_factor=<span class="number">1.25</span>)</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> objects:</span><br><span class="line">        img.draw_rectangle(r)</span><br><span class="line">    print(clock.fps())</span><br></pre></td></tr></table></figure>
+<p>以上就是实现面部检测的<strong>全部代码</strong></p>
+<p>是不是有些难以置信？似乎印象中遥不可及的机器视觉好像并没有比点亮LED复杂多少？这也是OpenMV给我最直观的感受。</p>
+<p>但是如果再深入了解一点，画风就不一样了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">image.find_lines([roi[, x_stride=<span class="number">2</span>[, y_stride=<span class="number">1</span>[, threshold=<span class="number">1000</span>[,</span><br><span class="line">theta_margin=<span class="number">25</span>[, rho_margin=<span class="number">25</span>]]]]]])</span><br></pre></td></tr></table></figure>
+<p>这是直线识别函数，返回一个 image.line 直线对象。直线识别使用了<strong>霍夫转换算法</strong></p>
+<blockquote>
+<p>霍夫变换是一种特征提取，被广泛应用在图像分析、电脑视觉以及数位影像处理（英语：Digital image processing）。 霍夫变换是用来辨别找出物件中的特征，例如：线条。他的算法流程大致如下，给定一个物件、要辨别的形状的种类，算法会在参数空间（英语：Parameter space）中执行投票来决定物体的形状，而这是由累加空间（accumulator space）里的局部最大值来决定</p>
+</blockquote>
+<p>参考链接：<a href="http://en.wikipedia.org/wiki/Hough_transform" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Hough_transform</a></p>
+<p>当我们想深入了解一下霍夫转换时，就会发现：</p>
+<p><img src="https://pic.downk.cc/item/5e8aab4e504f4bcb04be980a.jpg" alt=""><br><img src="https://pic.downk.cc/item/5e8aad70504f4bcb04c0b183.jpg" alt=""><br><strong>有内味儿了</strong></p>
+<p>当然想深入了解机器视觉肯定会比这个复杂地多。但想真正用好这些函数，去深入了解其中背后的算法还是必要的。这和嵌入式开发一样，我们不能只会在别人写好的驱动上改，只会移植别人的代码然后改改bug。一定要自己一步步把程序写出来才能体会地更深刻。</p>
+<p>我相信未来像OpenMV这样直接调用函数就能实现复杂功能会越来越普遍，但我也同时相信如果不了解函数背后的算法，不去学习底层的知识，就用不好这些函数。</p>
+<h1 id="学习计划"><a href="#学习计划" class="headerlink" title="学习计划"></a>学习计划</h1><p>接下来就要正式开始学习<strong>机器学习</strong>了。我现在对机器学习的感觉和一周前对机器视觉的感觉一样，听上去遥不可及，但是有了学习机器视觉的经验，我相信机器学习也一定有强大的库函数支持的。</p>
+<p>最近我一直在在想用OpenMV做个小项目，有想过做个泳姿识别一类，不知道在学习过机器学习之后能不能自己训练一个。这些都是后话，待我学完机器学习再说。</p>
+]]></content>
+      <categories>
+        <category>机器视觉</category>
+      </categories>
+      <tags>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>机器视觉</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【物联网】IoTSwimming项目进度</title>
+    <url>/2020/04/16/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91IoTSwimming%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6/</url>
+    <content><![CDATA[<h1 id="完成情况"><a href="#完成情况" class="headerlink" title="完成情况"></a>完成情况</h1><p>在过去的一周主要搞了三件事</p>
+<h3 id="1-在个人服务器上搭建私人mqtt服务器"><a href="#1-在个人服务器上搭建私人mqtt服务器" class="headerlink" title="1.在个人服务器上搭建私人mqtt服务器"></a>1.在个人服务器上搭建私人mqtt服务器</h3><h3 id="2-开发了用于查看成绩及计划选择的安卓端app"><a href="#2-开发了用于查看成绩及计划选择的安卓端app" class="headerlink" title="2.开发了用于查看成绩及计划选择的安卓端app"></a>2.开发了用于查看成绩及计划选择的安卓端app</h3><h3 id="3-使用ESP8266实现STM32终端设备的数据上云"><a href="#3-使用ESP8266实现STM32终端设备的数据上云" class="headerlink" title="3.使用ESP8266实现STM32终端设备的数据上云"></a>3.使用ESP8266实现STM32终端设备的数据上云</h3><h2 id="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"><a href="#通过上面三条实现了终端设备、移动端和PC的三者数据传输。" class="headerlink" title="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"></a>通过上面三条实现了<strong>终端设备</strong>、<strong>移动端</strong>和<strong>PC</strong>的三者数据传输。</h2><p><img src="https://pic.downk.cc/item/5e980771c2a9a83be555dd6f.jpg" alt=""></p>
+<a id="more"></a>
+<h1 id="安卓端App开发"><a href="#安卓端App开发" class="headerlink" title="安卓端App开发"></a>安卓端App开发</h1><h2 id="Android-初体验"><a href="#Android-初体验" class="headerlink" title="Android 初体验"></a>Android 初体验</h2><p>上手第一天安装环境就搞了半天，当然主要原因是之前自己作死瞎装了一次。当然在我满心欢喜生成我的第一个HelloWorld程序的时候，我就经历了我<strong>人生中最长的一次编译</strong><br><img src="https://pic.downk.cc/item/5e972de1c2a9a83be5e1b5f7.jpg" alt=""><br>编译就用了21分钟，我当时脑中只有一句话<br><strong>“这就是安卓吗？”</strong><br>然后再想到玩单片机调试运行那无数次的编译下载… …<br><img src="https://pic.downk.cc/item/5e972f04c2a9a83be5e29fbd.jpg" alt=""><br>后续大多数时候编译没再用那么长时间，一般性就一分钟左右（当然还是出过30min的情况）。<br>之后的开发还算顺利，不过在此提醒和我一样的萌新：<strong>新建工程的时候语言一定要选对</strong><br><img src="https://pic.downk.cc/item/5e972f6bc2a9a83be5e2f24c.jpg" alt=""><br>不然就要和我一样页面都做完了，想打开java文件才发现只有.kt<br>网上有java-kotlin转换的方法，但至少在我这里没成功，于是只好新建工程重做。</p>
+<p>当然，没有协议，就没有灵魂，关键还是Mqtt的部分，我目前理解的Mqtt核心就是连接，订阅，发布</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">client.setCallback(<span class="keyword">new</span> MqttCallback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connectionLost</span><span class="params">(Throwable cause)</span> </span>&#123;</span><br><span class="line">         <span class="comment">//重连</span></span><br><span class="line">         System.out.println(<span class="string">"connectionLost----------"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deliveryComplete</span><span class="params">(IMqttDeliveryToken token)</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"deliveryComplete---------"</span></span><br><span class="line">                  + token.isComplete());</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">messageArrived</span><span class="params">(String topicName, MqttMessage message)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//订阅消息</span></span><br><span class="line">        System.out.println(<span class="string">"messageArrived----------"</span>);</span><br><span class="line">        Message msg = <span class="keyword">new</span> Message();</span><br><span class="line">        msg.what = <span class="number">3</span>;   <span class="comment">//收到消息标志位</span></span><br><span class="line">           msg.obj = topicName + <span class="string">"---"</span> + message.toString();</span><br><span class="line">        handler.sendMessage(msg);    <span class="comment">// hander 回传</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是在做Mqtt的时候让我彻底放弃阿里云的。之前用Esp8266连接阿里云花了不少时间，直接放弃总觉得有点可惜，但是就在Mqtt这一步，阿里云死活连不上，同样的配置用fx能连上，安卓就是不行，而且在安卓上连Emq又是轻轻松松。所以，劝退。<br>之前调试的时后有个问题一直也没解决，开始以为连接不上是因为手机权限的问题，但是我己经AndroidMainfest里请求过权限了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="keyword">package</span>=<span class="string">"com.example.iot6"</span>&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之前也看过说是安卓6.0之后要动态权限，需要在手机里手动给权限，但是我在应用配置里直接说应用没有过权限请求。之后正常连接Emq了也一样没有权限请求，就很迷。</p>
+<h1 id="mqtt服务器的搭建"><a href="#mqtt服务器的搭建" class="headerlink" title="mqtt服务器的搭建"></a>mqtt服务器的搭建</h1><p>之前租服务器是打算把各位正在浏览的个人博客部署上去的，奈何备案过于繁琐，就一直被当成云电脑来用，我甚至第一时间在上面下了<strong>星际2</strong></p>
+<p><img src="https://pic.downk.cc/item/5e972667c2a9a83be5dd1981.jpg" alt=""></p>
+<p>好了开玩笑的，试过了，登录都要卡半天，要真打起天梯，第一个农民还没按下去对面大龙感染就来了<br><img src="https://pic.downk.cc/item/5e972791c2a9a83be5ddaab4.jpg" alt=""><br>自己搭服务器这件事上周就有提过，流程其实很简单，大概可分为两步</p>
+<h2 id="1-在服务器上下载对应服务器系统的EMQ"><a href="#1-在服务器上下载对应服务器系统的EMQ" class="headerlink" title="1.在服务器上下载对应服务器系统的EMQ"></a>1.在服务器上下载对应服务器系统的EMQ</h2><h2 id="2-启动EMQ"><a href="#2-启动EMQ" class="headerlink" title="2.启动EMQ"></a>2.启动EMQ</h2><p>好了结束了</p>
+<p>就这样简单的一件事我搞了快一个礼拜，各种ip，用户名密码都试了个遍，最后发现是阿里云服务器上需要配置<br><img src="https://pic.downk.cc/item/5e972926c2a9a83be5de7b41.jpg" alt=""><br>这里就不演示了，各位可以去看CSDN博主<strong>星海水滴</strong>的文章，写的很详细：<br><a href="https://blog.csdn.net/qq_44370363/article/details/104318027" target="_blank" rel="noopener">阿里云ECS部署EMQ——个人MQTT Broker</a></p>
+<p>配置好后就可以正常连接了<br><img src="https://pic.downk.cc/item/5e972ad3c2a9a83be5df7924.jpg" alt=""></p>
+<h1 id="ESP8266与STM32接入EMQ"><a href="#ESP8266与STM32接入EMQ" class="headerlink" title="ESP8266与STM32接入EMQ"></a>ESP8266与STM32接入EMQ</h1><p>ESP8266和MCU的通信问题也是我放弃阿里云的原因之一，当然主要是找到了神器。之前ESP8266连接阿里云的时候json的格式就很难搞，STM32和ESP8266的串口收发也没什么头绪。好在找到了前辈做好的ESP8266固件<strong>WZ指令</strong><br>大家可以在 <a href="wenzheng.club">阿正的个人站</a>找到。<br>这个固件实现了用一条指令实现了上云的所有操作，不用配网，仅此一条json数据，没有繁琐的其他配置环节，简单粗暴。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">&#123;<span class="string">"wz"</span>:<span class="string">"wenzheng.club"</span>,<span class="string">"server"</span>:<span class="string">"0.0.0.64"</span>,<span class="string">"user"</span>:<span class="string">"admin"</span>,<span class="string">"password"</span>:<span class="string">"public"</span>,<span class="string">"topic"</span>:<span class="string">"0"</span>,<span class="string">"message"</span>:<span class="string">"test"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就解决了我之前的所有问题，直接将网络相关的代码放在esp8266上，大大简化了stm32的代码，也不占用内存。<br>这样一来，只要把之前程序里的程序数据通过这条指令发出去就能实现上云了</p>
+<h1 id="总结及计划"><a href="#总结及计划" class="headerlink" title="总结及计划"></a>总结及计划</h1><h2 id="目前进展"><a href="#目前进展" class="headerlink" title="目前进展"></a>目前进展</h2><p>现在终端设备（STM32+ESP8266）已经没啥问题了，因为数据一旦丢到云上，剩下的就看怎么用了。<br>对于安卓移动端，数据已经分组提取好了，剩下的就是UI的问题了</p>
+<h2 id="后期计划"><a href="#后期计划" class="headerlink" title="后期计划"></a>后期计划</h2><ol>
+<li>在移动端成绩数据调通以后，将开发移动端选择或指定计划的功能</li>
+<li>利用NodeRed搭建后端，实现app远程控制</li>
+<li>全部调试完成后，重新设计硬件及外壳</li>
+</ol>
+]]></content>
+      <categories>
+        <category>物联网</category>
+      </categories>
+      <tags>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>IoT</tag>
+        <tag>物联网</tag>
+        <tag>ESP8266</tag>
+        <tag>阿里云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【物联网】游泳训练辅助系统（一）</title>
+    <url>/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><p>一种帮助完成游泳训练计划的游泳智能训练系统，其特征在于：</p>
+<ol>
+<li>使运动员自行或由教练员在移动设备上添加或分享计划项目及各项目包干时间，并下载于终端设备上。</li>
+<li>在训练过程中通过液晶屏显示当前项目，下一项目，项目成绩，项目包干时间及剩余休息时间等关键信息</li>
+<li>在训练结束后生成训练完成情况并上报至云端。</li>
+<li>整个过程中由设备自动发令，提示运动员包干休息时间并计时。<a id="more"></a>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2></li>
+</ol>
+<pre><code>1.在移动设备上添加计划
+2.计划同步至云端
+3.终端设备从云端下载计划
+4.运动员在终端设备选择计划并开始训练
+5.系统记录下运动员各项目各组成绩
+6.训练结束后终端设备将成绩上报云端
+7.移动端从云端订阅训练报告</code></pre><h1 id="技术背景"><a href="#技术背景" class="headerlink" title="技术背景"></a>技术背景</h1><ul>
+<li>游泳是一项竞技体育运动，运动员在训练中需要根据自身需要制定特定的训练计划。计划中的项目一般有完成的速度要求，其中设置包干时间是一种普遍用于游泳运动的训练方法。</li>
+</ul>
+<p> <strong>包干时间中规定了运动员完成该项目所用时间及休息时间。</strong></p>
+<h2 id="适用人群"><a href="#适用人群" class="headerlink" title="适用人群"></a>适用人群</h2><h3 id="游泳爱好者"><a href="#游泳爱好者" class="headerlink" title="游泳爱好者"></a>游泳爱好者</h3><p> 对于爱好者，常常对计划的制定有些迷茫，该设备可为普通爱好者提供常用训练计划，并在其执行中进行提示帮助其完成。</p>
+<h3 id="独自训练或没有教练的运动员"><a href="#独自训练或没有教练的运动员" class="headerlink" title="独自训练或没有教练的运动员"></a>独自训练或没有教练的运动员</h3><p> 对于运动员，在没有教练的情况下，运动员在训练中不能很好地了解自己的游速及包干时间所对应的休息时间。该产品可以准确地记录运动员成绩，并在包干结束后提示运动员出发。在训练完成后生成训练报告供运动员了解自己的运动情况</p>
+<h3 id="教练员"><a href="#教练员" class="headerlink" title="教练员"></a>教练员</h3><p> 教练员使用秒表计时的误差较大，且对运动员状态的了解不够直观。该设备的自动计时可实现自动精准计时，且在训练结束后生成训练报告，让教练员直观地了解运动员状态。训练计划制定功能更能使不同运动员使用不同计划并同时训练。</p>
+<h1 id="具体实施方式"><a href="#具体实施方式" class="headerlink" title="具体实施方式"></a>具体实施方式</h1><h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p> 终端设备采用了STM32接入阿里云IoT hub</p>
+<ul>
+<li>采用一块3.2寸的液晶电阻屏及用于到边计时的按键，有较好的人机交互效果。</li>
+<li>软件上封装了各常用项目模块及常用计划，可实现脱离云端工作。</li>
+<li>使用ESP8266或gprs通过MQTT协议接入阿里云实现数据上报。<h2 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h2>通过阿里云IoT Studio开发<strong>安卓/ios</strong>的移动端应用</li>
+<li>实现数据订阅</li>
+<li>查看终端设备运行状况</li>
+<li>控制终端设备</li>
+<li>查看云端信息（包括训练完成情况等）</li>
+</ul>
+<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="终端设备单机运行"><a href="#终端设备单机运行" class="headerlink" title="终端设备单机运行"></a>终端设备单机运行</h2><p>在不考虑上云的情况下终端设备可以独立正常运行。</p>
+<h3 id="流程展示"><a href="#流程展示" class="headerlink" title="流程展示"></a>流程展示</h3><p>1.<strong>设备上电进入计划选择页面</strong><br><img src="https://pic.downk.cc/item/5e93e874c2a9a83be5b6e2f0.jpg" alt=""><br>在设备中板载了十套计划可供选择，软件上封装了大部分的常用训练项目，实现模块化计划制定<br><img src="https://pic.downk.cc/item/5e93e927c2a9a83be5b73f14.jpg" alt=""></p>
+<p>2.<strong>训练界面</strong><br><img src="https://pic.downk.cc/item/5e93ea01c2a9a83be5b7b6c3.jpg" alt=""><br>在训练状态下，设备会将项目名称，包干时间及速度要求等信息显示在液晶屏上。<br>设备会在每组休息时间结束后提示运动员出发并自动开始计时。<br>在运动员到边后会将其成绩显示出来，并与速度要求比较后显示迟到或超前。同时按包干时间把剩余休息时间在屏幕上实时显示。</p>
+<p>3.<strong>训练结束报告</strong></p>
+<p><img src="https://pic.downk.cc/item/5e93eb39c2a9a83be5b8658a.jpg" alt=""></p>
+<p>训练结束后会生成训练完成情况的报告，报告将每项完成成绩显示在屏幕上。</p>
+<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><h2 id="数据上云"><a href="#数据上云" class="headerlink" title="数据上云"></a>数据上云</h2><p>1.目前已经将成绩数据等保存在本地，后期计划将数据以MQTT协议通过Wifi或GPRS模块上报云端，并设计移动端应用查看。</p>
+<h2 id="计划制定方式"><a href="#计划制定方式" class="headerlink" title="计划制定方式"></a>计划制定方式</h2><p>2.目前计划添加及更改只能在Keil上进行，为降低制定计划的门槛，后期将通过订阅云端的方式实现在移动端通过各项目模块制定计划的功能。</p>
+<h2 id="产品硬件及结构"><a href="#产品硬件及结构" class="headerlink" title="产品硬件及结构"></a>产品硬件及结构</h2><p>3.目前终端设备采用的是一块STM32f103开发板，待项目完成后将各所需模块集成在PCB上自制硬件并进项外壳设计。</p>
+]]></content>
+      <categories>
+        <category>物联网</category>
+      </categories>
+      <tags>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>IoT</tag>
+        <tag>物联网</tag>
+        <tag>阿里云</tag>
+        <tag>MQTT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32游泳训练辅助+ESP8266接入阿里云</title>
+    <url>/2020/04/11/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91STM32-ESP8266-%E4%B8%8A-%E4%BA%91/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>最近机器学习先放了放，先填一填之前物联网项目的坑。之前已经把终端设备调通了，现在要达到的功能就是把数据上报阿里云，也就是：让终端<strong>上 云</strong>。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNjhlMDUwNGY0YmNiMDQ3ZmVjZDguanBn?x-oss-process=image/format,png#pic_center" alt=""></p>
+<a id="more"></a>
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>我这边有一块gprs还有几块esp8266，本来是打算用gprs的，接入阿里云也相对方便 ，但是我用的sim800a模块不能直接用5V供电，一定要DC外部供电，就劝退。我估计还是应为发送瞬间要求电流太大的原因。所以最后用了ESP8266 12f。<br><img src="https://pic.downk.cc/item/5e93e5d6c2a9a83be5b58cdd.jpg" alt=""></p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><ul>
+<li><p>在keil上安装json库<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNmM4YjUwNGY0YmNiMDQ4MzdjZTUuanBn?x-oss-process=image/format,png" alt=""></p>
+</li>
+<li><p>MQTT.fx<br><a href="http://mqtt-fx.software.informer.com/download/" target="_blank" rel="noopener">Windows系统</a><br><a href="http://macdownload.informer.com/mqtt-fx/" target="_blank" rel="noopener">Mac系统</a></p>
+</li>
+<li><p>安信可ESP8266 IDE<br><a href="http://wiki.ai-thinker.com/ai_ide_install" target="_blank" rel="noopener">安信可官方IDE</a><br><a href="http://wiki.ai-thinker.com/esp_download" target="_blank" rel="noopener"> ESP 系列模组固件烧录</a></p>
+</li>
+<li><p>ESP8266官方SDK</p>
+</li>
+<li><p><a href="http://wiki.ai-thinker.com/ai_ide_use" target="_blank" rel="noopener">官方SDK</a></p>
+<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h3></li>
+<li><p><a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a></p>
+</li>
+</ul>
+<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32"></a>STM32</h2><p>stm32使用串口3与esp8266通信。目前已经调通了在tx rx短接情况下的自发自收。</p>
+<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a>ESP8266</h2><p>使用esp8266官方MDK接入了阿里云并实现了数据收发。</p>
+<ul>
+<li>串口调试信息</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzQwMjUwNGY0YmNiMDQ4OWNlMTkuanBn?x-oss-process=image/format,png" alt=""></p>
+<ul>
+<li>云端看到设备上线</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzI3YjUwNGY0YmNiMDQ4ODk1ZTguanBn?x-oss-process=image/format,png" alt=""></p>
+<h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>在阿里IoT hub中依次创建产品-设备-产品功能属性，我定义了一个整数型的成绩变量<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzVlZjUwNGY0YmNiMDQ4YmIxMDcuanBn?x-oss-process=image/format,png" alt=""><br>通过MQTT.fx接入阿里云，在物模型通信Topic中找到上报属性的发布及订阅，分别填入MQTT.fx<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzc1YjUwNGY0YmNiMDQ4Y2ZjNWEuanBn?x-oss-process=image/format,png" alt=""></p>
+<h3 id="通过json格式向阿里云发布信息"><a href="#通过json格式向阿里云发布信息" class="headerlink" title="通过json格式向阿里云发布信息"></a>通过<strong>json</strong>格式向阿里云发布信息</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzkxMTUwNGY0YmNiMDQ4ZWIyZDQuanBn?x-oss-process=image/format,png" alt=""><br>在Subscribe看到阿里云返回的信息中显示success即发送成功<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzk0NTUwNGY0YmNiMDQ4ZWVjNDcuanBn?x-oss-process=image/format,png" alt=""><br>在阿里云中设备运行状态可以在云端查看到成绩数据<br><img src="https://img-blog.csdnimg.cn/20200411160254804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RhcnNtYXI=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxN2EyMzUwNGY0YmNiMDQ4ZmJlYWIuanBn?x-oss-process=image/format,png" alt=""></p>
+<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><p>目前各模块的基本功能都已经调通了，接下来要做的就是把各模块组合起来实现设备直接记录并上报数据。但是据说阿里云安卓订阅有点问题，正好之前建站租了个服务器，所以我自己搭建了一个mqtt的服务器，现在还没调通。</p>
+]]></content>
+      <categories>
+        <category>物联网</category>
+      </categories>
+      <tags>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>IoT</tag>
+        <tag>物联网</tag>
+        <tag>ESP8266</tag>
+        <tag>阿里云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【前端】利用Hexo在Github上部署个人博客</title>
+    <url>/2020/04/01/%E5%88%A9%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>使用GitHub部署个人博客可以不用花一分钱租用或购买服务器便能拥有个人网站。在开始之前，我们需要下载几个软件。</p>
+<a id="more"></a>
+
+
+<h2 id="1-1准备"><a href="#1-1准备" class="headerlink" title="1.1准备"></a>1.1准备</h2><p><strong>你需要准备的有：</strong></p>
+<ol>
+<li><strong><a href="https://www.github.com/" target="_blank" rel="noopener">一个GitHub账号</a></strong> </li>
+<li><strong><a href="https://nodejs.org/" target="_blank" rel="noopener">安装Node.js</a></strong></li>
+<li><strong><a href="https://gitforwindows.org/" target="_blank" rel="noopener">安装Git</a></strong> </li>
+<li><strong>安装Hexo</strong></li>
+</ol>
+<h1 id="2-开始"><a href="#2-开始" class="headerlink" title="2.开始"></a>2.开始</h1><h2 id="2-1在GitHub上创建仓库"><a href="#2-1在GitHub上创建仓库" class="headerlink" title="2.1在GitHub上创建仓库"></a>2.1在GitHub上创建仓库</h2><p><strong>申请Github账号，建立一个仓库，并为此创建一个Github Pages</strong></p>
+<p>注册GitHub账号（略）。注册完成后在<a href="https://www.github.com/" target="_blank" rel="noopener">Github首页</a>在右上角 <strong>‘+’</strong> 号，选择 <strong>New repository</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200401204718788.png#pic_center" alt="在这里插入图片描述"><br>仓库名为 <strong>你的账户名</strong> + <strong>github.io</strong> 设置完成后点击下方绿色按钮<br><img src="https://img-blog.csdnimg.cn/20200401205236342.png#pic_center" alt="在这里插入图片描述"><br>建好后在项目页面的顶部右侧选择 <strong>Setting</strong><img src="https://img-blog.csdnimg.cn/20200401205414534.png#pic_center" alt="在这里插入图片描述"><br>往下拉直到看到 <strong>Github Pages</strong> 看到Source下有提示错误，我们点击下方的 <strong>Choose a theme</strong> 随意选择一个主题<br><img src="https://img-blog.csdnimg.cn/20200401205506874.png#pic_center" alt="在这里插入图片描述"><br>选择完成后返回项目页面可以看到Github Page变成下图<br><img src="https://img-blog.csdnimg.cn/20200401205945938.png#pic_center" alt="在这里插入图片描述"><br><strong>至此Github Page建立完成</strong></p>
+<h2 id="2-2-搭建Hexo并将个人博客部署至Github"><a href="#2-2-搭建Hexo并将个人博客部署至Github" class="headerlink" title="2.2 搭建Hexo并将个人博客部署至Github"></a>2.2 搭建Hexo并将个人博客部署至Github</h2><h3 id="2-2-1利用npm安装cnpm"><a href="#2-2-1利用npm安装cnpm" class="headerlink" title="2.2.1利用npm安装cnpm"></a>2.2.1利用npm安装cnpm</h3><p>由于国内镜像源速度很慢，所以在使用前利用npm安装cnpm，使用淘宝镜像源。使用 <strong>Win + R</strong> 在弹出的窗口中输入 <strong>cmd</strong> 打开命令行窗口<br>在命令行中输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>输入cnpm -v查看版本号检查是否安装成功<br><img src="https://img-blog.csdnimg.cn/20200401213200412.png#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-2-2-安装并部署Hexo"><a href="#2-2-2-安装并部署Hexo" class="headerlink" title="2.2.2 安装并部署Hexo"></a>2.2.2 安装并部署Hexo</h3><p>首先在cmd输入如下命令检查Git及Node.js是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git version</span><br><span class="line"></span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>出现版本号即安装成功</p>
+<p>利用Node.js的包管理器npm安装Hexo:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g #全局安装</span><br></pre></td></tr></table></figure>
+<p>输入 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>验证是否安装成功，之后将正式建立网站<img src="https://img-blog.csdnimg.cn/20200401214039304.jpg#pic_center" alt="在这里插入图片描述"></p>
+<p>在喜欢的位置创建一个空文件夹，注意文件夹必须为空。我们之后的博客全部文件都会在这个文件夹中。推荐大家习惯性备份，后面一旦出现任何问题可以直接把文件夹删掉重来。我这里的路径为D:\Blog</p>
+<p>在该文件夹下右键点击Git Bash Here<br><img src="https://img-blog.csdnimg.cn/20200401214652640.png#pic_center" alt="在这里插入图片描述"></p>
+<p>输入 <strong>hexo init</strong> 初始化文件夹（没有反应请耐心等待）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo init</span></span><br></pre></td></tr></table></figure>
+<p>输入npm install安装组件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">npm install</span></span><br></pre></td></tr></table></figure>
+
+<p>输入npm server启动服务器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo server</span></span><br></pre></td></tr></table></figure>
+<p>执行命令提示 <strong>localhost:4000</strong><br>复制地址在浏览器上打开看到下图，博客界面已经显示出来了<br>现在的博客仅在<strong>本地</strong>成功显示，接下来我们要把博客部署到<strong>远端服务器</strong>上<br>也就是把页面推送至<strong>Github Pages</strong><br><img src="https://img-blog.csdnimg.cn/20200401215310889.png?size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="2-2-3-将个人博客部署至远端服务器"><a href="#2-2-3-将个人博客部署至远端服务器" class="headerlink" title="2.2.3 将个人博客部署至远端服务器"></a>2.2.3 将个人博客部署至远端服务器</h3><p> <strong>配置SSH公钥</strong></p>
+<p>配置<strong>Github</strong>的<strong>SSH密钥</strong>使<strong>本地git项目</strong>与<strong>远端Github</strong>建立连接，使我们在本地写的代码与Github代码库同步。操作如下：<br>在我们创建博客文件夹里右击，选择 Git Base Here<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span> <span class="comment">#将邮箱填入示例中</span></span></span><br></pre></td></tr></table></figure>
+<p>按下回车后得到保存的目标地址，也可以在此处修改成你希望的地址（默认在C:\Users\Administrator.ssh）<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">clip &lt; ~/.ssh/id_rsa.pub</span></span><br></pre></td></tr></table></figure>
+<p>将id_rsa.pub文件中的内容复制到剪贴板</p>
+<p>回到<a href="https://www.github.com/" target="_blank" rel="noopener">Github主页</a>，点击头像下的<strong>Settings</strong><br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center</a> =200x300)<br>在左侧找到<strong>SSH and GPG keys</strong><br><img src="https://img-blog.csdnimg.cn/202004012224024.png#pic_center" alt="在这里插入图片描述"><br>随便起一个<strong>Title</strong> 将剪贴板中的公钥内容粘贴至<strong>Key</strong><br><img src="https://img-blog.csdnimg.cn/20200401222639203.png#pic_center" alt="在这里插入图片描述"><br>完成后我们在终端测试是否安装成功<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
+<p>成功后你已经可以通过SSH链接到GitHub了，输入下面的代码设置信息，把名称和邮箱替换成你自己的</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"your_name"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的用户名填入示例</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">"your_email@example.com"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的邮箱填入示例</span></span><br></pre></td></tr></table></figure>
+<p>在仓库页面将链接复制到剪贴板中<br><img src="https://img-blog.csdnimg.cn/2020040122395490.png#pic_center" alt="在这里插入图片描述"></p>
+<p>接下来直接在电脑上打开我们创建的Blog文件夹，在文件夹中有一个 <strong>_config.yml</strong> 配置文档。<br>打开 <strong>_config.yml</strong> 并翻到最后，看到#Deployment<br>将所复制的链接粘贴至<strong>repository:</strong> 后<br><strong>注意：</strong> ==每个: 后都有空格==</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Deployment</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Docs: https://hexo.io/docs/deployment.html</span></span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Tarsmar/Tarsmar.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>在命令窗口部署相关插件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
+<p>完成后，离成功就只差最后一步了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200401225257839.png#pic_center" alt="在这里插入图片描述"><br>在弹出的窗口输入Github的<strong>账号及密码</strong><br>等待片刻部署便完成了<br>在浏览器中输入 <strong><a href="https://tarsmar.github.io/">https://tarsmar.github.io/</a></strong>便可以访问到个人博客<br><img src="https://img-blog.csdnimg.cn/2020040122540467.png#pic_center" alt="在这里插入图片描述"></p>
+<p> <strong><em>至此，个人博客已经部署完成</em></strong></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>Github</tag>
+        <tag>个人博客</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>

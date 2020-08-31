@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
+   
+  <meta name="description" content="为游泳训练辅助系统添加了心率血氧的检测功能" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    【嵌入式】心率血氧检测模块MAX30102体验 |  麦德道格的个人站
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="麦德道格的个人站" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-【嵌入式】心率血氧检测模块MAX30102体验" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【嵌入式】心率血氧检测模块MAX30102体验
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" class="article-date">
+  <time datetime="2020-05-08T08:24:00.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.4k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
+<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
+<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
+<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
+<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
+<blockquote>
+<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
+</blockquote>
+<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
+<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
+<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
+<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
+<ul>
+<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
+<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
+<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
+<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
+之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
+在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MAX30102/" rel="tag">MAX30102</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%AF%E7%A9%BF%E6%88%B4%E8%AE%BE%E5%A4%87/" rel="tag">可穿戴设备</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/16/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91IoTSwimming%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【物联网】IoTSwimming项目进度</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'M6IDunat9bY7AQjbpo87wNKv-gzGzoHsz',
+        app_key: 'rWMXvT8jg3CySpkQYOrpGEHu',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'wavatar',
+        placeholder: '使用夜间模式可能会看不到验证码哦~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        Stefan Wang
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.png" alt="麦德道格的个人站"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://space.bilibili.com/19089842" target="_blank" rel="noopener">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/01/01/about/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>好饿啊，早知道不学自动化了</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/pay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['不会游泳的魔术师不是好程序员', 'Just a swimmer sharing fun adventures', ''],
+      startDelay: 0,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 30,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>

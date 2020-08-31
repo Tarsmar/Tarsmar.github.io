@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>麦德道格的个人站</title>
+  
+  <subtitle>麦德道格的个人站</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://tarsmar.github.io/"/>
+  <updated>2020-05-08T11:00:22.569Z</updated>
+  <id>https://tarsmar.github.io/</id>
+  
+  <author>
+    <name>Stefan Wang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【嵌入式】心率血氧检测模块MAX30102体验</title>
+    <link href="https://tarsmar.github.io/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/"/>
+    <id>https://tarsmar.github.io/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/</id>
+    <published>2020-05-08T08:24:00.000Z</published>
+    <updated>2020-05-08T11:00:22.569Z</updated>
+    
+    <summary type="html">
+    
+      为游泳训练辅助系统添加了心率血氧的检测功能
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="MAX30102" scheme="https://tarsmar.github.io/tags/MAX30102/"/>
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="STM32" scheme="https://tarsmar.github.io/tags/STM32/"/>
+    
+      <category term="可穿戴设备" scheme="https://tarsmar.github.io/tags/%E5%8F%AF%E7%A9%BF%E6%88%B4%E8%AE%BE%E5%A4%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【物联网】IoTSwimming项目进度</title>
+    <link href="https://tarsmar.github.io/2020/04/16/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91IoTSwimming%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6/"/>
+    <id>https://tarsmar.github.io/2020/04/16/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91IoTSwimming%E9%A1%B9%E7%9B%AE%E8%BF%9B%E5%BA%A6/</id>
+    <published>2020-04-15T16:50:35.000Z</published>
+    <updated>2020-04-16T07:25:00.022Z</updated>
+    
+    <summary type="html">
+    
+      游泳训练辅助STM32+ESP8266项目进度
+    
+    </summary>
+    
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="IoT" scheme="https://tarsmar.github.io/tags/IoT/"/>
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+      <category term="ESP8266" scheme="https://tarsmar.github.io/tags/ESP8266/"/>
+    
+      <category term="阿里云" scheme="https://tarsmar.github.io/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STM32游泳训练辅助+ESP8266接入阿里云</title>
+    <link href="https://tarsmar.github.io/2020/04/11/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91STM32-ESP8266-%E4%B8%8A-%E4%BA%91/"/>
+    <id>https://tarsmar.github.io/2020/04/11/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91STM32-ESP8266-%E4%B8%8A-%E4%BA%91/</id>
+    <published>2020-04-11T06:42:09.000Z</published>
+    <updated>2020-04-13T04:11:01.631Z</updated>
+    
+    <summary type="html">
+    
+      游泳训练辅助STM32+ESP8266接入阿里云
+    
+    </summary>
+    
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="IoT" scheme="https://tarsmar.github.io/tags/IoT/"/>
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+      <category term="ESP8266" scheme="https://tarsmar.github.io/tags/ESP8266/"/>
+    
+      <category term="阿里云" scheme="https://tarsmar.github.io/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【机器视觉】上手OpenMV一周心得</title>
+    <link href="https://tarsmar.github.io/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/"/>
+    <id>https://tarsmar.github.io/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/</id>
+    <published>2020-04-03T15:06:48.000Z</published>
+    <updated>2020-04-12T17:36:06.189Z</updated>
+    
+    <summary type="html">
+    
+      OpenMV第一周学习
+    
+    </summary>
+    
+    
+      <category term="机器视觉" scheme="https://tarsmar.github.io/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="机器视觉" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/"/>
+    
+      <category term="机器学习" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【前端】利用Hexo在Github上部署个人博客</title>
+    <link href="https://tarsmar.github.io/2020/04/01/%E5%88%A9%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://tarsmar.github.io/2020/04/01/%E5%88%A9%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2020-04-01T15:02:24.000Z</published>
+    <updated>2020-04-06T04:55:45.528Z</updated>
+    
+    <summary type="html">
+    
+      利用Hexo在Github上部署个人博客
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="https://tarsmar.github.io/categories/Hexo/"/>
+    
+    
+      <category term="Git" scheme="https://tarsmar.github.io/tags/Git/"/>
+    
+      <category term="Github" scheme="https://tarsmar.github.io/tags/Github/"/>
+    
+      <category term="个人博客" scheme="https://tarsmar.github.io/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="Hexo" scheme="https://tarsmar.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【物联网】游泳训练辅助系统（一）</title>
+    <link href="https://tarsmar.github.io/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://tarsmar.github.io/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/</id>
+    <published>2020-03-16T17:29:03.000Z</published>
+    <updated>2020-04-14T08:27:51.721Z</updated>
+    
+    <summary type="html">
+    
+      一种帮助完成游泳训练计划的游泳智能训练系统
+    
+    </summary>
+    
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="IoT" scheme="https://tarsmar.github.io/tags/IoT/"/>
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+      <category term="阿里云" scheme="https://tarsmar.github.io/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+      <category term="MQTT" scheme="https://tarsmar.github.io/tags/MQTT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【物联网】NXP Rapid IoT 物联网开发套件体验</title>
+    <link href="https://tarsmar.github.io/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/"/>
+    <id>https://tarsmar.github.io/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/</id>
+    <published>2019-01-14T05:52:19.000Z</published>
+    <updated>2020-04-06T04:49:21.994Z</updated>
+    
+    <summary type="html">
+    
+      NXP物联网开发套件体验
+    
+    </summary>
+    
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="GUI" scheme="https://tarsmar.github.io/tags/GUI/"/>
+    
+      <category term="IoT" scheme="https://tarsmar.github.io/tags/IoT/"/>
+    
+      <category term="NB-IoT" scheme="https://tarsmar.github.io/tags/NB-IoT/"/>
+    
+      <category term="在线IDE" scheme="https://tarsmar.github.io/tags/%E5%9C%A8%E7%BA%BFIDE/"/>
+    
+      <category term="物联网" scheme="https://tarsmar.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>About Me</title>
+    <link href="https://tarsmar.github.io/2019/01/01/about/"/>
+    <id>https://tarsmar.github.io/2019/01/01/about/</id>
+    <published>2018-12-31T16:00:00.000Z</published>
+    <updated>2020-04-02T06:31:36.045Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Just-a-swimmer-sharing-fun-adventures&quot;&gt;&lt;a href=&quot;#Just-a-swimmer-sharing-fun-adventures&quot; class=&quot;headerlink&quot; title=&quot;Just a swimmer
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="随笔" scheme="https://tarsmar.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>

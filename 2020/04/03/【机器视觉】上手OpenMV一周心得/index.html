@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
+   
+  <meta name="description" content="OpenMV第一周学习" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    【机器视觉】上手OpenMV一周心得 |  麦德道格的个人站
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="麦德道格的个人站" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-【机器视觉】上手OpenMV一周心得" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【机器视觉】上手OpenMV一周心得
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/" class="article-date">
+  <time datetime="2020-04-03T15:06:48.000Z" itemprop="datePublished">2020-04-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/">机器视觉</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.1k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://pic.downk.cc/item/5e8ab43b504f4bcb04c7d965.jpg" alt=""></p>
+<p>最近入手了官方版本的OpenMV。当然了，入手官方版本的主要原因倒不是懒得点那三次提示，而是因为我在某宝逛的时候还不是道这玩意是开源的。</p>
+<a id="more"></a>
+<p><img src="https://pic.downk.cc/item/5e87544a504f4bcb0405f0c0.jpg#pic_center" alt=""></p>
+<h1 id="OpenMV简介"><a href="#OpenMV简介" class="headerlink" title="OpenMV简介"></a>OpenMV简介</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p><img src="https://pic.downk.cc/item/5e8758f8504f4bcb040bb098.png" alt=""></p>
+<p>· OpenMV摄像头是一款小巧，低功耗，低成本的电路板，它帮助你很轻松的完成机器视觉（machine vision）应用。你可以通过高级语言Python脚本，而不是C/C++。Python的高级数据结构使你很容易在机器视觉算法中处理复杂的输出。但是，你仍然可以完全控制OpenMV，包括IO引脚。你可以很容易的使用外部终端触发拍摄或者或者执行算法，也可以把算法的结果用来控制IO引脚。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>OpenMV摄像头的特点：</p>
+<p>STM32F765VI ARM Cortex M7 处理器，216 MHz ，512KB RAM，2 MB flash. 所有的 I/O 引脚输出 3.3V 并且 5V 耐受。这个处理器有以下的IO接口。<br>全速 USB (12Mbs) 接口，连接到电脑。当插入OpenMV摄像头后，你的电脑会出现一个虚拟COM端口和一个“U盘”。<br>μSD卡槽拥有100Mbs读写，这允许你的OpenMV摄像头录制视频，和把机器视觉的素材从SD卡提取出来。<br>一个SPI总线高达54Mbs速度，允许你简单的把图像流数据传给LCD扩展板，WiFi扩展板，或者其他控制器。<br>一个 I2C总线，CAN总线, 和一个异步串口总线 (TX/RX) ，用来链接其他控制器或者传感器。<br>一个12-bit ADC 和一个12-bit DAC。<br>3个 I/O 引脚用于舵机控制。<br>所有的IO口都可以用于中断和PWM(板子上有10个I/O引脚)。<br>一个RGB三色LED，两个高亮的红外 850nm IR LED。</p>
+<p><strong>更多资料请查看<a href="https://singtown.com/openmv/" target="_blank" rel="noopener">星瞳科技</a>官网</strong>（星瞳科技为OpenMV在国内的官方代理，使用官方版本的OpenMV都带有官方注册码，在使用IDE时自动识别）</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>目前OpenMV摄像头可以用来做一下的事情 (未来会更多):</p>
+<p><strong>Frame Differencing帧差分算法</strong><br><strong>Color Tracking颜色追踪</strong><br><strong>Marker Tracking标记跟踪</strong><br><strong>Face Detection人脸检测</strong><br><strong>Eye Tracking眼动跟踪</strong><br><strong>Optical Flow光流</strong><br><strong>QR Code Detection/Decoding二维码检测/解码</strong><br><strong>AprilTag Tracking标记跟踪</strong><br><strong>Line Detection直线检测</strong><br><strong>Circle Detection圆形检测</strong><br><strong>Rectangle Detection矩形检测</strong><br><strong>Template Matching模板匹配</strong><br><strong>Image Capture图像捕捉</strong><br><strong>Video Recording视频录制</strong></p>
+<p>最后，所有上述功能都可以混合IO引脚的控制，来配合你自己的自定义应用，以与现实世界交谈。</p>
+<h1 id="使用体验"><a href="#使用体验" class="headerlink" title="使用体验"></a>使用体验</h1><h2 id="MicroPython"><a href="#MicroPython" class="headerlink" title="MicroPython"></a>MicroPython</h2><p>在上手学习OpenMV之前，我仅有一点基础的Python知识，并没有实际运用过Python语言。<br>众所周知早期的单片机使用汇编语言来编程，随着微处理器的发展，后来逐步被 C 所取代，现在的微处理器集成度越来越高了，那么我们现在可以使用 Python 语言来开发了。OpenMV就可以使用MicroPython进行开发。</p>
+<p><strong>MicroPython</strong>算是<strong>Python 3</strong>的精简版本，包括了Python标准库中的一小部分，可以在资源有限的微处理器上运行。</p>
+<h2 id="“人生苦短，我用-Python”"><a href="#“人生苦短，我用-Python”" class="headerlink" title="“人生苦短，我用 Python”"></a><strong>“人生苦短，我用 Python”</strong></h2><p>和单片机学习一样，我学习的第一个实验是点亮LED。我相信大家对这个已经非常熟悉了，但是为了直观地比较，还是给大家看一下代码。我们把注意力放在代码量上就行。</p>
+<p>这是使用C语言对stm32f103单片机点亮LED的代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    main.c</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stm32f10x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bsp_led.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LED_GPIO_Config();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    bsp_led.c</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"bsp_led.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LED_GPIO_Config</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	GPIO_InitTypeDef  GPIO_InitStruct;</span><br><span class="line">	RCC_APB2PeriphClockCmd(LED_G_GPIO_CLK, ENABLE);</span><br><span class="line">	GPIO_InitStruct.GPIO_Pin = LED_G_GPIO_PIN;</span><br><span class="line">	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;</span><br><span class="line">	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">	GPIO_Init(LED_G_GPIO_PORT, &amp;GPIO_InitStruct);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">  * @file    bsp_led.h</span></span><br><span class="line"><span class="comment">*****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __BSP_LED_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __BSP_LED_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stm32f10x.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_PIN   GPIO_Pin_0	</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_PORT  GPIOB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED_G_GPIO_CLK   RCC_APB2Periph_GPIOB</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LED_GPIO_Config</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* __BSP_LED_H */</span></span></span><br></pre></td></tr></table></figure>
+
+
+<p>我们再看看实现同样功能，使用Python对OpenMV的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyb <span class="keyword">import</span> LED</span><br><span class="line">LED(<span class="number">3</span>).on()</span><br></pre></td></tr></table></figure>
+
+<p>我们能直观的感受到Python的强大，上面展示的还只是手打代码的部分，更不要说新建工程的一系列繁琐操作就够劝退了，即便是有了Cube的加持，还是远远比不上Python两行解决问题。</p>
+<p>实际上MicroPython已经把常用功能都封装到库中了，以及一些常用的传感器和组件都编写了专门的驱动，通过调用相关函数，就可以直接控制 LED、按键、伺服电机、PWM、AD/DA、UART、SPI、IIC 以及 DS18B20等等。以往需要花费<strong>数天</strong>编写才能实现的硬件功能代码，现在基于<br>MicroPython 开发只要十几分钟甚至<strong>几行代码</strong>就可以解决。</p>
+<p>在学习使用OpenMV的几天，我体会最深刻的就是 <strong>“人生苦短，我用 Python”</strong> 这句话</p>
+<h2 id="学习进度"><a href="#学习进度" class="headerlink" title="学习进度"></a>学习进度</h2><p>在上手OpenMV之前，我有过51、stm32f1及stm32f4的开发经验，所以在学习基础功能上我没有花费太多时间，实现包括控制GPIO，外部中断，定时器，IIC，AD，DA等全部操作总共也就两个钟头。</p>
+<p>毕竟<strong>机器视觉</strong>才是最主要的</p>
+<p>截止目前，我已经上手OpenMV一周时间了。在一周的时间中我已经实现了OpenMV支持的机器视觉大部分功能。这些功能在前言中已有列举便不再多说。但实现这些仅仅用了一周的时间是真正令我感到意外的。在我的印象中机器视觉应该是一项很数学的工作，一想到傅里叶这个词就让人心里发毛。但在实际的学习中并没有出现太多的数学。</p>
+<p>实现绝大多数功能仅仅需要会调用函数就行了，在这里我举个简单的例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sensor, time, image</span><br><span class="line">sensor.reset()</span><br><span class="line">sensor.set_contrast(<span class="number">3</span>)</span><br><span class="line">sensor.set_gainceiling(<span class="number">16</span>)</span><br><span class="line">sensor.set_framesize(sensor.HQVGA)</span><br><span class="line">sensor.set_pixformat(sensor.GRAYSCALE)</span><br><span class="line">face_cascade = image.HaarCascade(<span class="string">"frontalface"</span>, stages=<span class="number">25</span>)</span><br><span class="line">print(face_cascade)</span><br><span class="line">clock = time.clock()</span><br><span class="line"><span class="keyword">while</span> (<span class="literal">True</span>):</span><br><span class="line">    clock.tick()</span><br><span class="line">    img = sensor.snapshot()</span><br><span class="line">    objects = img.find_features(face_cascade, threshold=<span class="number">0.75</span>, scale_factor=<span class="number">1.25</span>)</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> objects:</span><br><span class="line">        img.draw_rectangle(r)</span><br><span class="line">    print(clock.fps())</span><br></pre></td></tr></table></figure>
+<p>以上就是实现面部检测的<strong>全部代码</strong></p>
+<p>是不是有些难以置信？似乎印象中遥不可及的机器视觉好像并没有比点亮LED复杂多少？这也是OpenMV给我最直观的感受。</p>
+<p>但是如果再深入了解一点，画风就不一样了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.find_lines([roi[, x_stride=<span class="number">2</span>[, y_stride=<span class="number">1</span>[, threshold=<span class="number">1000</span>[,</span><br><span class="line">theta_margin=<span class="number">25</span>[, rho_margin=<span class="number">25</span>]]]]]])</span><br></pre></td></tr></table></figure>
+<p>这是直线识别函数，返回一个 image.line 直线对象。直线识别使用了<strong>霍夫转换算法</strong></p>
+<blockquote>
+<p>霍夫变换是一种特征提取，被广泛应用在图像分析、电脑视觉以及数位影像处理（英语：Digital image processing）。 霍夫变换是用来辨别找出物件中的特征，例如：线条。他的算法流程大致如下，给定一个物件、要辨别的形状的种类，算法会在参数空间（英语：Parameter space）中执行投票来决定物体的形状，而这是由累加空间（accumulator space）里的局部最大值来决定</p>
+</blockquote>
+<p>参考链接：<a href="http://en.wikipedia.org/wiki/Hough_transform" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Hough_transform</a></p>
+<p>当我们想深入了解一下霍夫转换时，就会发现：</p>
+<p><img src="https://pic.downk.cc/item/5e8aab4e504f4bcb04be980a.jpg" alt=""><br><img src="https://pic.downk.cc/item/5e8aad70504f4bcb04c0b183.jpg" alt=""><br><strong>有内味儿了</strong></p>
+<p>当然想深入了解机器视觉肯定会比这个复杂地多。但想真正用好这些函数，去深入了解其中背后的算法还是必要的。这和嵌入式开发一样，我们不能只会在别人写好的驱动上改，只会移植别人的代码然后改改bug。一定要自己一步步把程序写出来才能体会地更深刻。</p>
+<p>我相信未来像OpenMV这样直接调用函数就能实现复杂功能会越来越普遍，但我也同时相信如果不了解函数背后的算法，不去学习底层的知识，就用不好这些函数。</p>
+<h1 id="学习计划"><a href="#学习计划" class="headerlink" title="学习计划"></a>学习计划</h1><p>接下来就要正式开始学习<strong>机器学习</strong>了。我现在对机器学习的感觉和一周前对机器视觉的感觉一样，听上去遥不可及，但是有了学习机器视觉的经验，我相信机器学习也一定有强大的库函数支持的。</p>
+<p>最近我一直在在想用OpenMV做个小项目，有想过做个泳姿识别一类，不知道在学习过机器学习之后能不能自己训练一个。这些都是后话，待我学完机器学习再说。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/" rel="tag">机器视觉</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/04/11/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91STM32-ESP8266-%E4%B8%8A-%E4%BA%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            STM32游泳训练辅助+ESP8266接入阿里云
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/01/%E5%88%A9%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【前端】利用Hexo在Github上部署个人博客</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'M6IDunat9bY7AQjbpo87wNKv-gzGzoHsz',
+        app_key: 'rWMXvT8jg3CySpkQYOrpGEHu',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'wavatar',
+        placeholder: '使用夜间模式可能会看不到验证码哦~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        Stefan Wang
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.png" alt="麦德道格的个人站"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://space.bilibili.com/19089842" target="_blank" rel="noopener">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/01/01/about/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>好饿啊，早知道不学自动化了</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/pay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['不会游泳的魔术师不是好程序员', 'Just a swimmer sharing fun adventures', ''],
+      startDelay: 0,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 30,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>
