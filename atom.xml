@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tarsmar.github.io/"/>
-  <updated>2020-08-31T07:42:07.173Z</updated>
+  <updated>2020-08-31T08:20:02.422Z</updated>
   <id>https://tarsmar.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【嵌入式】CV+机械臂</title>
+    <title>【嵌入式】机械臂项目-Linux初体验</title>
     <link href="https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/"/>
     <id>https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/</id>
     <published>2020-08-31T03:23:06.000Z</published>
-    <updated>2020-08-31T07:42:07.173Z</updated>
+    <updated>2020-08-31T08:20:02.422Z</updated>
     
     <summary type="html">
     
@@ -40,6 +40,8 @@
       <category term="机器视觉" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89/"/>
     
       <category term="机器学习" scheme="https://tarsmar.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Linux" scheme="https://tarsmar.github.io/tags/Linux/"/>
     
   </entry>
   
