@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tarsmar.github.io/"/>
-  <updated>2020-09-01T01:57:43.837Z</updated>
+  <updated>2020-09-01T11:23:52.510Z</updated>
   <id>https://tarsmar.github.io/</id>
   
   <author>
@@ -17,36 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>初识Linux第二天</title>
-    <link href="https://tarsmar.github.io/2020/09/01/%E5%88%9D%E8%AF%86Linux%E7%AC%AC%E4%BA%8C%E5%A4%A9/"/>
-    <id>https://tarsmar.github.io/2020/09/01/%E5%88%9D%E8%AF%86Linux%E7%AC%AC%E4%BA%8C%E5%A4%A9/</id>
-    <published>2020-09-01T00:52:49.000Z</published>
-    <updated>2020-09-01T01:57:43.837Z</updated>
-    
-    <summary type="html">
-    
-      Linux上手第二天
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://tarsmar.github.io/categories/Linux/"/>
-    
-    
-      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
-    
-      <category term="Linux" scheme="https://tarsmar.github.io/tags/Linux/"/>
-    
-      <category term="嵌入式Linux" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【嵌入式】机械臂项目-Linux初体验</title>
     <link href="https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/"/>
     <id>https://tarsmar.github.io/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/</id>
     <published>2020-08-31T03:23:06.000Z</published>
-    <updated>2020-08-31T11:55:47.650Z</updated>
+    <updated>2020-09-01T11:23:52.510Z</updated>
     
     <summary type="html">
     

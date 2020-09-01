@@ -225,7 +225,26 @@ esc退出插入模式</code></pre></li>
   强制退出  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&gt;:q!</span><br></pre></td></tr></table></figure>
   保存并退出  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&gt;:wq/:x</span><br></pre></td></tr></table></figure>
   复制  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&gt;:[范围]y+[回车]</span><br></pre></td></tr></table></figure>
-  删除  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&gt;:[范围]d+[回车]</span><br></pre></td></tr></table></figure></li>
+  删除  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&gt;:[范围]d+[回车]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h2><h3 id="1-gcc编译器"><a href="#1-gcc编译器" class="headerlink" title="1. gcc编译器"></a>1. gcc编译器</h3><ul>
+<li>编译：gcc</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc 文件名</span><br><span class="line">./a.out</span><br></pre></td></tr></table></figure>
+
+<p><u>./</u>为执行命令</p>
+<p><em>注意：如果修改了代码，就必须重新启动gcc</em></p>
+<ul>
+<li><p>重命名：-o</p>
+</li>
+<li><p>eg：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -o test test.c</span><br><span class="line">./test</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
 </ul>
 
       
@@ -313,15 +332,6 @@ esc退出插入模式</code></pre></li>
   
   
   <nav class="article-nav">
-    
-      <a href="/2020/09/01/%E5%88%9D%E8%AF%86Linux%E7%AC%AC%E4%BA%8C%E5%A4%A9/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            初识Linux第二天
-          
-        </div>
-      </a>
     
     
       <a href="/2020/05/08/%E3%80%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E3%80%91%E5%BF%83%E7%8E%87%E8%A1%80%E6%B0%A7%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97MAX30102%E4%BD%93%E9%AA%8C/" class="article-nav-link">
