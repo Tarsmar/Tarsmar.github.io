@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
    
-  <meta name="description" content="一种帮助完成游泳训练计划的游泳智能训练系统" />
+  <meta name="description" content="为游泳训练辅助系统添加了心率血氧的检测功能" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【物联网】游泳训练辅助系统（一） |  麦德道格的个人站
+    【嵌入式】心率血氧检测模块MAX30102体验 |  麦德道格的个人站
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-[IoT]STM32_Swimming" class="article article-type-post" itemscope
+  <article id="post-Heart_Rate_MAX30102" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【物联网】游泳训练辅助系统（一）
+  【嵌入式】心率血氧检测模块MAX30102体验
 </h1>
  
 
@@ -58,12 +58,12 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/17/%5BIoT%5DSTM32_Swimming/" class="article-date">
-  <time datetime="2020-03-16T17:29:03.000Z" itemprop="datePublished">2020-03-17</time>
+      <a href="/2020/05/08/Heart_Rate_MAX30102/" class="article-date">
+  <time datetime="2020-05-08T08:24:00.000Z" itemprop="datePublished">2020-05-08</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a>
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
   </div>
 
       
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k字</span>
+            <span class="post-count">1.4k字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -107,46 +107,28 @@
       
 
       
-      <h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><p>一种帮助完成游泳训练计划的游泳智能训练系统，其特征在于：</p>
-<ol>
-<li>使运动员自行或由教练员在移动设备上添加或分享计划项目及各项目包干时间，并下载于终端设备上。</li>
-<li>在训练过程中通过液晶屏显示当前项目，下一项目，项目成绩，项目包干时间及剩余休息时间等关键信息</li>
-<li>在训练结束后生成训练完成情况并上报至云端。</li>
-<li>整个过程中由设备自动发令，提示运动员包干休息时间并计时。<a id="more"></a>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2></li>
-</ol>
-<pre><code>1.在移动设备上添加计划
-2.计划同步至云端
-3.终端设备从云端下载计划
-4.运动员在终端设备选择计划并开始训练
-5.系统记录下运动员各项目各组成绩
-6.训练结束后终端设备将成绩上报云端
-7.移动端从云端订阅训练报告</code></pre><h1 id="技术背景"><a href="#技术背景" class="headerlink" title="技术背景"></a>技术背景</h1><ul>
-<li>游泳是一项竞技体育运动，运动员在训练中需要根据自身需要制定特定的训练计划。计划中的项目一般有完成的速度要求，其中设置包干时间是一种普遍用于游泳运动的训练方法。</li>
-</ul>
-<p> <strong>包干时间中规定了运动员完成该项目所用时间及休息时间。</strong></p>
-<h2 id="适用人群"><a href="#适用人群" class="headerlink" title="适用人群"></a>适用人群</h2><h3 id="游泳爱好者"><a href="#游泳爱好者" class="headerlink" title="游泳爱好者"></a>游泳爱好者</h3><p> 对于爱好者，常常对计划的制定有些迷茫，该设备可为普通爱好者提供常用训练计划，并在其执行中进行提示帮助其完成。</p>
-<h3 id="独自训练或没有教练的运动员"><a href="#独自训练或没有教练的运动员" class="headerlink" title="独自训练或没有教练的运动员"></a>独自训练或没有教练的运动员</h3><p> 对于运动员，在没有教练的情况下，运动员在训练中不能很好地了解自己的游速及包干时间所对应的休息时间。该产品可以准确地记录运动员成绩，并在包干结束后提示运动员出发。在训练完成后生成训练报告供运动员了解自己的运动情况</p>
-<h3 id="教练员"><a href="#教练员" class="headerlink" title="教练员"></a>教练员</h3><p> 教练员使用秒表计时的误差较大，且对运动员状态的了解不够直观。该设备的自动计时可实现自动精准计时，且在训练结束后生成训练报告，让教练员直观地了解运动员状态。训练计划制定功能更能使不同运动员使用不同计划并同时训练。</p>
-<h1 id="具体实施方式"><a href="#具体实施方式" class="headerlink" title="具体实施方式"></a>具体实施方式</h1><h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p> 终端设备采用了STM32接入阿里云IoT hub</p>
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
+<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
+<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
+<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
+<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
+<blockquote>
+<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
+</blockquote>
+<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
+<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
+<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
+<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
 <ul>
-<li>采用一块3.2寸的液晶电阻屏及用于到边计时的按键，有较好的人机交互效果。</li>
-<li>软件上封装了各常用项目模块及常用计划，可实现脱离云端工作。</li>
-<li>使用ESP8266或gprs通过MQTT协议接入阿里云实现数据上报。<h2 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h2>通过阿里云IoT Studio开发<strong>安卓/ios</strong>的移动端应用</li>
-<li>实现数据订阅</li>
-<li>查看终端设备运行状况</li>
-<li>控制终端设备</li>
-<li>查看云端信息（包括训练完成情况等）</li>
+<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
+<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
+<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
+<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
+之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
+在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
 </ul>
-<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="终端设备单机运行"><a href="#终端设备单机运行" class="headerlink" title="终端设备单机运行"></a>终端设备单机运行</h2><p>在不考虑上云的情况下终端设备可以独立正常运行。</p>
-<h3 id="流程展示"><a href="#流程展示" class="headerlink" title="流程展示"></a>流程展示</h3><p>1.<strong>设备上电进入计划选择页面</strong><br><img src="https://pic.downk.cc/item/5e93e874c2a9a83be5b6e2f0.jpg" alt=""><br>在设备中板载了十套计划可供选择，软件上封装了大部分的常用训练项目，实现模块化计划制定<br><img src="https://pic.downk.cc/item/5e93e927c2a9a83be5b73f14.jpg" alt=""></p>
-<p>2.<strong>训练界面</strong><br><img src="https://pic.downk.cc/item/5e93ea01c2a9a83be5b7b6c3.jpg" alt=""><br>在训练状态下，设备会将项目名称，包干时间及速度要求等信息显示在液晶屏上。<br>设备会在每组休息时间结束后提示运动员出发并自动开始计时。<br>在运动员到边后会将其成绩显示出来，并与速度要求比较后显示迟到或超前。同时按包干时间把剩余休息时间在屏幕上实时显示。</p>
-<p>3.<strong>训练结束报告</strong></p>
-<p><img src="https://pic.downk.cc/item/5e93eb39c2a9a83be5b8658a.jpg" alt=""></p>
-<p>训练结束后会生成训练完成情况的报告，报告将每项完成成绩显示在屏幕上。</p>
-<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><h2 id="数据上云"><a href="#数据上云" class="headerlink" title="数据上云"></a>数据上云</h2><p>1.目前已经将成绩数据等保存在本地，后期计划将数据以MQTT协议通过Wifi或GPRS模块上报云端，并设计移动端应用查看。</p>
-<h2 id="计划制定方式"><a href="#计划制定方式" class="headerlink" title="计划制定方式"></a>计划制定方式</h2><p>2.目前计划添加及更改只能在Keil上进行，为降低制定计划的门槛，后期将通过订阅云端的方式实现在移动端通过各项目模块制定计划的功能。</p>
-<h2 id="产品硬件及结构"><a href="#产品硬件及结构" class="headerlink" title="产品硬件及结构"></a>产品硬件及结构</h2><p>3.目前终端设备采用的是一块STM32f103开发板，待项目完成后将各所需模块集成在PCB上自制硬件并进项外壳设计。</p>
 
       
       <!-- reward -->
@@ -216,14 +198,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/03/17/[IoT]STM32_Swimming/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/05/08/Heart_Rate_MAX30102/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MQTT/" rel="tag">MQTT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MAX30102/" rel="tag">MAX30102</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/" rel="tag">STM32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%AF%E7%A9%BF%E6%88%B4%E8%AE%BE%E5%A4%87/" rel="tag">可穿戴设备</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
 
 
     </footer>
@@ -234,19 +216,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/04/01/Hexo_Blog/" class="article-nav-link">
+      <a href="/2020/08/31/Linux_learning_1/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【前端】利用Hexo在Github上部署个人博客
+            【嵌入式】机械臂项目-Linux初体验
           
         </div>
       </a>
     
     
-      <a href="/2019/01/14/%5BIoT%5D%20NXP_Rapid_IoT/" class="article-nav-link">
+      <a href="/2020/04/16/IoTSwimming_Project/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【物联网】NXP Rapid IoT 物联网开发套件体验</div>
+        <div class="article-nav-title">【物联网】IoTSwimming项目进度</div>
       </a>
     
   </nav>

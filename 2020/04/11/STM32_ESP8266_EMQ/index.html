@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
    
-  <meta name="description" content="NXP物联网开发套件体验" />
+  <meta name="description" content="游泳训练辅助STM32+ESP8266接入阿里云" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【物联网】NXP Rapid IoT 物联网开发套件体验 |  麦德道格的个人站
+    STM32游泳训练辅助+ESP8266接入阿里云 |  麦德道格的个人站
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-[IoT] NXP_Rapid_IoT" class="article article-type-post" itemscope
+  <article id="post-STM32_ESP8266_EMQ" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【物联网】NXP Rapid IoT 物联网开发套件体验
+  STM32游泳训练辅助+ESP8266接入阿里云
 </h1>
  
 
@@ -58,8 +58,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/01/14/%5BIoT%5D%20NXP_Rapid_IoT/" class="article-date">
-  <time datetime="2019-01-14T05:52:19.000Z" itemprop="datePublished">2019-01-14</time>
+      <a href="/2020/04/11/STM32_ESP8266_EMQ/" class="article-date">
+  <time datetime="2020-04-11T06:42:09.000Z" itemprop="datePublished">2020-04-11</time>
 </a>
       
   <div class="article-category">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k字</span>
+            <span class="post-count">487字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">1分钟</span>
         </span>
     </span>
 </div>
@@ -107,60 +107,38 @@
       
 
       
-      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为报名参加了<strong>eeworld</strong>的送测活动，收到了送测的<strong>NXP Rapid IoT</strong>开发套件。在收到设备后我也第一时间做了测试及体验</p>
-<p><img src="https://img-blog.csdnimg.cn/20200402133130209.png#pic_center" alt="在这里插入图片描述"></p>
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>最近机器学习先放了放，先填一填之前物联网项目的坑。之前已经把终端设备调通了，现在要达到的功能就是把数据上报阿里云，也就是：让终端<strong>上 云</strong>。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNjhlMDUwNGY0YmNiMDQ3ZmVjZDguanBn?x-oss-process=image/format,png#pic_center" alt=""></p>
 <a id="more"></a>
-<h1 id="开发装置简介"><a href="#开发装置简介" class="headerlink" title="开发装置简介"></a>开发装置简介</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>NXP Semiconductors快速物联网原型设计套件设计用于助力开发人员快速将<strong>IoT</strong>创意转变为概念验证 (PoC)。该款快速物联网原型设计套件基于Kinetis K64F内核32位微控制器（<strong>120MHz 32位</strong>微控制器基于Arm-<strong>Cortex-M4</strong>内核），并设有用于<strong>Bluetooth</strong>低功耗蓝牙、<strong>Thread</strong>和<strong>ZigBee</strong>连接的<strong>Kinetis KW41Z</strong>无线控制器。</p>
-<p> <strong>-连接方式</strong><br>micro USB连接器<br>主要和无线MCU SWD连接器 (DNP)<br>50引脚板对板连接器，与MikroElektronika坞站兼容<br>10引脚板对板连接器，用于未来的连接站</p>
-<p><strong>- 板载多个传感器</strong><br>NXP FXOS8700<br>6轴数字加速度计和磁力计<br>NXP FXAS21002（3轴数字陀螺仪）<br>NXP MPL3115（数字压力和高度传感器）<br>数字温度和湿度传感器<br>数字环境光传感器<br>数字空气质量传感器<br>电容式触摸传感器<br>适配器click板，可轻松扩展至400多个物联网终端节点用例<br>NXP物联网模块化网关 (SLN-IOT-GPI)</p>
-<h2 id="外观介绍"><a href="#外观介绍" class="headerlink" title="外观介绍"></a>外观介绍</h2><ul>
-<li><p>主机<strong>左右两侧</strong>各有<strong>两个按键</strong>，<strong>顶部面板</strong>的上下左右各有一个<strong>触摸按键</strong>，触摸按键应该是电容按键，不需要用力按，基本手放上去就有反应。顶部有四个传感器开孔。主机采用底部一个<strong>micro-usb</strong>供电。整机没有开关，插上电即开机。在预装的程序里可以开关LED背光，开关蓝牙等，但<strong>主机无法开关</strong>。<br><img src="https://img-blog.csdnimg.cn/20200402123821420.jpg#pic_center" alt="正面接口">)<img src="https://img-blog.csdnimg.cn/20200402123920451.jpg#pic_center" alt="反面接口"><br>收到设备，里面除了主机就只有一根数据线和一个sim卡针，sim卡针应该是用来戳复位键的。 说明书上有三个步骤来熟悉这个开发板：</p>
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>我这边有一块gprs还有几块esp8266，本来是打算用gprs的，接入阿里云也相对方便 ，但是我用的sim800a模块不能直接用5V供电，一定要DC外部供电，就劝退。我估计还是应为发送瞬间要求电流太大的原因。所以最后用了ESP8266 12f。<br><img src="https://pic.downk.cc/item/5e93e5d6c2a9a83be5b58cdd.jpg" alt=""></p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><ul>
+<li><p>在keil上安装json库<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNmM4YjUwNGY0YmNiMDQ4MzdjZTUuanBn?x-oss-process=image/format,png" alt=""></p>
 </li>
-<li><p>首先是利用预装的程序来熟悉开发装置。在预装程序下可以了解设备上集成的传感器等基础信息；</p>
+<li><p>MQTT.fx<br><a href="http://mqtt-fx.software.informer.com/download/" target="_blank" rel="noopener">Windows系统</a><br><a href="http://macdownload.informer.com/mqtt-fx/" target="_blank" rel="noopener">Mac系统</a></p>
 </li>
-<li><p>第二步是在官方的在线IDE下进行简单的编程。编程是图形化的，很形象，上手很快；</p>
+<li><p>安信可ESP8266 IDE<br><a href="http://wiki.ai-thinker.com/ai_ide_install" target="_blank" rel="noopener">安信可官方IDE</a><br><a href="http://wiki.ai-thinker.com/esp_download" target="_blank" rel="noopener"> ESP 系列模组固件烧录</a></p>
 </li>
-<li><p>第三步是在熟悉开发板及开发环境后，尝试把自己物联网设计通过开发板实现。</p>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="移动端软件下载"><a href="#移动端软件下载" class="headerlink" title="移动端软件下载"></a>移动端软件下载</h2></li>
-<li><p>在熟悉了开发装置基本功能后，按照说明书上提供的下载方式下载了移动端的app。因为用的<strong>安卓</strong>鸡，直接从<strong>Google Play</strong>下载到了<strong>NXP Rapid IoT</strong>的软件<br><img src="https://img-blog.csdnimg.cn/20200402124523394.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2></li>
-<li><p>打开软件必须需要<strong>注册NXP</strong>的账号才能进入软件使用，在连接设备上也<strong>不是直接进蓝牙连接</strong>，进入主界面后点开<strong>左侧菜单栏</strong>，点击<strong>第二个立方体</strong>，然后再点击右上角的加号添加设备。<img src="https://img-blog.csdnimg.cn/20200402124916247.png#pic_center" alt="在这里插入图片描述"></p>
+<li><p>ESP8266官方SDK</p>
 </li>
-<li><p>这里完成后在下一个页面就能看到设备了，勾选上自己的设备后点击右下角的供应键便可创建连接。</p>
-</li>
-<li><p><img src="https://img-blog.csdnimg.cn/20200402125258172.png#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>完成之后就能看到设置的页面了。在预装程序中可以看到各传感器的各种数据。</p>
-<h2 id="连接错误"><a href="#连接错误" class="headerlink" title="连接错误"></a>连接错误</h2></li>
-<li><p>在使用过程中不开<strong>VPN</strong>可能会出现无法连接服务器的情况，导致无法正常使用软件。挂着<strong>VPN</strong>没有出现过这这种问题。<img src="https://img-blog.csdnimg.cn/20200402125446711.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="在线IDE简介"><a href="#在线IDE简介" class="headerlink" title="在线IDE简介"></a>在线IDE简介</h1></li>
-<li><p><strong>在线IDE</strong>使用的是图形化的编程方式。采用基于<strong>GUI</strong>（<strong>图形用户界面</strong>）使用时把各种元素移至左侧面板再相互连接即可完成编程。使用这种可视化的编程方式<strong>大大降低</strong>了编程的<strong>门槛</strong>，基本不需要任何语言基础，不需要任何嵌入式开发经验即可上手开发。编程过程分为三个板块：设备端程序设计，移动端界面设计和云端程序设计。</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402130002768.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>设备端程序可以<strong>单机运行</strong>，如根据按键控制或环境光亮度控制点亮LED等。设计元素可以实现数据比较功能，如下图所示，实现了在环境光小于50时点亮led的操作。可以看出，相对于实现同样功能使用c语言编程，难度上<strong>大大简化</strong>，仅需要简单地拖动模块，修改参数即可实现同样的功能</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402125903600.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>硬件部分通过<strong>BLD元素</strong>与其他两部分程序通信。上图是将<strong>环境光</strong>采集的数据发送给<strong>BLD元素</strong>，之后我们可以在<strong>移动端</strong>读取到这个数据<img src="https://img-blog.csdnimg.cn/20200402130342877.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>读取到数据后可以将这个数据通过<strong>仪表盘</strong>或<strong>进度条</strong>等工具显示，在<strong>移动端</strong>查看到即时数据。左侧窗口即为<strong>移动端</strong>的<strong>设计界面</strong>，可以通过<strong>拖拽</strong>等方式调整设计，还可以<strong>添加图片</strong>背景等。</p>
-</li>
-<li><p>下图为<strong>手机端</strong>显示界面<br><img src="https://img-blog.csdnimg.cn/20200402130414911.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="上云"><a href="#上云" class="headerlink" title="上云"></a>上云</h1></li>
-<li><p>在<strong>应用板块</strong>可以选择将数据发送到<strong>云端</strong>。</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402131010224.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>在<strong>云端</strong>只需添加一个<strong>储存元素</strong>就能将数据<strong>储存到云端</strong>了。<br>云端的数据可以通过<strong>移动端</strong>访问。可以通过工具生成各种图标。如下图<br><img src="https://img-blog.csdnimg.cn/20200402131145705.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></li>
-<li><p>可玩性高：<br>目前我做的都是一些<strong>基础尝试</strong>，后续还可以给板子加上各种外设。例如使用它<strong>控制</strong>智能家居设备。</p>
+<li><p><a href="http://wiki.ai-thinker.com/ai_ide_use" target="_blank" rel="noopener">官方SDK</a></p>
+<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h3></li>
+<li><p><a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a></p>
 </li>
 </ul>
-<p> <strong>可视化</strong>图形编程仅仅是其中一种<strong>编程方式</strong>，也可以使用<strong>c</strong>或<strong>python</strong>编程。</p>
+<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32"></a>STM32</h2><p>stm32使用串口3与esp8266通信。目前已经调通了在tx rx短接情况下的自发自收。</p>
+<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a>ESP8266</h2><p>使用esp8266官方MDK接入了阿里云并实现了数据收发。</p>
 <ul>
-<li><strong>调试</strong>比较<strong>麻烦</strong>：<br>调试需要在线编译后下载到电脑，再将主机关机后把下载的bin文件拷到主机中，等待主机重启，然后再通过手机连接才能调试。而且同一个工程在改过以后手机端大概率<strong>连接不上</strong>，有时候界面的改动能够刷出来，但是数据不知道为什么始终传不过来。必须要先把已存在的工程删除再重新添加。</li>
-<li>LED<strong>干扰</strong>环境光传感器：<br>环境光设置max值为100，在LED点亮的情况下始终显示100, 怀疑是LED和光感距离太近和漏光的原因。</li>
-<li>不能关机：<br>主机运行后就无法关机，如果实现低功耗作为IoT设备不能关机到没什么，但目前持续工作机器会发热，估计功耗也不小。不知道是不是少数情况，我的屏幕常亮一段时间以后有了几个坏点。</li>
-<li>目前这个设备对我来说更多还是作为一个IoT入门的学习设备，同时我也认为这是一个对初学者很友好的IoT设备。但某宝485元的价格对学生而言还是有些略高的，如果不是送测，我肯定需要多考虑一下。</li>
+<li>串口调试信息</li>
 </ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzQwMjUwNGY0YmNiMDQ4OWNlMTkuanBn?x-oss-process=image/format,png" alt=""></p>
+<ul>
+<li>云端看到设备上线</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzI3YjUwNGY0YmNiMDQ4ODk1ZTguanBn?x-oss-process=image/format,png" alt=""></p>
+<h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>在阿里IoT hub中依次创建产品-设备-产品功能属性，我定义了一个整数型的成绩变量<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzVlZjUwNGY0YmNiMDQ4YmIxMDcuanBn?x-oss-process=image/format,png" alt=""><br>通过MQTT.fx接入阿里云，在物模型通信Topic中找到上报属性的发布及订阅，分别填入MQTT.fx<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzc1YjUwNGY0YmNiMDQ4Y2ZjNWEuanBn?x-oss-process=image/format,png" alt=""></p>
+<h3 id="通过json格式向阿里云发布信息"><a href="#通过json格式向阿里云发布信息" class="headerlink" title="通过json格式向阿里云发布信息"></a>通过<strong>json</strong>格式向阿里云发布信息</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzkxMTUwNGY0YmNiMDQ4ZWIyZDQuanBn?x-oss-process=image/format,png" alt=""><br>在Subscribe看到阿里云返回的信息中显示success即发送成功<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzk0NTUwNGY0YmNiMDQ4ZWVjNDcuanBn?x-oss-process=image/format,png" alt=""><br>在阿里云中设备运行状态可以在云端查看到成绩数据<br><img src="https://img-blog.csdnimg.cn/20200411160254804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RhcnNtYXI=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxN2EyMzUwNGY0YmNiMDQ4ZmJlYWIuanBn?x-oss-process=image/format,png" alt=""></p>
+<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><p>目前各模块的基本功能都已经调通了，接下来要做的就是把各模块组合起来实现设备直接记录并上报数据。但是据说阿里云安卓订阅有点问题，正好之前建站租了个服务器，所以我自己搭建了一个mqtt的服务器，现在还没调通。</p>
 
       
       <!-- reward -->
@@ -230,14 +208,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2019/01/14/[IoT]%20NXP_Rapid_IoT/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/04/11/STM32_ESP8266_EMQ/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GUI/" rel="tag">GUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NB-IoT/" rel="tag">NB-IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9C%A8%E7%BA%BFIDE/" rel="tag">在线IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESP8266/" rel="tag">ESP8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a></li></ul>
 
 
     </footer>
@@ -248,19 +226,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/03/17/%5BIoT%5DSTM32_Swimming/" class="article-nav-link">
+      <a href="/2020/04/16/IoTSwimming_Project/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【物联网】游泳训练辅助系统（一）
+            【物联网】IoTSwimming项目进度
           
         </div>
       </a>
     
     
-      <a href="/2019/01/01/about/" class="article-nav-link">
+      <a href="/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">About Me</div>
+        <div class="article-nav-title">【机器视觉】上手OpenMV一周心得</div>
       </a>
     
   </nav>

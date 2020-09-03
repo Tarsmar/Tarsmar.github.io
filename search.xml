@@ -294,45 +294,76 @@ esc退出插入模式</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>【嵌入式】心率血氧检测模块MAX30102体验</title>
-    <url>/2020/05/08/%5BEmbedded%20System%5D%20Heart_Rate_MAX30102/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
+    <title>【前端】利用Hexo在Github上部署个人博客</title>
+    <url>/2020/04/01/Hexo_Blog/</url>
+    <content><![CDATA[<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>使用GitHub部署个人博客可以不用花一分钱租用或购买服务器便能拥有个人网站。在开始之前，我们需要下载几个软件。</p>
 <a id="more"></a>
-<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
-<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
-<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
-<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
-<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
-<blockquote>
-<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
-</blockquote>
-<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
-<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
-<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
-<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
-<ul>
-<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
-<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
-<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
-<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
-之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
-在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
-</ul>
+
+
+<h2 id="1-1准备"><a href="#1-1准备" class="headerlink" title="1.1准备"></a>1.1准备</h2><p><strong>你需要准备的有：</strong></p>
+<ol>
+<li><strong><a href="https://www.github.com/" target="_blank" rel="noopener">一个GitHub账号</a></strong> </li>
+<li><strong><a href="https://nodejs.org/" target="_blank" rel="noopener">安装Node.js</a></strong></li>
+<li><strong><a href="https://gitforwindows.org/" target="_blank" rel="noopener">安装Git</a></strong> </li>
+<li><strong>安装Hexo</strong></li>
+</ol>
+<h1 id="2-开始"><a href="#2-开始" class="headerlink" title="2.开始"></a>2.开始</h1><h2 id="2-1在GitHub上创建仓库"><a href="#2-1在GitHub上创建仓库" class="headerlink" title="2.1在GitHub上创建仓库"></a>2.1在GitHub上创建仓库</h2><p><strong>申请Github账号，建立一个仓库，并为此创建一个Github Pages</strong></p>
+<p>注册GitHub账号（略）。注册完成后在<a href="https://www.github.com/" target="_blank" rel="noopener">Github首页</a>在右上角 <strong>‘+’</strong> 号，选择 <strong>New repository</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200401204718788.png#pic_center" alt="在这里插入图片描述"><br>仓库名为 <strong>你的账户名</strong> + <strong>github.io</strong> 设置完成后点击下方绿色按钮<br><img src="https://img-blog.csdnimg.cn/20200401205236342.png#pic_center" alt="在这里插入图片描述"><br>建好后在项目页面的顶部右侧选择 <strong>Setting</strong><img src="https://img-blog.csdnimg.cn/20200401205414534.png#pic_center" alt="在这里插入图片描述"><br>往下拉直到看到 <strong>Github Pages</strong> 看到Source下有提示错误，我们点击下方的 <strong>Choose a theme</strong> 随意选择一个主题<br><img src="https://img-blog.csdnimg.cn/20200401205506874.png#pic_center" alt="在这里插入图片描述"><br>选择完成后返回项目页面可以看到Github Page变成下图<br><img src="https://img-blog.csdnimg.cn/20200401205945938.png#pic_center" alt="在这里插入图片描述"><br><strong>至此Github Page建立完成</strong></p>
+<h2 id="2-2-搭建Hexo并将个人博客部署至Github"><a href="#2-2-搭建Hexo并将个人博客部署至Github" class="headerlink" title="2.2 搭建Hexo并将个人博客部署至Github"></a>2.2 搭建Hexo并将个人博客部署至Github</h2><h3 id="2-2-1利用npm安装cnpm"><a href="#2-2-1利用npm安装cnpm" class="headerlink" title="2.2.1利用npm安装cnpm"></a>2.2.1利用npm安装cnpm</h3><p>由于国内镜像源速度很慢，所以在使用前利用npm安装cnpm，使用淘宝镜像源。使用 <strong>Win + R</strong> 在弹出的窗口中输入 <strong>cmd</strong> 打开命令行窗口<br>在命令行中输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>输入cnpm -v查看版本号检查是否安装成功<br><img src="https://img-blog.csdnimg.cn/20200401213200412.png#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-2-2-安装并部署Hexo"><a href="#2-2-2-安装并部署Hexo" class="headerlink" title="2.2.2 安装并部署Hexo"></a>2.2.2 安装并部署Hexo</h3><p>首先在cmd输入如下命令检查Git及Node.js是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git version</span><br><span class="line"></span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>出现版本号即安装成功</p>
+<p>利用Node.js的包管理器npm安装Hexo:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g #全局安装</span><br></pre></td></tr></table></figure>
+<p>输入 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>验证是否安装成功，之后将正式建立网站<img src="https://img-blog.csdnimg.cn/20200401214039304.jpg#pic_center" alt="在这里插入图片描述"></p>
+<p>在喜欢的位置创建一个空文件夹，注意文件夹必须为空。我们之后的博客全部文件都会在这个文件夹中。推荐大家习惯性备份，后面一旦出现任何问题可以直接把文件夹删掉重来。我这里的路径为D:\Blog</p>
+<p>在该文件夹下右键点击Git Bash Here<br><img src="https://img-blog.csdnimg.cn/20200401214652640.png#pic_center" alt="在这里插入图片描述"></p>
+<p>输入 <strong>hexo init</strong> 初始化文件夹（没有反应请耐心等待）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo init</span></span><br></pre></td></tr></table></figure>
+<p>输入npm install安装组件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">npm install</span></span><br></pre></td></tr></table></figure>
+
+<p>输入npm server启动服务器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo server</span></span><br></pre></td></tr></table></figure>
+<p>执行命令提示 <strong>localhost:4000</strong><br>复制地址在浏览器上打开看到下图，博客界面已经显示出来了<br>现在的博客仅在<strong>本地</strong>成功显示，接下来我们要把博客部署到<strong>远端服务器</strong>上<br>也就是把页面推送至<strong>Github Pages</strong><br><img src="https://img-blog.csdnimg.cn/20200401215310889.png?size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="2-2-3-将个人博客部署至远端服务器"><a href="#2-2-3-将个人博客部署至远端服务器" class="headerlink" title="2.2.3 将个人博客部署至远端服务器"></a>2.2.3 将个人博客部署至远端服务器</h3><p> <strong>配置SSH公钥</strong></p>
+<p>配置<strong>Github</strong>的<strong>SSH密钥</strong>使<strong>本地git项目</strong>与<strong>远端Github</strong>建立连接，使我们在本地写的代码与Github代码库同步。操作如下：<br>在我们创建博客文件夹里右击，选择 Git Base Here<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span> <span class="comment">#将邮箱填入示例中</span></span></span><br></pre></td></tr></table></figure>
+<p>按下回车后得到保存的目标地址，也可以在此处修改成你希望的地址（默认在C:\Users\Administrator.ssh）<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">clip &lt; ~/.ssh/id_rsa.pub</span></span><br></pre></td></tr></table></figure>
+<p>将id_rsa.pub文件中的内容复制到剪贴板</p>
+<p>回到<a href="https://www.github.com/" target="_blank" rel="noopener">Github主页</a>，点击头像下的<strong>Settings</strong><br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center</a> =200x300)<br>在左侧找到<strong>SSH and GPG keys</strong><br><img src="https://img-blog.csdnimg.cn/202004012224024.png#pic_center" alt="在这里插入图片描述"><br>随便起一个<strong>Title</strong> 将剪贴板中的公钥内容粘贴至<strong>Key</strong><br><img src="https://img-blog.csdnimg.cn/20200401222639203.png#pic_center" alt="在这里插入图片描述"><br>完成后我们在终端测试是否安装成功<br>输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
+<p>成功后你已经可以通过SSH链接到GitHub了，输入下面的代码设置信息，把名称和邮箱替换成你自己的</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"your_name"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的用户名填入示例</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">"your_email@example.com"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的邮箱填入示例</span></span><br></pre></td></tr></table></figure>
+<p>在仓库页面将链接复制到剪贴板中<br><img src="https://img-blog.csdnimg.cn/2020040122395490.png#pic_center" alt="在这里插入图片描述"></p>
+<p>接下来直接在电脑上打开我们创建的Blog文件夹，在文件夹中有一个 <strong>_config.yml</strong> 配置文档。<br>打开 <strong>_config.yml</strong> 并翻到最后，看到#Deployment<br>将所复制的链接粘贴至<strong>repository:</strong> 后<br><strong>注意：</strong> ==每个: 后都有空格==</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Deployment</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Docs: https://hexo.io/docs/deployment.html</span></span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Tarsmar/Tarsmar.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>在命令窗口部署相关插件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
+<p>完成后，离成功就只差最后一步了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200401225257839.png#pic_center" alt="在这里插入图片描述"><br>在弹出的窗口输入Github的<strong>账号及密码</strong><br>等待片刻部署便完成了<br>在浏览器中输入 <strong><a href="https://tarsmar.github.io/">https://tarsmar.github.io/</a></strong>便可以访问到个人博客<br><img src="https://img-blog.csdnimg.cn/2020040122540467.png#pic_center" alt="在这里插入图片描述"></p>
+<p> <strong><em>至此，个人博客已经部署完成</em></strong></p>
 ]]></content>
       <categories>
-        <category>嵌入式</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>MAX30102</tag>
-        <tag>单片机</tag>
-        <tag>嵌入式</tag>
-        <tag>STM32</tag>
-        <tag>可穿戴设备</tag>
+        <tag>Git</tag>
+        <tag>Github</tag>
+        <tag>个人博客</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
     <title>【机器视觉】上手OpenMV一周心得</title>
-    <url>/2020/04/03/%5BComputer%20vision%5D%20OpenMV/</url>
+    <url>/2020/04/03/%E3%80%90%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E3%80%91%E4%B8%8A%E6%89%8BOpenMV%E4%B8%80%E5%91%A8%E5%BF%83%E5%BE%97/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://pic.downk.cc/item/5e8ab43b504f4bcb04c7d965.jpg" alt=""></p>
 <p>最近入手了官方版本的OpenMV。当然了，入手官方版本的主要原因倒不是懒得点那三次提示，而是因为我在某宝逛的时候还不是道这玩意是开源的。</p>
 <a id="more"></a>
@@ -393,8 +424,93 @@ esc退出插入模式</code></pre></li>
       </tags>
   </entry>
   <entry>
+    <title>STM32游泳训练辅助+ESP8266接入阿里云</title>
+    <url>/2020/04/11/STM32_ESP8266_EMQ/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>最近机器学习先放了放，先填一填之前物联网项目的坑。之前已经把终端设备调通了，现在要达到的功能就是把数据上报阿里云，也就是：让终端<strong>上 云</strong>。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNjhlMDUwNGY0YmNiMDQ3ZmVjZDguanBn?x-oss-process=image/format,png#pic_center" alt=""></p>
+<a id="more"></a>
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>我这边有一块gprs还有几块esp8266，本来是打算用gprs的，接入阿里云也相对方便 ，但是我用的sim800a模块不能直接用5V供电，一定要DC外部供电，就劝退。我估计还是应为发送瞬间要求电流太大的原因。所以最后用了ESP8266 12f。<br><img src="https://pic.downk.cc/item/5e93e5d6c2a9a83be5b58cdd.jpg" alt=""></p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><ul>
+<li><p>在keil上安装json库<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNmM4YjUwNGY0YmNiMDQ4MzdjZTUuanBn?x-oss-process=image/format,png" alt=""></p>
+</li>
+<li><p>MQTT.fx<br><a href="http://mqtt-fx.software.informer.com/download/" target="_blank" rel="noopener">Windows系统</a><br><a href="http://macdownload.informer.com/mqtt-fx/" target="_blank" rel="noopener">Mac系统</a></p>
+</li>
+<li><p>安信可ESP8266 IDE<br><a href="http://wiki.ai-thinker.com/ai_ide_install" target="_blank" rel="noopener">安信可官方IDE</a><br><a href="http://wiki.ai-thinker.com/esp_download" target="_blank" rel="noopener"> ESP 系列模组固件烧录</a></p>
+</li>
+<li><p>ESP8266官方SDK</p>
+</li>
+<li><p><a href="http://wiki.ai-thinker.com/ai_ide_use" target="_blank" rel="noopener">官方SDK</a></p>
+<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h3></li>
+<li><p><a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a></p>
+</li>
+</ul>
+<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32"></a>STM32</h2><p>stm32使用串口3与esp8266通信。目前已经调通了在tx rx短接情况下的自发自收。</p>
+<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a>ESP8266</h2><p>使用esp8266官方MDK接入了阿里云并实现了数据收发。</p>
+<ul>
+<li>串口调试信息</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzQwMjUwNGY0YmNiMDQ4OWNlMTkuanBn?x-oss-process=image/format,png" alt=""></p>
+<ul>
+<li>云端看到设备上线</li>
+</ul>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzI3YjUwNGY0YmNiMDQ4ODk1ZTguanBn?x-oss-process=image/format,png" alt=""></p>
+<h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>在阿里IoT hub中依次创建产品-设备-产品功能属性，我定义了一个整数型的成绩变量<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzVlZjUwNGY0YmNiMDQ4YmIxMDcuanBn?x-oss-process=image/format,png" alt=""><br>通过MQTT.fx接入阿里云，在物模型通信Topic中找到上报属性的发布及订阅，分别填入MQTT.fx<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzc1YjUwNGY0YmNiMDQ4Y2ZjNWEuanBn?x-oss-process=image/format,png" alt=""></p>
+<h3 id="通过json格式向阿里云发布信息"><a href="#通过json格式向阿里云发布信息" class="headerlink" title="通过json格式向阿里云发布信息"></a>通过<strong>json</strong>格式向阿里云发布信息</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzkxMTUwNGY0YmNiMDQ4ZWIyZDQuanBn?x-oss-process=image/format,png" alt=""><br>在Subscribe看到阿里云返回的信息中显示success即发送成功<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzk0NTUwNGY0YmNiMDQ4ZWVjNDcuanBn?x-oss-process=image/format,png" alt=""><br>在阿里云中设备运行状态可以在云端查看到成绩数据<br><img src="https://img-blog.csdnimg.cn/20200411160254804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RhcnNtYXI=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxN2EyMzUwNGY0YmNiMDQ4ZmJlYWIuanBn?x-oss-process=image/format,png" alt=""></p>
+<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><p>目前各模块的基本功能都已经调通了，接下来要做的就是把各模块组合起来实现设备直接记录并上报数据。但是据说阿里云安卓订阅有点问题，正好之前建站租了个服务器，所以我自己搭建了一个mqtt的服务器，现在还没调通。</p>
+]]></content>
+      <categories>
+        <category>物联网</category>
+      </categories>
+      <tags>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>IoT</tag>
+        <tag>物联网</tag>
+        <tag>ESP8266</tag>
+        <tag>阿里云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【嵌入式】心率血氧检测模块MAX30102体验</title>
+    <url>/2020/05/08/Heart_Rate_MAX30102/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在完成IoTSwimming项目的数据上云后，一直没有做新的内容。之前一直在纠结先做哪一部分。<br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a><strong>硬件</strong></h2><p>之前的开发用的都是开发板，现在软件开发得差不多了，也该把硬件换成自己的了。我也确实花了一段时间画这块板子。<br>在此之前，我只用AD做过51的单层板，当时在实验室有腐蚀的一套装备，而且那也是两年前的事情了。所以对硬件设计我还是比较陌生的。本来打算直接上手<strong>Cadence</strong>，但是原理图和PCB分离的这个设定我还是很不适应，所以还是选择了AD。现在板子还没画完，突然想给板子加点作料，硬件就先放一放。</p>
+<h2 id="心率与血氧"><a href="#心率与血氧" class="headerlink" title="心率与血氧"></a>心率与血氧</h2><p>在游泳训练中，教练常常为了了解运动员的身体状态让运动员在训练中测量心率。测量方式通常是教练倒数十秒，运动员掐自己脖子来数心跳。现在已经2020年了，是时候换种更好的测量方式了。</p>
+<h1 id="MAX30102模块"><a href="#MAX30102模块" class="headerlink" title="MAX30102模块"></a>MAX30102模块</h1><p>选择模块的时候我搜到最多的就是这个模块。一方面价格便宜，只要十元左右就能得到心率和血氧的数据，香！<br>但是这个模块的评价普遍不高，甚至可以说很糟糕<br><img src="https://pic.downk.cc/item/5eb51ee1c2a9a83be57bd792.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb51f34c2a9a83be57c2a38.jpg" alt=""><br><img src="https://pic.downk.cc/item/5eb5208ec2a9a83be57dc9ca.jpg" alt=""><br>所以保险起见，我买了一块30100和一块30102，但是现在30100已经停产了所以估计30102会比30100好一点来着</p>
+<h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>美信公司的MAX30102是一个集成的脉搏血氧仪和心率监测仪生物传感器的模块。它集成了一个红光LED和一个红外光LED、光电检测器、光器件，以及带环境光抑制的低噪声电子电路。</p>
+<p>MAX30102采用的是光电容积法测量脉搏和血氧饱和度。</p>
+<blockquote>
+<p>光电容积法的基本原理是利用人体组织在血管搏动时造成透光率不同来进行脉搏和血氧饱和度测量的。其使用的传感器由光源和光电变换器两部分组成，通过绑带或夹子固定在病人的手指、手腕或耳垂上。光源一般采用对动脉血中氧合血红蛋白（HbO2）和去氧血红蛋白（Hb）有选择性的特定波长的发光二极管（一般选用660nm附近的红光和900nm附近的红外光）。当光束透过人体外周血管，由于动脉搏动充血容积变化导致这束光的透光率发生改变，此时由光电变换器接收经人体组织反射的光线，转变为电信号并将其放大和输出。由于脉搏是随心脏的搏动而周期性变化的信号，动脉血管容积也呈现周期性变化，因此光电变换器的电信号变化周期就是脉搏率。</p>
+</blockquote>
+<p>根据血氧饱和度的定义，其表示为：SaO2 = CHbO2 / (CHbO2 + CHb);</p>
+<p>不同波长下氧合血红蛋白(HbO2)和去氧血红蛋白(Hb)的吸收光谱：<br><img src="https://pic.downk.cc/item/5eb52bf8c2a9a83be5895e5b.jpg" alt=""></p>
+<h2 id="本人用过最坑的传感器"><a href="#本人用过最坑的传感器" class="headerlink" title="本人用过最坑的传感器"></a>本人用过最坑的传感器</h2><h3 id="硬件部分"><a href="#硬件部分" class="headerlink" title="硬件部分"></a>硬件部分</h3><p>我在礼拜三收到了这两个模块，到现在三天时间，我深切体会到了上面那条评价的精髓。<br>先说说硬件部分。30100我买的是邮票孔封装的，30102买的插件封装。两个模块都非常不稳定。经常遇到测到一半灯就不亮了的情况，开始怀疑是杜邦线太松的原因，就直接焊起来了，但是问题仍然没有解决。到现在仍然没搞清楚确切原因，怀疑是手上有汗，把板子短路了，因为有时候擦擦手再测又能正常使用，后面我索性包了圈电工胶布做绝缘，但问题仍然存在。现在这模块直接不亮了，用我之前调好的程序测试也不亮，应该是烧掉了。后来在CSDN上看到一篇文章说这个模块本身的设计就有问题，IIC总线的上拉电阻被强制固定在了1.8V，导致3V3跟5V的单片机不能正常通信，只能通过飞线解决，但现在板子已经烧掉了，只好再买一块看看能不能多用一段时间。</p>
+<h2 id="软件部分"><a href="#软件部分" class="headerlink" title="软件部分"></a>软件部分</h2><p>STM32使用GPIO模拟IIC与MAX30102通讯，先看手册</p>
+<ul>
+<li>MAX30102的IIC时序<br><img src="https://pic.downk.cc/item/5eb52c2ac2a9a83be5897d01.jpg" alt=""></li>
+<li>芯片逻辑图<br><img src="https://pic.downk.cc/item/5eb52f77c2a9a83be58c2030.jpg" alt=""><h3 id="1-数据从FIFO中取出后存入数组"><a href="#1-数据从FIFO中取出后存入数组" class="headerlink" title="1. 数据从FIFO中取出后存入数组"></a>1. 数据从FIFO中取出后存入数组</h3><h3 id="2-血液信息转换"><a href="#2-血液信息转换" class="headerlink" title="2. 血液信息转换"></a>2. 血液信息转换</h3>在这一步中将血红蛋白和氧合血红蛋白的原始数据转换成所需的心率和血氧。这也是程序的灵魂所在。<br>美信给的例程数据误差很大，自己用肯定要加滤波</li>
+<li>心率数据是AD通过快速傅里叶变化（FFT）计算出来的，所用的公式为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">60.00</span> * SAMPLE * s1_max_index / FFT;</span><br><span class="line"><span class="comment">/*SAMPLE为检测频率，FFT为傅里叶变换的点数*/</span></span><br></pre></td></tr></table></figure></li>
+<li>血氧的数据出大问题<br>不知道30100和30102有什么差别，使用同样的算法在30100上测得的数据很准确，血氧基本在94%左右，但在30102上测到的数据偏差非常大<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">sp02_num = (s2[s1_max_index].real * s1[<span class="number">0</span>].real)</span><br><span class="line">			/(s1[s1_max_index].real * s2[<span class="number">0</span>].real);			</span><br><span class="line">sp02_num = (<span class="number">1</span> - sp02_num) * SAMPLE +CORRECTED_VALUE;</span><br><span class="line"><span class="comment">//CORRECTED_VALUE	为标定血液氧气含量 47</span></span><br></pre></td></tr></table></figure>
+之后我在CSDN找到了<a href="https://blog.csdn.net/u011419265/article/details/80078913" target="_blank" rel="noopener">MAX30102血氧传感器的实际标定公式</a> ： <strong>SpO2=-45.060<em>R</em>R+ 30.354 *R + 94.84</strong><br>其中R的值为<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">R = (ac_ir*dc_red)/(ac_red*dc_ir);</span><br></pre></td></tr></table></figure>
+在此基础上再加上一些滤波函数，所得的数据相对稳定，但究竟数据准不准确我也不清楚，等哪天借个医用的血氧夹试试。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>嵌入式</category>
+      </categories>
+      <tags>
+        <tag>MAX30102</tag>
+        <tag>单片机</tag>
+        <tag>嵌入式</tag>
+        <tag>STM32</tag>
+        <tag>可穿戴设备</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【物联网】NXP Rapid IoT 物联网开发套件体验</title>
-    <url>/2019/01/14/%5BIoT%5D%20NXP_Rapid_IoT/</url>
+    <url>/2019/01/14/NXP_Rapid_IoT/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为报名参加了<strong>eeworld</strong>的送测活动，收到了送测的<strong>NXP Rapid IoT</strong>开发套件。在收到设备后我也第一时间做了测试及体验</p>
 <p><img src="https://img-blog.csdnimg.cn/20200402133130209.png#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
@@ -464,7 +580,7 @@ esc退出插入模式</code></pre></li>
   </entry>
   <entry>
     <title>【物联网】IoTSwimming项目进度</title>
-    <url>/2020/04/16/%5BIoT%5D%20IoTSwimming_Project/</url>
+    <url>/2020/04/16/IoTSwimming_Project/</url>
     <content><![CDATA[<h1 id="完成情况"><a href="#完成情况" class="headerlink" title="完成情况"></a>完成情况</h1><p>在过去的一周主要搞了三件事</p>
 <h3 id="1-在个人服务器上搭建私人mqtt服务器"><a href="#1-在个人服务器上搭建私人mqtt服务器" class="headerlink" title="1.在个人服务器上搭建私人mqtt服务器"></a>1.在个人服务器上搭建私人mqtt服务器</h3><h3 id="2-开发了用于查看成绩及计划选择的安卓端app"><a href="#2-开发了用于查看成绩及计划选择的安卓端app" class="headerlink" title="2.开发了用于查看成绩及计划选择的安卓端app"></a>2.开发了用于查看成绩及计划选择的安卓端app</h3><h3 id="3-使用ESP8266实现STM32终端设备的数据上云"><a href="#3-使用ESP8266实现STM32终端设备的数据上云" class="headerlink" title="3.使用ESP8266实现STM32终端设备的数据上云"></a>3.使用ESP8266实现STM32终端设备的数据上云</h3><h2 id="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"><a href="#通过上面三条实现了终端设备、移动端和PC的三者数据传输。" class="headerlink" title="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"></a>通过上面三条实现了<strong>终端设备</strong>、<strong>移动端</strong>和<strong>PC</strong>的三者数据传输。</h2><p><img src="https://pic.downk.cc/item/5e980771c2a9a83be555dd6f.jpg" alt=""></p>
 <a id="more"></a>
@@ -506,76 +622,8 @@ esc退出插入模式</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>【前端】利用Hexo在Github上部署个人博客</title>
-    <url>/2020/04/01/Hexo_Blog/</url>
-    <content><![CDATA[<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>使用GitHub部署个人博客可以不用花一分钱租用或购买服务器便能拥有个人网站。在开始之前，我们需要下载几个软件。</p>
-<a id="more"></a>
-
-
-<h2 id="1-1准备"><a href="#1-1准备" class="headerlink" title="1.1准备"></a>1.1准备</h2><p><strong>你需要准备的有：</strong></p>
-<ol>
-<li><strong><a href="https://www.github.com/" target="_blank" rel="noopener">一个GitHub账号</a></strong> </li>
-<li><strong><a href="https://nodejs.org/" target="_blank" rel="noopener">安装Node.js</a></strong></li>
-<li><strong><a href="https://gitforwindows.org/" target="_blank" rel="noopener">安装Git</a></strong> </li>
-<li><strong>安装Hexo</strong></li>
-</ol>
-<h1 id="2-开始"><a href="#2-开始" class="headerlink" title="2.开始"></a>2.开始</h1><h2 id="2-1在GitHub上创建仓库"><a href="#2-1在GitHub上创建仓库" class="headerlink" title="2.1在GitHub上创建仓库"></a>2.1在GitHub上创建仓库</h2><p><strong>申请Github账号，建立一个仓库，并为此创建一个Github Pages</strong></p>
-<p>注册GitHub账号（略）。注册完成后在<a href="https://www.github.com/" target="_blank" rel="noopener">Github首页</a>在右上角 <strong>‘+’</strong> 号，选择 <strong>New repository</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20200401204718788.png#pic_center" alt="在这里插入图片描述"><br>仓库名为 <strong>你的账户名</strong> + <strong>github.io</strong> 设置完成后点击下方绿色按钮<br><img src="https://img-blog.csdnimg.cn/20200401205236342.png#pic_center" alt="在这里插入图片描述"><br>建好后在项目页面的顶部右侧选择 <strong>Setting</strong><img src="https://img-blog.csdnimg.cn/20200401205414534.png#pic_center" alt="在这里插入图片描述"><br>往下拉直到看到 <strong>Github Pages</strong> 看到Source下有提示错误，我们点击下方的 <strong>Choose a theme</strong> 随意选择一个主题<br><img src="https://img-blog.csdnimg.cn/20200401205506874.png#pic_center" alt="在这里插入图片描述"><br>选择完成后返回项目页面可以看到Github Page变成下图<br><img src="https://img-blog.csdnimg.cn/20200401205945938.png#pic_center" alt="在这里插入图片描述"><br><strong>至此Github Page建立完成</strong></p>
-<h2 id="2-2-搭建Hexo并将个人博客部署至Github"><a href="#2-2-搭建Hexo并将个人博客部署至Github" class="headerlink" title="2.2 搭建Hexo并将个人博客部署至Github"></a>2.2 搭建Hexo并将个人博客部署至Github</h2><h3 id="2-2-1利用npm安装cnpm"><a href="#2-2-1利用npm安装cnpm" class="headerlink" title="2.2.1利用npm安装cnpm"></a>2.2.1利用npm安装cnpm</h3><p>由于国内镜像源速度很慢，所以在使用前利用npm安装cnpm，使用淘宝镜像源。使用 <strong>Win + R</strong> 在弹出的窗口中输入 <strong>cmd</strong> 打开命令行窗口<br>在命令行中输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>输入cnpm -v查看版本号检查是否安装成功<br><img src="https://img-blog.csdnimg.cn/20200401213200412.png#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="2-2-2-安装并部署Hexo"><a href="#2-2-2-安装并部署Hexo" class="headerlink" title="2.2.2 安装并部署Hexo"></a>2.2.2 安装并部署Hexo</h3><p>首先在cmd输入如下命令检查Git及Node.js是否安装成功</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git version</span><br><span class="line"></span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
-<p>出现版本号即安装成功</p>
-<p>利用Node.js的包管理器npm安装Hexo:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install hexo-cli -g #全局安装</span><br></pre></td></tr></table></figure>
-<p>输入 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>验证是否安装成功，之后将正式建立网站<img src="https://img-blog.csdnimg.cn/20200401214039304.jpg#pic_center" alt="在这里插入图片描述"></p>
-<p>在喜欢的位置创建一个空文件夹，注意文件夹必须为空。我们之后的博客全部文件都会在这个文件夹中。推荐大家习惯性备份，后面一旦出现任何问题可以直接把文件夹删掉重来。我这里的路径为D:\Blog</p>
-<p>在该文件夹下右键点击Git Bash Here<br><img src="https://img-blog.csdnimg.cn/20200401214652640.png#pic_center" alt="在这里插入图片描述"></p>
-<p>输入 <strong>hexo init</strong> 初始化文件夹（没有反应请耐心等待）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo init</span></span><br></pre></td></tr></table></figure>
-<p>输入npm install安装组件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">npm install</span></span><br></pre></td></tr></table></figure>
-
-<p>输入npm server启动服务器</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">hexo server</span></span><br></pre></td></tr></table></figure>
-<p>执行命令提示 <strong>localhost:4000</strong><br>复制地址在浏览器上打开看到下图，博客界面已经显示出来了<br>现在的博客仅在<strong>本地</strong>成功显示，接下来我们要把博客部署到<strong>远端服务器</strong>上<br>也就是把页面推送至<strong>Github Pages</strong><br><img src="https://img-blog.csdnimg.cn/20200401215310889.png?size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="2-2-3-将个人博客部署至远端服务器"><a href="#2-2-3-将个人博客部署至远端服务器" class="headerlink" title="2.2.3 将个人博客部署至远端服务器"></a>2.2.3 将个人博客部署至远端服务器</h3><p> <strong>配置SSH公钥</strong></p>
-<p>配置<strong>Github</strong>的<strong>SSH密钥</strong>使<strong>本地git项目</strong>与<strong>远端Github</strong>建立连接，使我们在本地写的代码与Github代码库同步。操作如下：<br>在我们创建博客文件夹里右击，选择 Git Base Here<br>输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span> <span class="comment">#将邮箱填入示例中</span></span></span><br></pre></td></tr></table></figure>
-<p>按下回车后得到保存的目标地址，也可以在此处修改成你希望的地址（默认在C:\Users\Administrator.ssh）<br>输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">clip &lt; ~/.ssh/id_rsa.pub</span></span><br></pre></td></tr></table></figure>
-<p>将id_rsa.pub文件中的内容复制到剪贴板</p>
-<p>回到<a href="https://www.github.com/" target="_blank" rel="noopener">Github主页</a>，点击头像下的<strong>Settings</strong><br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20200401221827654.png?#pic_center</a> =200x300)<br>在左侧找到<strong>SSH and GPG keys</strong><br><img src="https://img-blog.csdnimg.cn/202004012224024.png#pic_center" alt="在这里插入图片描述"><br>随便起一个<strong>Title</strong> 将剪贴板中的公钥内容粘贴至<strong>Key</strong><br><img src="https://img-blog.csdnimg.cn/20200401222639203.png#pic_center" alt="在这里插入图片描述"><br>完成后我们在终端测试是否安装成功<br>输入</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
-<p>成功后你已经可以通过SSH链接到GitHub了，输入下面的代码设置信息，把名称和邮箱替换成你自己的</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">"your_name"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的用户名填入示例</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">"your_email@example.com"</span> </span></span><br><span class="line"><span class="meta">#</span><span class="bash">将自己的邮箱填入示例</span></span><br></pre></td></tr></table></figure>
-<p>在仓库页面将链接复制到剪贴板中<br><img src="https://img-blog.csdnimg.cn/2020040122395490.png#pic_center" alt="在这里插入图片描述"></p>
-<p>接下来直接在电脑上打开我们创建的Blog文件夹，在文件夹中有一个 <strong>_config.yml</strong> 配置文档。<br>打开 <strong>_config.yml</strong> 并翻到最后，看到#Deployment<br>将所复制的链接粘贴至<strong>repository:</strong> 后<br><strong>注意：</strong> ==每个: 后都有空格==</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Deployment</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Docs: https://hexo.io/docs/deployment.html</span></span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/Tarsmar/Tarsmar.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<p>在命令窗口部署相关插件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
-<p>完成后，离成功就只差最后一步了</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"><span class="meta">#</span><span class="bash">或者</span></span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200401225257839.png#pic_center" alt="在这里插入图片描述"><br>在弹出的窗口输入Github的<strong>账号及密码</strong><br>等待片刻部署便完成了<br>在浏览器中输入 <strong><a href="https://tarsmar.github.io/">https://tarsmar.github.io/</a></strong>便可以访问到个人博客<br><img src="https://img-blog.csdnimg.cn/2020040122540467.png#pic_center" alt="在这里插入图片描述"></p>
-<p> <strong><em>至此，个人博客已经部署完成</em></strong></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>Github</tag>
-        <tag>个人博客</tag>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【物联网】游泳训练辅助系统（一）</title>
-    <url>/2020/03/17/%5BIoT%5DSTM32_Swimming/</url>
+    <url>/2020/03/17/STM32_Swimming/</url>
     <content><![CDATA[<h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><p>一种帮助完成游泳训练计划的游泳智能训练系统，其特征在于：</p>
 <ol>
 <li>使运动员自行或由教练员在移动设备上添加或分享计划项目及各项目包干时间，并下载于终端设备上。</li>
@@ -627,54 +675,6 @@ esc退出插入模式</code></pre></li>
         <tag>物联网</tag>
         <tag>阿里云</tag>
         <tag>MQTT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32游泳训练辅助+ESP8266接入阿里云</title>
-    <url>/2020/04/11/%5BIoT%5D%20STM32_ESP8266_EMQ/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>最近机器学习先放了放，先填一填之前物联网项目的坑。之前已经把终端设备调通了，现在要达到的功能就是把数据上报阿里云，也就是：让终端<strong>上 云</strong>。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNjhlMDUwNGY0YmNiMDQ3ZmVjZDguanBn?x-oss-process=image/format,png#pic_center" alt=""></p>
-<a id="more"></a>
-
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>我这边有一块gprs还有几块esp8266，本来是打算用gprs的，接入阿里云也相对方便 ，但是我用的sim800a模块不能直接用5V供电，一定要DC外部供电，就劝退。我估计还是应为发送瞬间要求电流太大的原因。所以最后用了ESP8266 12f。<br><img src="https://pic.downk.cc/item/5e93e5d6c2a9a83be5b58cdd.jpg" alt=""></p>
-<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><ul>
-<li><p>在keil上安装json库<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNmM4YjUwNGY0YmNiMDQ4MzdjZTUuanBn?x-oss-process=image/format,png" alt=""></p>
-</li>
-<li><p>MQTT.fx<br><a href="http://mqtt-fx.software.informer.com/download/" target="_blank" rel="noopener">Windows系统</a><br><a href="http://macdownload.informer.com/mqtt-fx/" target="_blank" rel="noopener">Mac系统</a></p>
-</li>
-<li><p>安信可ESP8266 IDE<br><a href="http://wiki.ai-thinker.com/ai_ide_install" target="_blank" rel="noopener">安信可官方IDE</a><br><a href="http://wiki.ai-thinker.com/esp_download" target="_blank" rel="noopener"> ESP 系列模组固件烧录</a></p>
-</li>
-<li><p>ESP8266官方SDK</p>
-</li>
-<li><p><a href="http://wiki.ai-thinker.com/ai_ide_use" target="_blank" rel="noopener">官方SDK</a></p>
-<h3 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h3></li>
-<li><p><a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a></p>
-</li>
-</ul>
-<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32"></a>STM32</h2><p>stm32使用串口3与esp8266通信。目前已经调通了在tx rx短接情况下的自发自收。</p>
-<h2 id="ESP8266"><a href="#ESP8266" class="headerlink" title="ESP8266"></a>ESP8266</h2><p>使用esp8266官方MDK接入了阿里云并实现了数据收发。</p>
-<ul>
-<li>串口调试信息</li>
-</ul>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzQwMjUwNGY0YmNiMDQ4OWNlMTkuanBn?x-oss-process=image/format,png" alt=""></p>
-<ul>
-<li>云端看到设备上线</li>
-</ul>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzI3YjUwNGY0YmNiMDQ4ODk1ZTguanBn?x-oss-process=image/format,png" alt=""></p>
-<h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>在阿里IoT hub中依次创建产品-设备-产品功能属性，我定义了一个整数型的成绩变量<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzVlZjUwNGY0YmNiMDQ4YmIxMDcuanBn?x-oss-process=image/format,png" alt=""><br>通过MQTT.fx接入阿里云，在物模型通信Topic中找到上报属性的发布及订阅，分别填入MQTT.fx<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzc1YjUwNGY0YmNiMDQ4Y2ZjNWEuanBn?x-oss-process=image/format,png" alt=""></p>
-<h3 id="通过json格式向阿里云发布信息"><a href="#通过json格式向阿里云发布信息" class="headerlink" title="通过json格式向阿里云发布信息"></a>通过<strong>json</strong>格式向阿里云发布信息</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzkxMTUwNGY0YmNiMDQ4ZWIyZDQuanBn?x-oss-process=image/format,png" alt=""><br>在Subscribe看到阿里云返回的信息中显示success即发送成功<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxNzk0NTUwNGY0YmNiMDQ4ZWVjNDcuanBn?x-oss-process=image/format,png" alt=""><br>在阿里云中设备运行状态可以在云端查看到成绩数据<br><img src="https://img-blog.csdnimg.cn/20200411160254804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RhcnNtYXI=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMuZG93bmsuY2MvaXRlbS81ZTkxN2EyMzUwNGY0YmNiMDQ4ZmJlYWIuanBn?x-oss-process=image/format,png" alt=""></p>
-<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><p>目前各模块的基本功能都已经调通了，接下来要做的就是把各模块组合起来实现设备直接记录并上报数据。但是据说阿里云安卓订阅有点问题，正好之前建站租了个服务器，所以我自己搭建了一个mqtt的服务器，现在还没调通。</p>
-]]></content>
-      <categories>
-        <category>物联网</category>
-      </categories>
-      <tags>
-        <tag>单片机</tag>
-        <tag>嵌入式</tag>
-        <tag>IoT</tag>
-        <tag>物联网</tag>
-        <tag>ESP8266</tag>
-        <tag>阿里云</tag>
       </tags>
   </entry>
 </search>
