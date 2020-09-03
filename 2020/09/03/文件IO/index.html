@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
+   
+  <meta name="description" content="文件IO及多线程编程学习笔记" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    文件IO |  麦德道格的个人站
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="麦德道格的个人站" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-文件IO" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  文件IO
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/09/03/%E6%96%87%E4%BB%B6IO/" class="article-date">
+  <time datetime="2020-09-03T01:44:22.000Z" itemprop="datePublished">2020-09-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.3k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><h2 id="0-可以通过文件名操作文件"><a href="#0-可以通过文件名操作文件" class="headerlink" title="0. 可以通过文件名操作文件"></a>0. 可以通过文件名操作文件</h2><h3 id="1-文件重名，给文件的绝对路径"><a href="#1-文件重名，给文件的绝对路径" class="headerlink" title="1. 文件重名，给文件的绝对路径"></a>1. 文件重名，给文件的绝对路径</h3><h3 id="2-文件名过长，多次访问比较麻烦"><a href="#2-文件名过长，多次访问比较麻烦" class="headerlink" title="2.文件名过长，多次访问比较麻烦"></a>2.文件名过长，多次访问比较麻烦</h3><h3 id="文件名-》-文件描述符"><a href="#文件名-》-文件描述符" class="headerlink" title="文件名 ===》 文件描述符"></a><em><code>文件名 ===》</code></em> 文件描述符</h3><h4 id="文件描述符特点"><a href="#文件描述符特点" class="headerlink" title="文件描述符特点"></a>文件描述符特点</h4><h4 id="文件描述符：表示一个被打开-创建的文件"><a href="#文件描述符：表示一个被打开-创建的文件" class="headerlink" title="文件描述符：表示一个被打开/创建的文件"></a>文件描述符：表示一个被打开/创建的文件</h4><ol>
+<li><p>分配原则</p>
+<ul>
+<li><p>非负整数（0,1,2,3….）</p>
+</li>
+<li><p>哪个进程在操作文件，就由该进程分配</p>
+</li>
+<li><p>分配原则：分配当前未使用的最小非负整数</p>
+<p>​    eg：    打开：  文件1 –》 0</p>
+<p>​                             文件2 –》 1</p>
+<p>​                             文件3 –》 2</p>
+<p>​                关闭： 文件2</p>
+<p>​                再打开一个文件 –》 1</p>
+<ul>
+<li><p>当一个进程开启时，系统会默认打开三个文件，分别用0,1,2</p>
+<p>​                0: stdin<br>​                1: stdout<br>​                2: stderr</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-打开文件"><a href="#1-打开文件" class="headerlink" title="1. 打开文件"></a>1. 打开文件</h2><p>通过man手册查看函数：man 2 open</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>pathname：要打开的文件，如果不给路径，默认当前路径<br>flags：打开文件的方式<br>                <u><u><strong>只读：O_RDONLY</strong></u><br>                <u><strong>只写：O_WRONLY</strong></u><br>                <u><strong>可读可写：O_RDWR</strong></u></u><br>                <u>注意，以上三种打开方式是互斥，只能任选其一</u><br>                <strong><u>O_CREAT:若打开文件不存在，则创建,则需要通过mode参数给文件赋予权限</u></strong></p>
+<p>​                <u><strong>O_APPEND：以追加的方式打开文件</strong></u></p>
+<p>​                <u><strong>O_TUNRC：清空文件</strong></u></p>
+<p>​                <u><strong>mode：0644</strong></u></p>
+<p>​                <u><strong>成功返回新的文件描述符，失败返回-1</strong></u></p>
+<h2 id="2-关闭文件"><a href="#2-关闭文件" class="headerlink" title="2. 关闭文件"></a>2. 关闭文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><u><strong>fd：要关闭文件的文件描述符</strong></u></p>
+<p><strong><u>成功返回0，失败返回-1</u></strong></p>
+<p><strong>eg: 打开及关闭文件</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//int fd = open("./test.txt", O_RDWR | O_CREAT, 0644);</span></span><br><span class="line">	<span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"./test.c"</span>, O_RDONLY);</span><br><span class="line">	<span class="keyword">if</span>(fd &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"open"</span>);<span class="comment">//通过perror函数得到错误原因</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"fd = %d\n"</span>, fd);</span><br><span class="line">	<span class="built_in">close</span>(fd);<span class="comment">//关闭</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-读取文件"><a href="#3-读取文件" class="headerlink" title="3. 读取文件"></a>3. 读取文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">int</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>fd ：要读取文件的文件描述符</u></strong></p>
+<p><u><strong>buf ：读到哪去</strong></u></p>
+<p><strong><u>count ：读多少</u></strong></p>
+<p><strong>返回值 ：</strong> </p>
+<p>​            <strong><u>成功： 大于0 –&gt;实际写入的字节数</u></strong></p>
+<p>​                    <strong><u>等于0–&gt;读到文件末尾</u></strong></p>
+<p>​            <strong><u>失败：失败：-1</u></strong></p>
+<p><strong>eg：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//缓冲区，存放读取到的文件内容</span></span><br><span class="line">		<span class="keyword">char</span> buf[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">		ret = <span class="built_in">read</span>(fd, buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">		<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			perror(<span class="string">"read"</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s"</span>, buf);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<pre><code>## 4. 写入文件</code></pre><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>​            <strong><u>fd：写入的文件</u></strong><br>​            <u><strong>buf：从哪里写</strong></u><br>​            <u><strong>count：写入多少</strong></u><br>​            <strong><u>返回值：成功：大于0–&gt;实际写入的字节数</u></strong></p>
+<p>​                                        <u><strong>等于0–&gt;没有东西可写</strong></u></p>
+<p>​                                        <strong><u>失败：-1</u></strong></p>
+<p><strong><u>eg:</u></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//从标准输入得到数据</span></span><br><span class="line">	fgets(buf, <span class="keyword">sizeof</span>(buf), <span class="built_in">stdin</span>);<span class="comment">//相当于scanf，sizeof为开辟空间的大小，此处为128</span></span><br><span class="line">	ret = <span class="built_in">write</span>(fd, buf, <span class="built_in">strlen</span>(buf));<span class="comment">//strlen为字符串的有效长度且不包括'\0'</span></span><br><span class="line">	<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(<span class="string">"write"</span>);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="多线程编程"><a href="#多线程编程" class="headerlink" title="多线程编程"></a>多线程编程</h1><p>实现并发</p>
+<p>进程：程序执行一次的过程</p>
+<p>线程：轻量化的进程</p>
+<h2 id="1-创建进程"><a href="#1-创建进程" class="headerlink" title="1. 创建进程"></a>1. 创建进程</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_create</span><span class="params">(<span class="keyword">pthread_t</span> *thread, <span class="keyword">const</span> <span class="keyword">pthread_attrt_t</span> *attr, <span class="keyword">void</span> *(*start_routine) (<span class="keyword">void</span> *), <span class="keyword">void</span> *arg)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong><u>thread: 要创建的线程</u></strong></p>
+<p><strong><u>attr: NULL</u></strong></p>
+<p><strong><u>start_routine: 指针函数，线程执行函数//void * 函数名(void *)</u></strong></p>
+<p><strong><u>arg: 线程执行函数的参数，有就写，没有就写NULL</u></strong></p>
+<p><strong>eg:</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span>;<span class="comment">//线程1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span>;<span class="comment">//线程2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">    <span class="keyword">pthread_t</span> pid, pid1;</span><br><span class="line">    <span class="comment">//创建线程1</span></span><br><span class="line">    ret = pthread_creat(&amp;pid, <span class="literal">NULL</span>, func, <span class="literal">NULL</span>); </span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"创建进程失败\n"</span>)；</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建线程2</span></span><br><span class="line">    ret = pthread_creat(&amp;pid1, <span class="literal">NULL</span>, func1, <span class="literal">NULL</span>); </span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"创建进程失败\n"</span>)；</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"打游戏\n"</span>)；</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"学习\n"</span>)；</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func1</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"聊天\n"</span>)；</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译时需连接库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc 文件名 -pthread</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>注意：主线程不能先于子线程退出</u></strong></p>
+<h2 id="2-线程分离"><a href="#2-线程分离" class="headerlink" title="2. 线程分离"></a>2. 线程分离</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_detach</span><span class="params">(<span class="keyword">pthread_t</span> thread)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>thread: 子线程</u></strong></p>
+<p><strong>eg：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">pthread_t</span> pid;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建线程1</span></span><br><span class="line">	ret = pthread_create(&amp;pid, <span class="literal">NULL</span>, func, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"创建线程失败\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = pthread_detach(pid);<span class="comment">//将子线程与主线程分离</span></span><br><span class="line">	<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"分离线程失败\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"打游戏\n"</span>);</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"学习\n"</span>);</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-线程间通信"><a href="#3-线程间通信" class="headerlink" title="3. 线程间通信"></a>3. 线程间通信</h2><h3 id="全局变量-共享资源"><a href="#全局变量-共享资源" class="headerlink" title="全局变量 // 共享资源"></a>全局变量 // 共享资源</h3><h2 id="4-保护共享资源"><a href="#4-保护共享资源" class="headerlink" title="4. 保护共享资源"></a>4. 保护共享资源</h2><h3 id="加锁-–-gt-互斥锁"><a href="#加锁-–-gt-互斥锁" class="headerlink" title="加锁 –&gt;  互斥锁"></a>加锁 –&gt;  互斥锁</h3><ol>
+<li><p>申请一把锁：pthread_mutex_init</p>
+</li>
+<li><p>在使用共享资源时加锁：pthread_mutex_lock</p>
+</li>
+<li><p>使用完共享资源后解锁：pthread_mutex_unlock</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span>  *mutex,  <span class="keyword">const</span>  <span class="keyword">pthread_mutexattr_t</span> *mutexattr)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>mutex：初始化的锁</u></strong></p>
+<p><strong><u>mutexattr: NULL</u></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_lock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>mutex：要加哪把锁</u></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_unlock</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><u>mutex：要解哪把锁</u></strong></p>
+<p><strong>eg：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span>;<span class="comment">//线程执行函数1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">pthread_t</span> pid;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//申请一把互斥锁</span></span><br><span class="line">	pthread_mutex_init(&amp;mt, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建线程1</span></span><br><span class="line">	ret = pthread_create(&amp;pid, <span class="literal">NULL</span>, func, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"创建线程失败\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = pthread_detach(pid);<span class="comment">//将子线程与主线程分离</span></span><br><span class="line">	<span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"分离线程失败\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pthread_mutex_lock(&amp;mt);</span><br><span class="line">		i = i+<span class="number">2</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"main:i = %d\n"</span>, i);</span><br><span class="line">		pthread_mutex_unlock(&amp;mt);</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">func</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pthread_mutex_lock(&amp;mt);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"func:i = %d\n"</span>, i++);</span><br><span class="line">		pthread_mutex_unlock(&amp;mt);</span><br><span class="line">		sleep(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/09/03/%E6%96%87%E4%BB%B6IO/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/08/31/CV-%E6%9C%BA%E6%A2%B0%E8%87%82/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【嵌入式】机械臂项目-Linux初体验</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'M6IDunat9bY7AQjbpo87wNKv-gzGzoHsz',
+        app_key: 'rWMXvT8jg3CySpkQYOrpGEHu',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'wavatar',
+        placeholder: '使用夜间模式可能会看不到验证码哦~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2020
+        Stefan Wang
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.png" alt="麦德道格的个人站"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="https://space.bilibili.com/19089842" target="_blank" rel="noopener">视频</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/01/01/about/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>好饿啊，早知道不学自动化了</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/pay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['不只有技术', 'Just a swimmer sharing fun adventures', ''],
+      startDelay: 0,
+      typeSpeed: 60,
+      loop: true,
+      backSpeed: 30,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
+        
+    
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+
+    
+  </div>
+</body>
+
+</html>

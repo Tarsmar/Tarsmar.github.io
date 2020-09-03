@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tarsmar.github.io/"/>
-  <updated>2020-09-01T11:23:52.510Z</updated>
+  <updated>2020-09-03T09:17:49.378Z</updated>
   <id>https://tarsmar.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件IO</title>
+    <link href="https://tarsmar.github.io/2020/09/03/%E6%96%87%E4%BB%B6IO/"/>
+    <id>https://tarsmar.github.io/2020/09/03/%E6%96%87%E4%BB%B6IO/</id>
+    <published>2020-09-03T01:44:22.000Z</published>
+    <updated>2020-09-03T09:17:49.378Z</updated>
+    
+    <summary type="html">
+    
+      文件IO及多线程编程学习笔记
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="Linux" scheme="https://tarsmar.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>【嵌入式】机械臂项目-Linux初体验</title>
