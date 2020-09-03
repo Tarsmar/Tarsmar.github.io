@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
    
-  <meta name="description" content="一种帮助完成游泳训练计划的游泳智能训练系统" />
+  <meta name="description" content="NXP物联网开发套件体验" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【物联网】游泳训练辅助系统（一） |  麦德道格的个人站
+    【物联网】NXP Rapid IoT 物联网开发套件体验 |  麦德道格的个人站
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-【物联网】基于STM32的游泳训练辅助系统" class="article article-type-post" itemscope
+  <article id="post-[IoT] NXP_Rapid_IoT" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【物联网】游泳训练辅助系统（一）
+  【物联网】NXP Rapid IoT 物联网开发套件体验
 </h1>
  
 
@@ -58,8 +58,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/" class="article-date">
-  <time datetime="2020-03-16T17:29:03.000Z" itemprop="datePublished">2020-03-17</time>
+      <a href="/2019/01/14/%5BIoT%5D%20NXP_Rapid_IoT/" class="article-date">
+  <time datetime="2019-01-14T05:52:19.000Z" itemprop="datePublished">2019-01-14</time>
 </a>
       
   <div class="article-category">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k字</span>
+            <span class="post-count">1.7k字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -107,46 +107,60 @@
       
 
       
-      <h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><p>一种帮助完成游泳训练计划的游泳智能训练系统，其特征在于：</p>
-<ol>
-<li>使运动员自行或由教练员在移动设备上添加或分享计划项目及各项目包干时间，并下载于终端设备上。</li>
-<li>在训练过程中通过液晶屏显示当前项目，下一项目，项目成绩，项目包干时间及剩余休息时间等关键信息</li>
-<li>在训练结束后生成训练完成情况并上报至云端。</li>
-<li>整个过程中由设备自动发令，提示运动员包干休息时间并计时。<a id="more"></a>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2></li>
-</ol>
-<pre><code>1.在移动设备上添加计划
-2.计划同步至云端
-3.终端设备从云端下载计划
-4.运动员在终端设备选择计划并开始训练
-5.系统记录下运动员各项目各组成绩
-6.训练结束后终端设备将成绩上报云端
-7.移动端从云端订阅训练报告</code></pre><h1 id="技术背景"><a href="#技术背景" class="headerlink" title="技术背景"></a>技术背景</h1><ul>
-<li>游泳是一项竞技体育运动，运动员在训练中需要根据自身需要制定特定的训练计划。计划中的项目一般有完成的速度要求，其中设置包干时间是一种普遍用于游泳运动的训练方法。</li>
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为报名参加了<strong>eeworld</strong>的送测活动，收到了送测的<strong>NXP Rapid IoT</strong>开发套件。在收到设备后我也第一时间做了测试及体验</p>
+<p><img src="https://img-blog.csdnimg.cn/20200402133130209.png#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+<h1 id="开发装置简介"><a href="#开发装置简介" class="headerlink" title="开发装置简介"></a>开发装置简介</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>NXP Semiconductors快速物联网原型设计套件设计用于助力开发人员快速将<strong>IoT</strong>创意转变为概念验证 (PoC)。该款快速物联网原型设计套件基于Kinetis K64F内核32位微控制器（<strong>120MHz 32位</strong>微控制器基于Arm-<strong>Cortex-M4</strong>内核），并设有用于<strong>Bluetooth</strong>低功耗蓝牙、<strong>Thread</strong>和<strong>ZigBee</strong>连接的<strong>Kinetis KW41Z</strong>无线控制器。</p>
+<p> <strong>-连接方式</strong><br>micro USB连接器<br>主要和无线MCU SWD连接器 (DNP)<br>50引脚板对板连接器，与MikroElektronika坞站兼容<br>10引脚板对板连接器，用于未来的连接站</p>
+<p><strong>- 板载多个传感器</strong><br>NXP FXOS8700<br>6轴数字加速度计和磁力计<br>NXP FXAS21002（3轴数字陀螺仪）<br>NXP MPL3115（数字压力和高度传感器）<br>数字温度和湿度传感器<br>数字环境光传感器<br>数字空气质量传感器<br>电容式触摸传感器<br>适配器click板，可轻松扩展至400多个物联网终端节点用例<br>NXP物联网模块化网关 (SLN-IOT-GPI)</p>
+<h2 id="外观介绍"><a href="#外观介绍" class="headerlink" title="外观介绍"></a>外观介绍</h2><ul>
+<li><p>主机<strong>左右两侧</strong>各有<strong>两个按键</strong>，<strong>顶部面板</strong>的上下左右各有一个<strong>触摸按键</strong>，触摸按键应该是电容按键，不需要用力按，基本手放上去就有反应。顶部有四个传感器开孔。主机采用底部一个<strong>micro-usb</strong>供电。整机没有开关，插上电即开机。在预装的程序里可以开关LED背光，开关蓝牙等，但<strong>主机无法开关</strong>。<br><img src="https://img-blog.csdnimg.cn/20200402123821420.jpg#pic_center" alt="正面接口">)<img src="https://img-blog.csdnimg.cn/20200402123920451.jpg#pic_center" alt="反面接口"><br>收到设备，里面除了主机就只有一根数据线和一个sim卡针，sim卡针应该是用来戳复位键的。 说明书上有三个步骤来熟悉这个开发板：</p>
+</li>
+<li><p>首先是利用预装的程序来熟悉开发装置。在预装程序下可以了解设备上集成的传感器等基础信息；</p>
+</li>
+<li><p>第二步是在官方的在线IDE下进行简单的编程。编程是图形化的，很形象，上手很快；</p>
+</li>
+<li><p>第三步是在熟悉开发板及开发环境后，尝试把自己物联网设计通过开发板实现。</p>
+<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="移动端软件下载"><a href="#移动端软件下载" class="headerlink" title="移动端软件下载"></a>移动端软件下载</h2></li>
+<li><p>在熟悉了开发装置基本功能后，按照说明书上提供的下载方式下载了移动端的app。因为用的<strong>安卓</strong>鸡，直接从<strong>Google Play</strong>下载到了<strong>NXP Rapid IoT</strong>的软件<br><img src="https://img-blog.csdnimg.cn/20200402124523394.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2></li>
+<li><p>打开软件必须需要<strong>注册NXP</strong>的账号才能进入软件使用，在连接设备上也<strong>不是直接进蓝牙连接</strong>，进入主界面后点开<strong>左侧菜单栏</strong>，点击<strong>第二个立方体</strong>，然后再点击右上角的加号添加设备。<img src="https://img-blog.csdnimg.cn/20200402124916247.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>这里完成后在下一个页面就能看到设备了，勾选上自己的设备后点击右下角的供应键便可创建连接。</p>
+</li>
+<li><p><img src="https://img-blog.csdnimg.cn/20200402125258172.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>完成之后就能看到设置的页面了。在预装程序中可以看到各传感器的各种数据。</p>
+<h2 id="连接错误"><a href="#连接错误" class="headerlink" title="连接错误"></a>连接错误</h2></li>
+<li><p>在使用过程中不开<strong>VPN</strong>可能会出现无法连接服务器的情况，导致无法正常使用软件。挂着<strong>VPN</strong>没有出现过这这种问题。<img src="https://img-blog.csdnimg.cn/20200402125446711.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="在线IDE简介"><a href="#在线IDE简介" class="headerlink" title="在线IDE简介"></a>在线IDE简介</h1></li>
+<li><p><strong>在线IDE</strong>使用的是图形化的编程方式。采用基于<strong>GUI</strong>（<strong>图形用户界面</strong>）使用时把各种元素移至左侧面板再相互连接即可完成编程。使用这种可视化的编程方式<strong>大大降低</strong>了编程的<strong>门槛</strong>，基本不需要任何语言基础，不需要任何嵌入式开发经验即可上手开发。编程过程分为三个板块：设备端程序设计，移动端界面设计和云端程序设计。</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402130002768.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>设备端程序可以<strong>单机运行</strong>，如根据按键控制或环境光亮度控制点亮LED等。设计元素可以实现数据比较功能，如下图所示，实现了在环境光小于50时点亮led的操作。可以看出，相对于实现同样功能使用c语言编程，难度上<strong>大大简化</strong>，仅需要简单地拖动模块，修改参数即可实现同样的功能</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402125903600.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>硬件部分通过<strong>BLD元素</strong>与其他两部分程序通信。上图是将<strong>环境光</strong>采集的数据发送给<strong>BLD元素</strong>，之后我们可以在<strong>移动端</strong>读取到这个数据<img src="https://img-blog.csdnimg.cn/20200402130342877.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>读取到数据后可以将这个数据通过<strong>仪表盘</strong>或<strong>进度条</strong>等工具显示，在<strong>移动端</strong>查看到即时数据。左侧窗口即为<strong>移动端</strong>的<strong>设计界面</strong>，可以通过<strong>拖拽</strong>等方式调整设计，还可以<strong>添加图片</strong>背景等。</p>
+</li>
+<li><p>下图为<strong>手机端</strong>显示界面<br><img src="https://img-blog.csdnimg.cn/20200402130414911.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="上云"><a href="#上云" class="headerlink" title="上云"></a>上云</h1></li>
+<li><p>在<strong>应用板块</strong>可以选择将数据发送到<strong>云端</strong>。</p>
+<p> <img src="https://img-blog.csdnimg.cn/20200402131010224.jpg#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在<strong>云端</strong>只需添加一个<strong>储存元素</strong>就能将数据<strong>储存到云端</strong>了。<br>云端的数据可以通过<strong>移动端</strong>访问。可以通过工具生成各种图标。如下图<br><img src="https://img-blog.csdnimg.cn/20200402131145705.jpg#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></li>
+<li><p>可玩性高：<br>目前我做的都是一些<strong>基础尝试</strong>，后续还可以给板子加上各种外设。例如使用它<strong>控制</strong>智能家居设备。</p>
+</li>
 </ul>
-<p> <strong>包干时间中规定了运动员完成该项目所用时间及休息时间。</strong></p>
-<h2 id="适用人群"><a href="#适用人群" class="headerlink" title="适用人群"></a>适用人群</h2><h3 id="游泳爱好者"><a href="#游泳爱好者" class="headerlink" title="游泳爱好者"></a>游泳爱好者</h3><p> 对于爱好者，常常对计划的制定有些迷茫，该设备可为普通爱好者提供常用训练计划，并在其执行中进行提示帮助其完成。</p>
-<h3 id="独自训练或没有教练的运动员"><a href="#独自训练或没有教练的运动员" class="headerlink" title="独自训练或没有教练的运动员"></a>独自训练或没有教练的运动员</h3><p> 对于运动员，在没有教练的情况下，运动员在训练中不能很好地了解自己的游速及包干时间所对应的休息时间。该产品可以准确地记录运动员成绩，并在包干结束后提示运动员出发。在训练完成后生成训练报告供运动员了解自己的运动情况</p>
-<h3 id="教练员"><a href="#教练员" class="headerlink" title="教练员"></a>教练员</h3><p> 教练员使用秒表计时的误差较大，且对运动员状态的了解不够直观。该设备的自动计时可实现自动精准计时，且在训练结束后生成训练报告，让教练员直观地了解运动员状态。训练计划制定功能更能使不同运动员使用不同计划并同时训练。</p>
-<h1 id="具体实施方式"><a href="#具体实施方式" class="headerlink" title="具体实施方式"></a>具体实施方式</h1><h2 id="终端设备"><a href="#终端设备" class="headerlink" title="终端设备"></a>终端设备</h2><p> 终端设备采用了STM32接入阿里云IoT hub</p>
+<p> <strong>可视化</strong>图形编程仅仅是其中一种<strong>编程方式</strong>，也可以使用<strong>c</strong>或<strong>python</strong>编程。</p>
 <ul>
-<li>采用一块3.2寸的液晶电阻屏及用于到边计时的按键，有较好的人机交互效果。</li>
-<li>软件上封装了各常用项目模块及常用计划，可实现脱离云端工作。</li>
-<li>使用ESP8266或gprs通过MQTT协议接入阿里云实现数据上报。<h2 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h2>通过阿里云IoT Studio开发<strong>安卓/ios</strong>的移动端应用</li>
-<li>实现数据订阅</li>
-<li>查看终端设备运行状况</li>
-<li>控制终端设备</li>
-<li>查看云端信息（包括训练完成情况等）</li>
+<li><strong>调试</strong>比较<strong>麻烦</strong>：<br>调试需要在线编译后下载到电脑，再将主机关机后把下载的bin文件拷到主机中，等待主机重启，然后再通过手机连接才能调试。而且同一个工程在改过以后手机端大概率<strong>连接不上</strong>，有时候界面的改动能够刷出来，但是数据不知道为什么始终传不过来。必须要先把已存在的工程删除再重新添加。</li>
+<li>LED<strong>干扰</strong>环境光传感器：<br>环境光设置max值为100，在LED点亮的情况下始终显示100, 怀疑是LED和光感距离太近和漏光的原因。</li>
+<li>不能关机：<br>主机运行后就无法关机，如果实现低功耗作为IoT设备不能关机到没什么，但目前持续工作机器会发热，估计功耗也不小。不知道是不是少数情况，我的屏幕常亮一段时间以后有了几个坏点。</li>
+<li>目前这个设备对我来说更多还是作为一个IoT入门的学习设备，同时我也认为这是一个对初学者很友好的IoT设备。但某宝485元的价格对学生而言还是有些略高的，如果不是送测，我肯定需要多考虑一下。</li>
 </ul>
-<h1 id="项目进度"><a href="#项目进度" class="headerlink" title="项目进度"></a>项目进度</h1><h2 id="终端设备单机运行"><a href="#终端设备单机运行" class="headerlink" title="终端设备单机运行"></a>终端设备单机运行</h2><p>在不考虑上云的情况下终端设备可以独立正常运行。</p>
-<h3 id="流程展示"><a href="#流程展示" class="headerlink" title="流程展示"></a>流程展示</h3><p>1.<strong>设备上电进入计划选择页面</strong><br><img src="https://pic.downk.cc/item/5e93e874c2a9a83be5b6e2f0.jpg" alt=""><br>在设备中板载了十套计划可供选择，软件上封装了大部分的常用训练项目，实现模块化计划制定<br><img src="https://pic.downk.cc/item/5e93e927c2a9a83be5b73f14.jpg" alt=""></p>
-<p>2.<strong>训练界面</strong><br><img src="https://pic.downk.cc/item/5e93ea01c2a9a83be5b7b6c3.jpg" alt=""><br>在训练状态下，设备会将项目名称，包干时间及速度要求等信息显示在液晶屏上。<br>设备会在每组休息时间结束后提示运动员出发并自动开始计时。<br>在运动员到边后会将其成绩显示出来，并与速度要求比较后显示迟到或超前。同时按包干时间把剩余休息时间在屏幕上实时显示。</p>
-<p>3.<strong>训练结束报告</strong></p>
-<p><img src="https://pic.downk.cc/item/5e93eb39c2a9a83be5b8658a.jpg" alt=""></p>
-<p>训练结束后会生成训练完成情况的报告，报告将每项完成成绩显示在屏幕上。</p>
-<h1 id="项目计划"><a href="#项目计划" class="headerlink" title="项目计划"></a>项目计划</h1><h2 id="数据上云"><a href="#数据上云" class="headerlink" title="数据上云"></a>数据上云</h2><p>1.目前已经将成绩数据等保存在本地，后期计划将数据以MQTT协议通过Wifi或GPRS模块上报云端，并设计移动端应用查看。</p>
-<h2 id="计划制定方式"><a href="#计划制定方式" class="headerlink" title="计划制定方式"></a>计划制定方式</h2><p>2.目前计划添加及更改只能在Keil上进行，为降低制定计划的门槛，后期将通过订阅云端的方式实现在移动端通过各项目模块制定计划的功能。</p>
-<h2 id="产品硬件及结构"><a href="#产品硬件及结构" class="headerlink" title="产品硬件及结构"></a>产品硬件及结构</h2><p>3.目前终端设备采用的是一块STM32f103开发板，待项目完成后将各所需模块集成在PCB上自制硬件并进项外壳设计。</p>
 
       
       <!-- reward -->
@@ -216,14 +230,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2019/01/14/[IoT]%20NXP_Rapid_IoT/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MQTT/" rel="tag">MQTT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GUI/" rel="tag">GUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NB-IoT/" rel="tag">NB-IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9C%A8%E7%BA%BFIDE/" rel="tag">在线IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li></ul>
 
 
     </footer>
@@ -234,19 +248,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/04/01/%E5%88%A9%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+      <a href="/2020/03/17/%5BIoT%5DSTM32_Swimming/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【前端】利用Hexo在Github上部署个人博客
+            【物联网】游泳训练辅助系统（一）
           
         </div>
       </a>
     
     
-      <a href="/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/" class="article-nav-link">
+      <a href="/2019/01/01/about/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【物联网】NXP Rapid IoT 物联网开发套件体验</div>
+        <div class="article-nav-title">About Me</div>
       </a>
     
   </nav>

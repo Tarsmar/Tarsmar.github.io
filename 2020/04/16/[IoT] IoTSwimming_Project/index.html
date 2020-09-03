@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="代码,嵌入式,深度学习,机器学习,生活,读书,游泳" />
    
-  <meta name="description" content="NXP物联网开发套件体验" />
+  <meta name="description" content="游泳训练辅助STM32+ESP8266项目进度" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【物联网】NXP Rapid IoT 物联网开发套件体验 |  麦德道格的个人站
+    【物联网】IoTSwimming项目进度 |  麦德道格的个人站
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -41,7 +41,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-NXP-Rapid-IoT-物联网开发套件体验" class="article article-type-post" itemscope
+  <article id="post-[IoT] IoTSwimming_Project" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -49,7 +49,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【物联网】NXP Rapid IoT 物联网开发套件体验
+  【物联网】IoTSwimming项目进度
 </h1>
  
 
@@ -58,8 +58,8 @@
 
     
     <div class="article-meta">
-      <a href="/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/" class="article-date">
-  <time datetime="2019-01-14T05:52:19.000Z" itemprop="datePublished">2019-01-14</time>
+      <a href="/2020/04/16/%5BIoT%5D%20IoTSwimming_Project/" class="article-date">
+  <time datetime="2020-04-15T16:50:35.000Z" itemprop="datePublished">2020-04-16</time>
 </a>
       
   <div class="article-category">
@@ -73,7 +73,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k字</span>
+            <span class="post-count">1.3k字</span>
         </span>
     </span>
 
@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -107,60 +107,33 @@
       
 
       
-      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为报名参加了<strong>eeworld</strong>的送测活动，收到了送测的<strong>NXP Rapid IoT</strong>开发套件。在收到设备后我也第一时间做了测试及体验</p>
-<p><img src="https://img-blog.csdnimg.cn/20200402133130209.png#pic_center" alt="在这里插入图片描述"></p>
+      <h1 id="完成情况"><a href="#完成情况" class="headerlink" title="完成情况"></a>完成情况</h1><p>在过去的一周主要搞了三件事</p>
+<h3 id="1-在个人服务器上搭建私人mqtt服务器"><a href="#1-在个人服务器上搭建私人mqtt服务器" class="headerlink" title="1.在个人服务器上搭建私人mqtt服务器"></a>1.在个人服务器上搭建私人mqtt服务器</h3><h3 id="2-开发了用于查看成绩及计划选择的安卓端app"><a href="#2-开发了用于查看成绩及计划选择的安卓端app" class="headerlink" title="2.开发了用于查看成绩及计划选择的安卓端app"></a>2.开发了用于查看成绩及计划选择的安卓端app</h3><h3 id="3-使用ESP8266实现STM32终端设备的数据上云"><a href="#3-使用ESP8266实现STM32终端设备的数据上云" class="headerlink" title="3.使用ESP8266实现STM32终端设备的数据上云"></a>3.使用ESP8266实现STM32终端设备的数据上云</h3><h2 id="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"><a href="#通过上面三条实现了终端设备、移动端和PC的三者数据传输。" class="headerlink" title="通过上面三条实现了终端设备、移动端和PC的三者数据传输。"></a>通过上面三条实现了<strong>终端设备</strong>、<strong>移动端</strong>和<strong>PC</strong>的三者数据传输。</h2><p><img src="https://pic.downk.cc/item/5e980771c2a9a83be555dd6f.jpg" alt=""></p>
 <a id="more"></a>
-<h1 id="开发装置简介"><a href="#开发装置简介" class="headerlink" title="开发装置简介"></a>开发装置简介</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>NXP Semiconductors快速物联网原型设计套件设计用于助力开发人员快速将<strong>IoT</strong>创意转变为概念验证 (PoC)。该款快速物联网原型设计套件基于Kinetis K64F内核32位微控制器（<strong>120MHz 32位</strong>微控制器基于Arm-<strong>Cortex-M4</strong>内核），并设有用于<strong>Bluetooth</strong>低功耗蓝牙、<strong>Thread</strong>和<strong>ZigBee</strong>连接的<strong>Kinetis KW41Z</strong>无线控制器。</p>
-<p> <strong>-连接方式</strong><br>micro USB连接器<br>主要和无线MCU SWD连接器 (DNP)<br>50引脚板对板连接器，与MikroElektronika坞站兼容<br>10引脚板对板连接器，用于未来的连接站</p>
-<p><strong>- 板载多个传感器</strong><br>NXP FXOS8700<br>6轴数字加速度计和磁力计<br>NXP FXAS21002（3轴数字陀螺仪）<br>NXP MPL3115（数字压力和高度传感器）<br>数字温度和湿度传感器<br>数字环境光传感器<br>数字空气质量传感器<br>电容式触摸传感器<br>适配器click板，可轻松扩展至400多个物联网终端节点用例<br>NXP物联网模块化网关 (SLN-IOT-GPI)</p>
-<h2 id="外观介绍"><a href="#外观介绍" class="headerlink" title="外观介绍"></a>外观介绍</h2><ul>
-<li><p>主机<strong>左右两侧</strong>各有<strong>两个按键</strong>，<strong>顶部面板</strong>的上下左右各有一个<strong>触摸按键</strong>，触摸按键应该是电容按键，不需要用力按，基本手放上去就有反应。顶部有四个传感器开孔。主机采用底部一个<strong>micro-usb</strong>供电。整机没有开关，插上电即开机。在预装的程序里可以开关LED背光，开关蓝牙等，但<strong>主机无法开关</strong>。<br><img src="https://img-blog.csdnimg.cn/20200402123821420.jpg#pic_center" alt="正面接口">)<img src="https://img-blog.csdnimg.cn/20200402123920451.jpg#pic_center" alt="反面接口"><br>收到设备，里面除了主机就只有一根数据线和一个sim卡针，sim卡针应该是用来戳复位键的。 说明书上有三个步骤来熟悉这个开发板：</p>
-</li>
-<li><p>首先是利用预装的程序来熟悉开发装置。在预装程序下可以了解设备上集成的传感器等基础信息；</p>
-</li>
-<li><p>第二步是在官方的在线IDE下进行简单的编程。编程是图形化的，很形象，上手很快；</p>
-</li>
-<li><p>第三步是在熟悉开发板及开发环境后，尝试把自己物联网设计通过开发板实现。</p>
-<h1 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h1><h2 id="移动端软件下载"><a href="#移动端软件下载" class="headerlink" title="移动端软件下载"></a>移动端软件下载</h2></li>
-<li><p>在熟悉了开发装置基本功能后，按照说明书上提供的下载方式下载了移动端的app。因为用的<strong>安卓</strong>鸡，直接从<strong>Google Play</strong>下载到了<strong>NXP Rapid IoT</strong>的软件<br><img src="https://img-blog.csdnimg.cn/20200402124523394.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h2></li>
-<li><p>打开软件必须需要<strong>注册NXP</strong>的账号才能进入软件使用，在连接设备上也<strong>不是直接进蓝牙连接</strong>，进入主界面后点开<strong>左侧菜单栏</strong>，点击<strong>第二个立方体</strong>，然后再点击右上角的加号添加设备。<img src="https://img-blog.csdnimg.cn/20200402124916247.png#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>这里完成后在下一个页面就能看到设备了，勾选上自己的设备后点击右下角的供应键便可创建连接。</p>
-</li>
-<li><p><img src="https://img-blog.csdnimg.cn/20200402125258172.png#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>完成之后就能看到设置的页面了。在预装程序中可以看到各传感器的各种数据。</p>
-<h2 id="连接错误"><a href="#连接错误" class="headerlink" title="连接错误"></a>连接错误</h2></li>
-<li><p>在使用过程中不开<strong>VPN</strong>可能会出现无法连接服务器的情况，导致无法正常使用软件。挂着<strong>VPN</strong>没有出现过这这种问题。<img src="https://img-blog.csdnimg.cn/20200402125446711.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="在线IDE简介"><a href="#在线IDE简介" class="headerlink" title="在线IDE简介"></a>在线IDE简介</h1></li>
-<li><p><strong>在线IDE</strong>使用的是图形化的编程方式。采用基于<strong>GUI</strong>（<strong>图形用户界面</strong>）使用时把各种元素移至左侧面板再相互连接即可完成编程。使用这种可视化的编程方式<strong>大大降低</strong>了编程的<strong>门槛</strong>，基本不需要任何语言基础，不需要任何嵌入式开发经验即可上手开发。编程过程分为三个板块：设备端程序设计，移动端界面设计和云端程序设计。</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402130002768.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>设备端程序可以<strong>单机运行</strong>，如根据按键控制或环境光亮度控制点亮LED等。设计元素可以实现数据比较功能，如下图所示，实现了在环境光小于50时点亮led的操作。可以看出，相对于实现同样功能使用c语言编程，难度上<strong>大大简化</strong>，仅需要简单地拖动模块，修改参数即可实现同样的功能</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402125903600.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>硬件部分通过<strong>BLD元素</strong>与其他两部分程序通信。上图是将<strong>环境光</strong>采集的数据发送给<strong>BLD元素</strong>，之后我们可以在<strong>移动端</strong>读取到这个数据<img src="https://img-blog.csdnimg.cn/20200402130342877.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>读取到数据后可以将这个数据通过<strong>仪表盘</strong>或<strong>进度条</strong>等工具显示，在<strong>移动端</strong>查看到即时数据。左侧窗口即为<strong>移动端</strong>的<strong>设计界面</strong>，可以通过<strong>拖拽</strong>等方式调整设计，还可以<strong>添加图片</strong>背景等。</p>
-</li>
-<li><p>下图为<strong>手机端</strong>显示界面<br><img src="https://img-blog.csdnimg.cn/20200402130414911.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="上云"><a href="#上云" class="headerlink" title="上云"></a>上云</h1></li>
-<li><p>在<strong>应用板块</strong>可以选择将数据发送到<strong>云端</strong>。</p>
-<p> <img src="https://img-blog.csdnimg.cn/20200402131010224.jpg#pic_center" alt="在这里插入图片描述"></p>
-</li>
-<li><p>在<strong>云端</strong>只需添加一个<strong>储存元素</strong>就能将数据<strong>储存到云端</strong>了。<br>云端的数据可以通过<strong>移动端</strong>访问。可以通过工具生成各种图标。如下图<br><img src="https://img-blog.csdnimg.cn/20200402131145705.jpg#pic_center" alt="在这里插入图片描述"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></li>
-<li><p>可玩性高：<br>目前我做的都是一些<strong>基础尝试</strong>，后续还可以给板子加上各种外设。例如使用它<strong>控制</strong>智能家居设备。</p>
-</li>
-</ul>
-<p> <strong>可视化</strong>图形编程仅仅是其中一种<strong>编程方式</strong>，也可以使用<strong>c</strong>或<strong>python</strong>编程。</p>
-<ul>
-<li><strong>调试</strong>比较<strong>麻烦</strong>：<br>调试需要在线编译后下载到电脑，再将主机关机后把下载的bin文件拷到主机中，等待主机重启，然后再通过手机连接才能调试。而且同一个工程在改过以后手机端大概率<strong>连接不上</strong>，有时候界面的改动能够刷出来，但是数据不知道为什么始终传不过来。必须要先把已存在的工程删除再重新添加。</li>
-<li>LED<strong>干扰</strong>环境光传感器：<br>环境光设置max值为100，在LED点亮的情况下始终显示100, 怀疑是LED和光感距离太近和漏光的原因。</li>
-<li>不能关机：<br>主机运行后就无法关机，如果实现低功耗作为IoT设备不能关机到没什么，但目前持续工作机器会发热，估计功耗也不小。不知道是不是少数情况，我的屏幕常亮一段时间以后有了几个坏点。</li>
-<li>目前这个设备对我来说更多还是作为一个IoT入门的学习设备，同时我也认为这是一个对初学者很友好的IoT设备。但某宝485元的价格对学生而言还是有些略高的，如果不是送测，我肯定需要多考虑一下。</li>
-</ul>
+<h1 id="安卓端App开发"><a href="#安卓端App开发" class="headerlink" title="安卓端App开发"></a>安卓端App开发</h1><h2 id="Android-初体验"><a href="#Android-初体验" class="headerlink" title="Android 初体验"></a>Android 初体验</h2><p>上手第一天安装环境就搞了半天，当然主要原因是之前自己作死瞎装了一次。当然在我满心欢喜生成我的第一个HelloWorld程序的时候，我就经历了我<strong>人生中最长的一次编译</strong><br><img src="https://pic.downk.cc/item/5e972de1c2a9a83be5e1b5f7.jpg" alt=""><br>编译就用了21分钟，我当时脑中只有一句话<br><strong>“这就是安卓吗？”</strong><br>然后再想到玩单片机调试运行那无数次的编译下载… …<br><img src="https://pic.downk.cc/item/5e972f04c2a9a83be5e29fbd.jpg" alt=""><br>后续大多数时候编译没再用那么长时间，一般性就一分钟左右（当然还是出过30min的情况）。<br>之后的开发还算顺利，不过在此提醒和我一样的萌新：<strong>新建工程的时候语言一定要选对</strong><br><img src="https://pic.downk.cc/item/5e972f6bc2a9a83be5e2f24c.jpg" alt=""><br>不然就要和我一样页面都做完了，想打开java文件才发现只有.kt<br>网上有java-kotlin转换的方法，但至少在我这里没成功，于是只好新建工程重做。</p>
+<p>当然，没有协议，就没有灵魂，关键还是Mqtt的部分，我目前理解的Mqtt核心就是连接，订阅，发布</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">client.setCallback(<span class="keyword">new</span> MqttCallback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connectionLost</span><span class="params">(Throwable cause)</span> </span>&#123;</span><br><span class="line">         <span class="comment">//重连</span></span><br><span class="line">         System.out.println(<span class="string">"connectionLost----------"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deliveryComplete</span><span class="params">(IMqttDeliveryToken token)</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"deliveryComplete---------"</span></span><br><span class="line">                  + token.isComplete());</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">messageArrived</span><span class="params">(String topicName, MqttMessage message)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//订阅消息</span></span><br><span class="line">        System.out.println(<span class="string">"messageArrived----------"</span>);</span><br><span class="line">        Message msg = <span class="keyword">new</span> Message();</span><br><span class="line">        msg.what = <span class="number">3</span>;   <span class="comment">//收到消息标志位</span></span><br><span class="line">           msg.obj = topicName + <span class="string">"---"</span> + message.toString();</span><br><span class="line">        handler.sendMessage(msg);    <span class="comment">// hander 回传</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是在做Mqtt的时候让我彻底放弃阿里云的。之前用Esp8266连接阿里云花了不少时间，直接放弃总觉得有点可惜，但是就在Mqtt这一步，阿里云死活连不上，同样的配置用fx能连上，安卓就是不行，而且在安卓上连Emq又是轻轻松松。所以，劝退。<br>之前调试的时后有个问题一直也没解决，开始以为连接不上是因为手机权限的问题，但是我己经AndroidMainfest里请求过权限了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="keyword">package</span>=<span class="string">"com.example.iot6"</span>&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br><span class="line">    &lt;uses-permission android:name=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之前也看过说是安卓6.0之后要动态权限，需要在手机里手动给权限，但是我在应用配置里直接说应用没有过权限请求。之后正常连接Emq了也一样没有权限请求，就很迷。</p>
+<h1 id="mqtt服务器的搭建"><a href="#mqtt服务器的搭建" class="headerlink" title="mqtt服务器的搭建"></a>mqtt服务器的搭建</h1><p>之前租服务器是打算把各位正在浏览的个人博客部署上去的，奈何备案过于繁琐，就一直被当成云电脑来用，我甚至第一时间在上面下了<strong>星际2</strong></p>
+<p><img src="https://pic.downk.cc/item/5e972667c2a9a83be5dd1981.jpg" alt=""></p>
+<p>好了开玩笑的，试过了，登录都要卡半天，要真打起天梯，第一个农民还没按下去对面大龙感染就来了<br><img src="https://pic.downk.cc/item/5e972791c2a9a83be5ddaab4.jpg" alt=""><br>自己搭服务器这件事上周就有提过，流程其实很简单，大概可分为两步</p>
+<h2 id="1-在服务器上下载对应服务器系统的EMQ"><a href="#1-在服务器上下载对应服务器系统的EMQ" class="headerlink" title="1.在服务器上下载对应服务器系统的EMQ"></a>1.在服务器上下载对应服务器系统的EMQ</h2><h2 id="2-启动EMQ"><a href="#2-启动EMQ" class="headerlink" title="2.启动EMQ"></a>2.启动EMQ</h2><p>好了结束了</p>
+<p>就这样简单的一件事我搞了快一个礼拜，各种ip，用户名密码都试了个遍，最后发现是阿里云服务器上需要配置<br><img src="https://pic.downk.cc/item/5e972926c2a9a83be5de7b41.jpg" alt=""><br>这里就不演示了，各位可以去看CSDN博主<strong>星海水滴</strong>的文章，写的很详细：<br><a href="https://blog.csdn.net/qq_44370363/article/details/104318027" target="_blank" rel="noopener">阿里云ECS部署EMQ——个人MQTT Broker</a></p>
+<p>配置好后就可以正常连接了<br><img src="https://pic.downk.cc/item/5e972ad3c2a9a83be5df7924.jpg" alt=""></p>
+<h1 id="ESP8266与STM32接入EMQ"><a href="#ESP8266与STM32接入EMQ" class="headerlink" title="ESP8266与STM32接入EMQ"></a>ESP8266与STM32接入EMQ</h1><p>ESP8266和MCU的通信问题也是我放弃阿里云的原因之一，当然主要是找到了神器。之前ESP8266连接阿里云的时候json的格式就很难搞，STM32和ESP8266的串口收发也没什么头绪。好在找到了前辈做好的ESP8266固件<strong>WZ指令</strong><br>大家可以在 <a href="wenzheng.club">阿正的个人站</a>找到。<br>这个固件实现了用一条指令实现了上云的所有操作，不用配网，仅此一条json数据，没有繁琐的其他配置环节，简单粗暴。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"wz"</span>:<span class="string">"wenzheng.club"</span>,<span class="string">"server"</span>:<span class="string">"0.0.0.64"</span>,<span class="string">"user"</span>:<span class="string">"admin"</span>,<span class="string">"password"</span>:<span class="string">"public"</span>,<span class="string">"topic"</span>:<span class="string">"0"</span>,<span class="string">"message"</span>:<span class="string">"test"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就解决了我之前的所有问题，直接将网络相关的代码放在esp8266上，大大简化了stm32的代码，也不占用内存。<br>这样一来，只要把之前程序里的程序数据通过这条指令发出去就能实现上云了</p>
+<h1 id="总结及计划"><a href="#总结及计划" class="headerlink" title="总结及计划"></a>总结及计划</h1><h2 id="目前进展"><a href="#目前进展" class="headerlink" title="目前进展"></a>目前进展</h2><p>现在终端设备（STM32+ESP8266）已经没啥问题了，因为数据一旦丢到云上，剩下的就看怎么用了。<br>对于安卓移动端，数据已经分组提取好了，剩下的就是UI的问题了</p>
+<h2 id="后期计划"><a href="#后期计划" class="headerlink" title="后期计划"></a>后期计划</h2><ol>
+<li>在移动端成绩数据调通以后，将开发移动端选择或指定计划的功能</li>
+<li>利用NodeRed搭建后端，实现app远程控制</li>
+<li>全部调试完成后，重新设计硬件及外壳</li>
+</ol>
 
       
       <!-- reward -->
@@ -230,14 +203,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2019/01/14/NXP-Rapid-IoT-%E7%89%A9%E8%81%94%E7%BD%91%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6%E4%BD%93%E9%AA%8C/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tarsmar.github.io/2020/04/16/[IoT]%20IoTSwimming_Project/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GUI/" rel="tag">GUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NB-IoT/" rel="tag">NB-IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9C%A8%E7%BA%BFIDE/" rel="tag">在线IDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ESP8266/" rel="tag">ESP8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag">物联网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a></li></ul>
 
 
     </footer>
@@ -248,19 +221,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/03/17/%E3%80%90%E7%89%A9%E8%81%94%E7%BD%91%E3%80%91%E5%9F%BA%E4%BA%8ESTM32%E7%9A%84%E6%B8%B8%E6%B3%B3%E8%AE%AD%E7%BB%83%E8%BE%85%E5%8A%A9%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+      <a href="/2020/05/08/%5BEmbedded%20System%5D%20Heart_Rate_MAX30102/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【物联网】游泳训练辅助系统（一）
+            【嵌入式】心率血氧检测模块MAX30102体验
           
         </div>
       </a>
     
     
-      <a href="/2019/01/01/about/" class="article-nav-link">
+      <a href="/2020/04/11/%5BIoT%5D%20STM32_ESP8266_EMQ/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">About Me</div>
+        <div class="article-nav-title">STM32游泳训练辅助+ESP8266接入阿里云</div>
       </a>
     
   </nav>
