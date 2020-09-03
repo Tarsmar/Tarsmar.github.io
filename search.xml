@@ -555,7 +555,6 @@ esc退出插入模式</code></pre></li>
     <title>文件IO</title>
     <url>/2020/09/03/%E6%96%87%E4%BB%B6IO/</url>
     <content><![CDATA[<p>今天是0基础学习Linux的第四天，因为前三天都是在复习一些C语言的基础知识，没什么值得记录的，今天终于开始讲了些新东西，在此做下学习笔记。</p>
-<p><img src="" alt="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=361979864,3249748437&amp;fm=26&amp;gp=0.jpg"></p>
 <a id="more"></a>
 
 <h1 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h1><h2 id="0-可以通过文件名操作文件"><a href="#0-可以通过文件名操作文件" class="headerlink" title="0. 可以通过文件名操作文件"></a>0. 可以通过文件名操作文件</h2><h3 id="1-文件重名，给文件的绝对路径"><a href="#1-文件重名，给文件的绝对路径" class="headerlink" title="1. 文件重名，给文件的绝对路径"></a>1. 文件重名，给文件的绝对路径</h3><h3 id="2-文件名过长，多次访问比较麻烦"><a href="#2-文件名过长，多次访问比较麻烦" class="headerlink" title="2.文件名过长，多次访问比较麻烦"></a>2.文件名过长，多次访问比较麻烦</h3><h3 id="文件名-》-文件描述符"><a href="#文件名-》-文件描述符" class="headerlink" title="文件名 ===》 文件描述符"></a><em><code>文件名 ===》</code></em> 文件描述符</h3><h4 id="文件描述符特点"><a href="#文件描述符特点" class="headerlink" title="文件描述符特点"></a>文件描述符特点</h4><h4 id="文件描述符：表示一个被打开-创建的文件"><a href="#文件描述符：表示一个被打开-创建的文件" class="headerlink" title="文件描述符：表示一个被打开/创建的文件"></a>文件描述符：表示一个被打开/创建的文件</h4><ol>
