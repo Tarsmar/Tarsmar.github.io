@@ -610,7 +610,7 @@ esc退出插入模式</code></pre></li>
 
 
 
-<pre><code>## 4. 写入文件</code></pre><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="4-写入文件"><a href="#4-写入文件" class="headerlink" title="4. 写入文件"></a>4. 写入文件</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> count)</span></span></span><br></pre></td></tr></table></figure>
 
 <p>​            <strong><u>fd：写入的文件</u></strong><br>​            <u><strong>buf：从哪里写</strong></u><br>​            <u><strong>count：写入多少</strong></u><br>​            <strong><u>返回值：成功：大于0–&gt;实际写入的字节数</u></strong></p>
 <p>​                                        <u><strong>等于0–&gt;没有东西可写</strong></u></p>
