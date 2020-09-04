@@ -15,7 +15,7 @@
       </tags>
   </entry>
   <entry>
-    <title>文件IO及多线程编程</title>
+    <title>Linux学习之路-文件IO及多线程编程</title>
     <url>/2020/09/03/Linux_learning_2/</url>
     <content><![CDATA[<p>今天是0基础学习Linux的第四天，因为前三天都是在复习一些C语言的基础知识，没什么值得记录的，今天终于开始讲了些新东西，在此做下学习笔记。</p>
 <a id="more"></a>
@@ -744,9 +744,9 @@ esc退出插入模式</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>network_programming</title>
+    <title>Linux学习之路-网络编程</title>
     <url>/2020/09/04/network-programming/</url>
-    <content><![CDATA[<p>在机械臂的项目中需要无线视屏传输及无线控制。实现该功能便需要用到网络编程来搭建服务器及客户端代码的编写。</p>
+    <content><![CDATA[<p>在机械臂的项目中需要无线视频传输及无线控制。实现该功能便需要用到网络编程来搭建服务器及客户端代码的编写。</p>
 <a id="more"></a>
 
 <h1 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h1><p>要想正确传输数据，那我们就应该对数据的格式、内容等做一个规定</p>
