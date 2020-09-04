@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://tarsmar.github.io/"/>
-  <updated>2020-09-03T15:10:45.529Z</updated>
+  <updated>2020-09-04T09:00:56.832Z</updated>
   <id>https://tarsmar.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>network_programming</title>
+    <link href="https://tarsmar.github.io/2020/09/04/network-programming/"/>
+    <id>https://tarsmar.github.io/2020/09/04/network-programming/</id>
+    <published>2020-09-04T01:03:06.000Z</published>
+    <updated>2020-09-04T09:00:56.832Z</updated>
+    
+    <summary type="html">
+    
+      文件IO及多线程编程学习笔记
+    
+    </summary>
+    
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    
+      <category term="单片机" scheme="https://tarsmar.github.io/tags/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+    
+      <category term="嵌入式" scheme="https://tarsmar.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+      <category term="Linux" scheme="https://tarsmar.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>将项目代码上传至github</title>
