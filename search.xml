@@ -777,7 +777,7 @@ esc退出插入模式</code></pre></li>
 <p><strong>domain：AF_INET</strong><br><strong>type：SOCK_STREAM</strong><br><strong>protocol：0</strong></p>
 <p><strong>成功：套接字</strong><br><strong>失败：-1</strong></p>
 <p><strong>eg：</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> server = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(server &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"socket failed\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"server = %d\n"</span>, server);</span><br></pre></td></tr></table></figure>
 
 
 
@@ -786,7 +786,7 @@ esc退出插入模式</code></pre></li>
 
 <p><strong>sockfd：套接字</strong>（服务器名字）<br><strong>addr：地址结构</strong>(通用地址结构)， struct sockaddr 强转类型<br><strong>addrlen：地址结构的长度</strong>(保险起见)</p>
 <p><strong>eg：</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">s_addr</span>;</span></span><br><span class="line">s_addr.sin_family = AF_INET;</span><br><span class="line">s_addr.sin_port	  = htons(<span class="number">6666</span>);<span class="comment">//主机转成网络字节序</span></span><br><span class="line">s_addr.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);<span class="comment">//字符串ip转成整型ip</span></span><br><span class="line"><span class="built_in">memset</span>(s_addr.sin_zero, <span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">socklen_t</span> s_len = <span class="keyword">sizeof</span>(s_addr);</span><br><span class="line"></span><br><span class="line">ret = bind(server, (struct sockaddr *)&amp;s_addr, s_len);</span><br><span class="line"><span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"bind failed\n"</span>);</span><br><span class="line">	<span class="built_in">close</span>(server);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -795,7 +795,7 @@ esc退出插入模式</code></pre></li>
 
 <p><strong>sockfd：流式套接字</strong><br><strong>backlog：最大等待队列长度</strong><br><strong>成功返回0，失败返回-1</strong></p>
 <p><strong>eg：</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret = <span class="built_in">listen</span>(server, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"listen failed\n"</span>);</span><br><span class="line">	<span class="built_in">close</span>(server);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"wait for a client...\n"</span>);</span><br></pre></td></tr></table></figure>
 
 
 
@@ -804,7 +804,7 @@ esc退出插入模式</code></pre></li>
 
 <p><strong>sockfd：监听套接字</strong><br><strong>addr：客户端的地址结构</strong><br><strong>addrlen：客户端地址结构长度</strong><br><strong>成功返回读写套接字，失败返回-1</strong></p>
 <p><strong>eg：</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">c_addr</span>;</span><span class="comment">//保存客户端的地址结构</span></span><br><span class="line"><span class="keyword">socklen_t</span> c_len = <span class="keyword">sizeof</span>(c_addr);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> rws = accept(server, (struct sockaddr *)&amp;c_addr, &amp;c_len);</span><br><span class="line"><span class="keyword">if</span>(rws &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"accept failed\n"</span>);</span><br><span class="line">	<span class="built_in">close</span>(server);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;	</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Connected!\n"</span>);</span><br></pre></td></tr></table></figure>
 
 
 
@@ -812,17 +812,31 @@ esc退出插入模式</code></pre></li>
 <p>read：读取客户端消息</p>
 <p>write：向客户端发送消息</p>
 <p><strong>eg：</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">char</span> buflen[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="comment">//1.读取数据的大小</span></span><br><span class="line">	ret = <span class="built_in">read</span>(rws, buflen, <span class="keyword">sizeof</span>(buflen));</span><br><span class="line">	<span class="keyword">if</span>(ret &lt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> num = atoi(buflen);</span><br><span class="line">	<span class="comment">//printf("num = %d\n", num);</span></span><br><span class="line">	<span class="comment">//2.接收数据内容</span></span><br><span class="line">	ret = <span class="built_in">read</span>(rws, buf, num);</span><br><span class="line">	<span class="comment">/*错误处理*/</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"recv:%s\n"</span>, buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="2-客户端"><a href="#2-客户端" class="headerlink" title="2. 客户端"></a>2. 客户端</h2><h3 id="1-创建一个套接字"><a href="#1-创建一个套接字" class="headerlink" title="1. 创建一个套接字"></a>1. 创建一个套接字</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;          /* See NOTES */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p><strong>domain：AF_INET</strong><br><strong>type：SOCK_STREAM</strong><br><strong>protocol：0</strong><br><strong>成功：套接字</strong><br><strong>失败：-1</strong></p>
+<p><strong>eg：</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> client = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(client &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"socket failed\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="2-连接服务器"><a href="#2-连接服务器" class="headerlink" title="2. 连接服务器"></a>2. 连接服务器</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;          /* See NOTES */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p><strong>sockfd：客户端的套接字</strong><br><strong>addr：服务器的地址结构</strong><br><strong>addrlen：服务器地址结构的长度</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">s_addr</span>;</span></span><br><span class="line"></span><br><span class="line">s_addr.sin_family = AF_INET;</span><br><span class="line">s_addr.sin_port   = htons(<span class="number">6666</span>);</span><br><span class="line">s_addr.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);</span><br><span class="line"><span class="built_in">memset</span>(s_addr.sin_zero, <span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">socklen_t</span> s_len = <span class="keyword">sizeof</span>(s_addr);</span><br><span class="line"></span><br><span class="line">ret = <span class="built_in">connect</span>(client, (struct sockaddr *)&amp;s_addr, s_len);</span><br><span class="line"><span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"connect failed\n"</span>);</span><br><span class="line">	<span class="built_in">close</span>(client);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Connect server success\n"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="3-通信"><a href="#3-通信" class="headerlink" title="3.通信"></a>3.通信</h3><p>read/write</p>
+<p><strong>eg:</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">128</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">	fgets(buf, <span class="keyword">sizeof</span>(buf), <span class="built_in">stdin</span>);</span><br><span class="line">	ret = <span class="built_in">write</span>(client, buf, <span class="built_in">strlen</span>(buf));</span><br><span class="line">	<span class="keyword">if</span>(ret &lt;= <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"snd failed\n"</span>);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"send[%d]:%s\n"</span>, <span class="built_in">strlen</span>(buf), buf);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="3-粘包问题"><a href="#3-粘包问题" class="headerlink" title="3. 粘包问题"></a>3. 粘包问题</h2><p>当服务器疯狂发送数据时，因服务器发送及客户端接收速率不同，或网络中波动原因，可能会发生粘包现象。</p>
 <h3 id="制定一个收发协议"><a href="#制定一个收发协议" class="headerlink" title="制定一个收发协议"></a>制定一个收发协议</h3><ol>
 <li>先告诉对方，发送数据大小，</li>
